@@ -3,6 +3,8 @@ import argparse
 import json
 import mimetypes
 import sqlite3
+import threading
+import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlparse
@@ -103,10 +105,16 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='LeetCode Review 本地刷题记录')
     parser.add_argument('--port', type=int, default=8765)
     parser.add_argument('--db', type=Path, default=ROOT / 'data/review.db')
+    parser.add_argument('--open', action='store_true', help='启动后打开默认浏览器')
     args = parser.parse_args()
-    server = make_server(args.db, args.port)
+    try:
+        server = make_server(args.db, args.port)
+    except OSError:
+        parser.exit(1, f'无法使用端口 {args.port}。服务可能已经启动，请先打开 http://127.0.0.1:{args.port} ，或使用 --port 8766。\n')
     print(f'LeetCode Review: http://127.0.0.1:{server.server_port}', flush=True)
     print('数据保存在本机。按 Ctrl+C 停止服务。', flush=True)
+    if args.open:
+        threading.Timer(0.5, lambda: webbrowser.open(f'http://127.0.0.1:{server.server_port}')).start()
     try:
         server.serve_forever()
     except KeyboardInterrupt:

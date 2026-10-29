@@ -103,7 +103,7 @@ function renderPractice() {
     <div class="error-details ${p.record?.result==='fail'?'':'hidden'}" id="errors"><div class="tag-list" id="tags"></div><div class="add-tag-row"><input id="new-tag" placeholder="添加自定义错误标签" maxlength="50" aria-label="自定义错误标签"><button class="small" id="add-tag">＋ 添加</button></div><textarea id="error-note" placeholder="这次具体错在哪里？（选填）" aria-label="当次错误说明">${esc(p.record?.note||'')}</textarea></div>
     <div class="result-bottom"><small>看过提示或改过错误，即使最后通过也记 ❌</small><button class="primary" id="save-result">保存今日记录</button></div></section>
     <div class="next-row"><span>跳过不产生记录，代码草稿会保留</span><button id="next">${randomMode?'换一题 ⤨':'下一题 →'}</button></div></div></div></main>`;
-  editor=CodeMirror.fromTextArea($('#code'),{mode:{name:'python',version:3},lineNumbers:true,indentUnit:4,tabSize:4,indentWithTabs:false,extraKeys:{Tab:cm=>cm.replaceSelection('    ','end')},viewportMargin:20});
+  editor=CodeMirror.fromTextArea($('#code'),{mode:{name:'python',version:3},lineNumbers:true,screenReaderLabel:'Python 代码编辑器',indentUnit:4,tabSize:4,indentWithTabs:false,extraKeys:{Tab:cm=>cm.replaceSelection('    ','end')},viewportMargin:20});
   editor.setValue(p.draft); editor.on('change',()=>{draftDirty=true;setSaveStatus('正在保存…');clearTimeout(saveTimer);saveTimer=setTimeout(()=>flushDraft().catch(()=>{}),650);});
   $('#back').onclick=home;$('#copy').onclick=()=>copyText(editor.getValue());$('#next').onclick=nextProblem;
   $$('[data-tab]').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
@@ -213,4 +213,13 @@ function showEditDescription() {
 }
 window.addEventListener('beforeunload',e=>{if(draftDirty||notesDirty){e.preventDefault();e.returnValue='';}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)flushDraft().catch(()=>{});});
+// Refresh the home calendar after midnight without disturbing an open practice.
+setInterval(async()=>{
+  if(current||!state||document.hidden)return;
+  const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+  const value=type=>parts.find(p=>p.type===type).value;
+  if(`${value('year')}-${value('month')}-${value('day')}`!==state.today){
+    try{await refreshState();renderHome();}catch(e){toast(e.message,true);}
+  }
+},60000);
 refreshState().then(renderHome).catch(e=>{app.innerHTML=`<div class="boot"><h2>暂时无法打开本地记录</h2><p>${esc(e.message)}</p><p>请确认 app.py 正在运行，再刷新页面。</p></div>`;});
