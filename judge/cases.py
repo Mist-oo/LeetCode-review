@@ -318,11 +318,11 @@ def pressure(number):
     if number==160:return [[[1]*30000,[2]*15000+[1]*15000,15000,15000]]
     if number in (141,142):return [[[100000]*10000,9999],[[100000]*10000,-1]]
     if number==21:return [[[100]*50,[-100]*50]]
-    if number==2:return [[[9]*100,[1]]]
+    if number==2:return [[[9]*100,[1]],[[9]*100,[9]*100]]
     if number==19:return [[[100]*30,30]]
-    if number==25:return [[[1000]*5000,4999]]
+    if number==25:return [[[1000]*5000,4999],[[i%1001 for i in range(5000)],5000]]
     if number==138:return [[[10000]*1000,list(range(999,-1,-1))]]
-    if number==23:return [[[[i] for i in range(10000)]]]
+    if number==23:return [[[[i] for i in range(10000)]],[[list(range(-250,250)) for _ in range(20)]]]
     if number==146:return [[3000,[['put',i%10001,i%100001] if i%2==0 else ['get',(i-1)%10001] for i in range(200000)]]]
     tree_sizes={94:100,104:10000,226:100,101:1000,543:10000,102:2000,98:10000,230:10000,199:100,114:2000,437:1000,236:100000,124:30000}
     if number in tree_sizes:
@@ -351,7 +351,7 @@ def pressure(number):
     if number==4:return [[list(range(-1000,0)),list(range(1000))]]
     if number==20:return [['('*5000+')'*5000]]
     if number==155:return [[[['push',-2147483648]]+[['getMin'] for _ in range(29999)]]]
-    if number==394:return [['300[300[a]]']]
+    if number==394:return [['300[300[a]]100[100[a]]'],['a'*30]]
     if number==215:return [[[10000-i%20001 for i in range(100000)],100000]]
     if number==347:return [[[0]*50001+[i%10000+1 for i in range(49999)],1]]
     if number==295:return [[[['addNum',-100000 if i%2 else 100000] if i%3 else ['findMedian'] for i in range(1,50001)]]]
@@ -360,7 +360,7 @@ def pressure(number):
     if number==118:return [[30]]
     if number==279:return [[10000],[9999]]
     if number==322:return [[[1,7,17,71,127,251,503,997,1999,3001,5003,9973],10000]]
-    if number==139:return [['a'*299+'b',['a'*i for i in range(1,21)]]]
+    if number==139:return [['a'*299+'b',['a'*i for i in range(1,21)]+['z'+''.join('b' if (i>>bit)&1 else 'a' for bit in range(10)) for i in range(980)]]]
     if number==32:return [['('*15000+')'*15000]]
     if number==62:return [[100,1],[17,17]]
     if number==64:return [[[[200]*200 for _ in range(200)]]]
@@ -370,9 +370,61 @@ def pressure(number):
     raise KeyError(f'未定义压力用例：{number}')
 
 
+def endpoint_cases(number):
+    """Explicit numeric/alphabet endpoints, in addition to size pressure.
+
+    Inputs with extra invariants are individually constructed rather than
+    replacing values blindly (which would invalidate e.g. 2-sum uniqueness).
+    """
+    from .validation import ARRAYS,TREES
+    plain={128,283,11,42,53,41,206,148,739,84,121,198,300,75,31}
+    if number in plain:
+        minimum,maximum,lo,hi=ARRAYS[number]
+        count=max(minimum,3)
+        return [[[lo]*count],[[hi]*count],[[lo,hi,lo]]]
+    if number in TREES:
+        _,_,lo,hi=TREES[number]
+        if number==230:return [[[0,None,10000],2]]
+        if number==236:return [[[0,lo,hi],lo,hi]]
+        if number==437:return [[[0,lo,hi],0]]
+        return [[[lo,lo,lo]],[[hi,hi,hi]],[[0,lo,hi]]]
+    extra={
+        1:[[[-10**9,0],-10**9],[[0,10**9],10**9]],
+        49:[[['az','za','zz','z','']]],
+        15:[[[-100000,0,100000]]],
+        3:[['~0aA ~']],438:[['zzaz','zz']],560:[[[-1000,1000],-10**7],[[1000,-1000],10**7]],
+        239:[[[-10000,10000,-10000],1],[[-10000,10000,-10000],3]],
+        76:[['aAzZ','AZ'],['ZZ','ZZZ']],56:[[[[0,0],[10000,10000],[0,10000]]]],
+        189:[[[-2**31,2**31-1],0],[[-2**31,2**31-1],100000]],
+        238:[[[-30,30]],[[0,-30,30]]],
+        73:[[[[-2**31,0],[1,2**31-1]]]],54:[[[[-100,100]]]],48:[[[[-1000,1000],[1000,-1000]]]],
+        240:[[[[-10**9,0],[0,10**9]],10**9]],74:[[[[-10000,0,10000]],-10000]],
+        160:[[[100000],[100000],-1,-1],[[100000],[100000],0,0]],
+        234:[[[0,9,0]],[[9,0,9,9]]],141:[[[-100000,100000],-1]],142:[[[-100000,100000],1]],
+        19:[[[0,100],1]],24:[[[100,0,100]]],25:[[[0,1000,0],2]],
+        138:[[[-10000,10000],[1,0]]],23:[[[[-10000,0],[10000]]]],
+        108:[[[-10000,0,10000]]],105:[[[0,-3000,3000],[-3000,0,3000]]],
+        46:[[[-10,0,10]]],78:[[[-10,0,10]]],
+        79:[[[['a']],'A'],[[['z']],'z']],131:[['zz'],['az']],
+        35:[[[-10000,0,10000],-10000],[[-10000,0,10000],10000]],
+        34:[[[-10**9,0,10**9],-10**9],[[-10**9,0,10**9],10**9]],
+        33:[[[0,10000,-10000],-10000],[[0,10000,-10000],1]],153:[[[0,5000,-5000]]],
+        4:[[[-10**6],[10**6]],[[10**6],[10**6]]],
+        215:[[[-10000,10000,-10000],1],[[-10000,10000,-10000],3]],
+        347:[[[-10000,-10000,10000],1]],
+        55:[[[100000,0]],[[0,100000]]],45:[[[1000,0]]],
+        763:[['zaz']],322:[[[1,2**31-1],1]],139:[['z'*20,['z'*20]]],
+        152:[[[-10,-10]],[[10,0,-10]]],416:[[[100]],[[1,100,99]]],
+        5:[['aA0Aa'],['00']],1143:[['az','za']],72:[['az','za']],
+        136:[[[-30000,30000,-30000]]],169:[[[10**9,-10**9,10**9]]],
+    }
+    return extra.get(number,[])
+
+
 def suite(number, seed=None, random_count=128):
     rng=random.Random(2026102900+number if seed is None else seed)
     cases=[dict(args=args,kind='sample' if i<2 else 'boundary',label=f'公开样例 {i+1}' if i<2 else f'定向边界 {i-1}') for i,args in enumerate(EDGES[number])]
+    cases += [dict(args=args,kind='boundary',label=f'值域/字符端点 {i+1}') for i,args in enumerate(endpoint_cases(number))]
     cases += [dict(args=random_case(number,rng),kind='random',label=f'固定随机 {i+1}') for i in range(random_count)]
     cases += [dict(args=args,kind='pressure',label=f'上界压力 {i+1}') for i,args in enumerate(pressure(number))]
     return cases

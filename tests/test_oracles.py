@@ -1,7 +1,7 @@
 import unittest
 
 from catalog import catalogue
-from judge.cases import EDGES, random_case
+from judge.cases import EDGES, random_case,endpoint_cases
 from judge.oracle import oracle
 from judge.protocols import accepts
 from judge.reference import solve
@@ -14,7 +14,7 @@ class OracleTests(unittest.TestCase):
         compared=0
         for p in catalogue():
             n=p['number'];rng=random.Random(88000+n)
-            for index,args in enumerate(EDGES[n]+[random_case(n,rng) for _ in range(32)]):
+            for index,args in enumerate(EDGES[n]+endpoint_cases(n)+[random_case(n,rng) for _ in range(32)]):
                 with self.subTest(number=n,case=index):
                     validate(n,args)
                     expected=oracle(n,args)

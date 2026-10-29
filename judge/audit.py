@@ -10,7 +10,7 @@ import time
 from pathlib import Path
 
 from catalog import catalogue
-from .cases import EDGES,random_case
+from .cases import EDGES,random_case,endpoint_cases
 from .jobs import prepare
 from .mutations import LABELS,faulty
 from .oracle import oracle
@@ -43,7 +43,7 @@ def audit():
         for a in args:validate(n,a)
         expected=''.join(encode_answer(n,a) for a in answers)
         assert all(r['ok'] for r in judge_output(n,args,answers,expected)),(n,'output roundtrip')
-        rng=random.Random(88000+n);small=EDGES[n]+[random_case(n,rng) for _ in range(32)]
+        rng=random.Random(88000+n);small=EDGES[n]+endpoint_cases(n)+[random_case(n,rng) for _ in range(32)]
         for a in small:
             validate(n,a);independent=oracle(n,a)
             # Agreement must be mutual where the solution space has choices.
