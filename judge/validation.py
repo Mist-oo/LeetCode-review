@@ -78,20 +78,19 @@ def validate(number, args):
     if number in (239,215):require(1<=args[1]<=len(a),'k 超出范围')
     if number==560:require(-10**7<=args[1]<=10**7,'k 超出范围')
     if number==189:require(0<=args[1]<=100000,'k 超出范围')
-    if number in (238,152):
-        # Product constraints apply to segments. Prefix/suffix accumulators
-        # reset at zero, retaining the largest signed segment magnitude.
-        product=1
-        for x in a:
-            product=product*x if x else 1
-            require(-2**31<=product<=2**31-1,'非零段乘积超出原题 32 位范围')
-        if number==238:
-            zero=a.count(0)
-            if zero<2:
-                product=1
-                for x in a:
-                    if x:product*=x
-                require(all(-2**31<=(product//x if x else product)<=2**31-1 for x in a),'输出乘积超出 32 位范围')
+    if number==152:
+        minimum=maximum=a[0]
+        for x in a[1:]:
+            minimum,maximum=min(x,x*minimum,x*maximum),max(x,x*minimum,x*maximum)
+            require(-2**31<=minimum and maximum<=2**31-1,'子数组乘积超出原题 32 位范围')
+    if number==238:
+        zero=a.count(0)
+        if zero<2:
+            product=1
+            for x in a:
+                if x:product*=x
+                require(abs(product)<=2**31*30,'输出乘积超出 32 位范围')
+            require(all(-2**31<=(0 if zero and x else product//x if x else product)<=2**31-1 for x in a),'输出乘积超出 32 位范围')
     if number==56:require(1<=len(a)<=10000 and all(len(row)==2 and 0<=row[0]<=row[1]<=10000 for row in a),'区间超出范围')
     if number in (73,54,48,240,74,994,64,200,79):
         maxdim={73:200,54:10,48:20,240:300,74:100,994:10,64:200,200:300,79:6}[number]

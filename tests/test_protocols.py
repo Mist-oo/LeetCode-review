@@ -56,6 +56,12 @@ class ProtocolTests(unittest.TestCase):
         self.assertEqual(len(result),2)
         self.assertTrue(all(not r['ok'] for r in result))
 
+    def test_product_constraints_do_not_reject_legal_zero_cases(self):
+        self.assertTrue(validate(238,[[30]*100+[0,0]]))
+        self.assertTrue(validate(238,[[30,0,30]]))
+        with self.assertRaises(ProtocolError):validate(238,[[30]*100])
+        with self.assertRaises(ProtocolError):validate(152,[[10]*12])
+
 
 if __name__ == '__main__':
     unittest.main()
