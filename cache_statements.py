@@ -17,20 +17,37 @@ ROOT = Path(__file__).resolve().parent
 
 
 def read_url(url):
-    request = urllib.request.Request(url, headers={'User-Agent': 'LeetCode-Review-Local/1.0'})
-    with urllib.request.urlopen(request, timeout=30) as response:
-        return response.read().decode('utf-8')
+    for attempt in range(3):
+        try:
+            request = urllib.request.Request(url, headers={'User-Agent': 'LeetCode-Review-Local/1.0'})
+            with urllib.request.urlopen(request, timeout=30) as response:
+                return response.read().decode('utf-8')
+        except Exception:
+            if attempt == 2:
+                raise
+            time.sleep(attempt + 1)
 
 
 def main():
-    tree = json.loads(read_url('https://api.github.com/repos/doocs/leetcode/git/trees/main?recursive=1'))
-    if tree.get('truncated'):
-        raise RuntimeError('Upstream tree truncated; refusing an incomplete catalogue import')
+    api = 'https://api.github.com/repos/doocs/leetcode'
+    revision = json.loads(read_url(api + '/git/ref/heads/main'))['object']['sha']
+    def get_tree(sha):
+        return json.loads(read_url(api + '/git/trees/' + sha))['tree']
+    root_tree = get_tree(revision)
+    solution_sha = next(i['sha'] for i in root_tree if i['path'] == 'solution')
+    ranges = get_tree(solution_sha)
+    wanted = {p['number'] for p in catalogue()}
     paths = {}
-    for item in tree['tree']:
-        match = re.match(r'^solution/\d{4}-\d{4}/(\d{4})\.[^/]+/README\.md$', item['path'])
-        if match:
-            paths[int(match[1])] = item['path']
+    for group in ranges:
+        match = re.fullmatch(r'(\d{4})-(\d{4})', group['path'])
+        if not match or not any(int(match[1]) <= n <= int(match[2]) for n in wanted):
+            continue
+        for item in get_tree(group['sha']):
+            prefix = re.match(r'^(\d{4})\.', item['path'])
+            if prefix and int(prefix[1]) in wanted:
+                paths[int(prefix[1])] = f'solution/{group["path"]}/{item["path"]}/README.md'
+    if wanted - paths.keys():
+        raise RuntimeError(f'Catalogue entries missing upstream: {wanted - paths.keys()}')
     target = ROOT / 'data/statements.json'
     existing = json.loads(target.read_text('utf-8')) if target.exists() else []
     cached = {item['number']: item for item in existing}
@@ -40,7 +57,7 @@ def main():
         if number in cached:
             return cached[number]
         path = urllib.parse.quote(paths[number], safe='/')
-        url = f'https://raw.githubusercontent.com/doocs/leetcode/{tree["sha"]}/{path}'
+        url = f'https://raw.githubusercontent.com/doocs/leetcode/{revision}/{path}'
         for attempt in range(3):
             try:
                 source = read_url(url)
@@ -49,7 +66,7 @@ def main():
                     raise ValueError(f'No statement markers for {number}')
                 difficulty = re.search(r'^difficulty: (.+)$', source, re.M)
                 return dict(number=number, description=match[1].strip(),
-                            source=f'https://github.com/doocs/leetcode/blob/{tree["sha"]}/{path}',
+                            source=f'https://github.com/doocs/leetcode/blob/{revision}/{path}',
                             difficulty=difficulty[1] if difficulty else '')
             except Exception:
                 if attempt == 2:
