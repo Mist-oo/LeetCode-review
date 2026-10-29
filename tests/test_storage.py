@@ -1,5 +1,6 @@
 import tempfile
 import unittest
+import sqlite3
 from datetime import date, timedelta
 from pathlib import Path
 from unittest.mock import patch
@@ -75,6 +76,18 @@ class StorageTests(unittest.TestCase):
         with self.assertRaises(LookupError):self.store.problem(pid)
         with self.store.db() as db:
             self.assertEqual(db.execute('SELECT idea FROM notes WHERE problem_id=?',(pid,)).fetchone()[0],'重要旧笔记')
+
+    def test_v1_seven_column_record_migrates_without_loss(self):
+        path=Path(self.tmp.name)/'old.db'
+        with sqlite3.connect(path) as db:
+            db.execute('CREATE TABLE records (problem_id INTEGER,day TEXT,result TEXT,code TEXT,tags TEXT,note TEXT,updated TEXT,PRIMARY KEY(problem_id,day))')
+            db.execute("INSERT INTO records VALUES (1,'2020-01-01','fail','print(7)','[]','旧错误','old')")
+        db.close()
+        migrated=Store(path)
+        old=migrated.history(1)[0]
+        self.assertEqual(old['code'],'print(7)')
+        self.assertEqual(old['note'],'旧错误')
+        self.assertIsNone(old['judgment'])
 
 
 if __name__ == '__main__':

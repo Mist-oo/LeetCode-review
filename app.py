@@ -3,6 +3,7 @@ import argparse
 import json
 import mimetypes
 import sqlite3
+import socket
 import threading
 import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -117,6 +118,13 @@ def make_server(db_path=None, port=8765):
         do_PUT = mutate
 
     class LocalServer(ThreadingHTTPServer):
+        allow_reuse_address=False
+
+        def server_bind(self):
+            if hasattr(socket,'SO_EXCLUSIVEADDRUSE'):
+                self.socket.setsockopt(socket.SOL_SOCKET,socket.SO_EXCLUSIVEADDRUSE,1)
+            super().server_bind()
+
         def server_close(self):
             if jobs:jobs.close()
             super().server_close()
