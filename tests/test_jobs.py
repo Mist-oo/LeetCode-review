@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from storage import Store,today
+from storage import ValidationError
 from judge.jobs import Jobs,TERMINAL
 
 TWO_SUM = '''import sys
@@ -79,6 +80,19 @@ class JobTests(unittest.TestCase):
         result=self.wait(self.jobs.create(1,{'code':TWO_SUM+'\nraise RuntimeError("after output")'})['id'])
         self.assertEqual(result['status'],'RE',result)
         self.assertLess(result['passed'],result['total'])
+
+    def test_strengthening_seed_is_reproducible(self):
+        data=dict(code=TWO_SUM,seed=712345)
+        first=self.wait(self.jobs.create(1,data,'strengthen')['id'])
+        second=self.wait(self.jobs.create(1,data,'strengthen')['id'])
+        self.assertEqual(first['status'],'AC',first)
+        self.assertEqual(first['version'],second['version'])
+        self.assertEqual(first['seed'],712345)
+        self.assertGreater(first['total'],200)
+
+    def test_custom_run_rejects_unbounded_batch(self):
+        with self.assertRaises(ValidationError):
+            self.jobs.create(1,dict(code=TWO_SUM,stdin='2\n2 7\n9\n'*33),'run')
 
 
 if __name__=='__main__':unittest.main()

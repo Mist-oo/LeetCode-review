@@ -19,5 +19,11 @@ class CompletionTests(unittest.TestCase):
         result=complete(dict(code='raise SystemExit(100)\nitems=[]\nitems.ap',line=3,column=8))
         self.assertIn('append',[v['name'] for v in result['items']],result)
 
+    def test_variable_names_and_importable_modules(self):
+        result=complete(dict(code='sample_values=[]\nsample_va',line=2,column=9))
+        self.assertIn('sample_values',[v['name'] for v in result['items']],result)
+        result=complete(dict(code='import collect',line=1,column=14))
+        self.assertIn('collections',[v['name'] for v in result['items']],result)
+
 
 if __name__=='__main__':unittest.main()

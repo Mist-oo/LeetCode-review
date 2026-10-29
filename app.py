@@ -76,7 +76,7 @@ def make_server(db_path=None, port=8765):
                 if self.headers.get('Content-Type', '').split(';')[0] != 'application/json':
                     return self.send(415, {'error': '需要 JSON 请求'})
                 length = int(self.headers.get('Content-Length', '0'))
-                if not 0 < length <= 1_000_000:
+                if not 0 < length <= 12_000_000:
                     return self.send(413, {'error': '请求内容为空或过大'})
                 data = json.loads(self.rfile.read(length))
                 if not isinstance(data, dict):

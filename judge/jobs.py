@@ -61,9 +61,13 @@ class Jobs:
         p=self.store.problem(pid);code=text(data,'code',200000,True)
         if mode not in ('submit','strengthen','run'):
             raise ValidationError('未知运行模式')
-        stdin=text(data,'stdin',1000000) if mode=='run' else ''
+        seed=data.get('seed')
+        if seed is not None and (mode!='strengthen' or type(seed) is not int or not 0<=seed<2**31):
+            raise ValidationError('随机种子应为 0 到 2147483647 的整数，且只用于随机加强')
+        stdin=text(data,'stdin',8000000) if mode=='run' else ''
         if mode=='run':
             cases=decode_cases(p['number'],stdin)
+            if len(cases)>32:raise ValidationError('自定义运行最多 32 组；完整批量检验请使用正式提交')
             for args in cases:validate(p['number'],args)
         with self.lock:
             if self.closed:raise ValidationError('判题服务已关闭')
@@ -75,7 +79,7 @@ class Jobs:
             job=dict(id=identifier,problem_id=pid,number=p['number'],created=datetime.now(timezone.utc).isoformat(),
                      day=today(),code=code,code_hash=hashlib.sha256(code.encode()).hexdigest(),mode=mode,
                      status='QUEUED',passed=0,total=0,completed=0,version=VERSION,
-                     seed=random.SystemRandom().randrange(2**31) if mode=='strengthen' else None,
+                     seed=(seed if seed is not None else random.SystemRandom().randrange(2**31)) if mode=='strengthen' else None,
                      milliseconds=0,memory_kb=0,detail={},revealed=False,stdin=stdin)
             self.jobs[identifier]=job;self.events[identifier]=threading.Event()
             self.persist(job)

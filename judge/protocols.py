@@ -132,7 +132,10 @@ OUTPUT_HELP = {
 
 class Lines:
     def __init__(self, source):
-        self.lines, self.index = source.replace('\r\n', '\n').splitlines(), 0
+        source=source.replace('\r\n','\n')
+        self.lines=source.split('\n') if source else []
+        if source.endswith('\n'):self.lines.pop()
+        self.index=0
 
     def line(self):
         if self.index >= len(self.lines):

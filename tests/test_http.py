@@ -2,6 +2,7 @@ import json
 import tempfile
 import threading
 import unittest
+import time
 from pathlib import Path
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
@@ -36,7 +37,7 @@ class HttpTests(unittest.TestCase):
             return error.code, error.read(), error.headers
 
     def test_static_and_all_vendored_assets_serve(self):
-        for path in ['/', '/app.js', '/style.css', '/vendor/codemirror.js', '/vendor/python.js', '/vendor/marked.js', '/vendor/purify.js']:
+        for path in ['/', '/app.js', '/judge-ui.js', '/judge.css', '/style.css', '/vendor/codemirror.js', '/vendor/python.js', '/vendor/marked.js', '/vendor/purify.js','/vendor/show-hint.js','/vendor/show-hint.css']:
             code, body, _ = self.request(path)
             self.assertEqual(code, 200, path)
             self.assertTrue(body)
@@ -61,6 +62,31 @@ class HttpTests(unittest.TestCase):
     def test_no_backfill_and_missing_problem(self):
         self.assertEqual(self.request('/api/problems/1/record', 'PUT', dict(day='2000-01-01', result='pass'))[0], 400)
         self.assertEqual(self.request('/api/problems/999999')[0], 404)
+
+    def test_removed_custom_creation_and_acm_spec(self):
+        self.assertEqual(self.request('/api/problems','POST',dict(number=999999))[0],404)
+        code,body,_=self.request('/api/problems/1')
+        self.assertEqual(code,200)
+        spec=json.loads(body)['acm']
+        self.assertIn('EOF',spec['introduction'])
+        self.assertTrue(spec['sample_input'])
+
+    def test_async_submit_hidden_failure_and_reveal(self):
+        code,body,_=self.request('/api/problems/1/submit','POST',dict(code='print("0 0")'))
+        self.assertEqual(code,202)
+        identifier=json.loads(body)['id'];deadline=time.monotonic()+10
+        while time.monotonic()<deadline:
+            _,body,_=self.request('/api/jobs/'+identifier)
+            job=json.loads(body)
+            if job['status'] not in ('QUEUED','RUNNING'):break
+            time.sleep(.02)
+        self.assertEqual(job['status'],'WA')
+        self.assertNotIn('detail',job)
+        _,body,_=self.request('/api/jobs/'+identifier+'/reveal','POST',{})
+        self.assertIn('batch_input',json.loads(body)['detail'])
+        _,body,_=self.request('/api/problems/1/submissions')
+        self.assertTrue(any(j['id']==identifier for j in json.loads(body)))
+
 
 
 if __name__ == '__main__':

@@ -18,3 +18,12 @@
 - `cache_statements.py` 只提取 README 中 description:start 至 description:end 的题面区段，不提取解法、思路或参考答案。缓存保留上游提交固定链接，并在题面下方展示来源、提取说明和许可链接。
 - 题面缓存保存在 `data/statements.json`，属于本机数据，不提交 Git；重新下载时可能得到新的上游版本。导入不会覆盖已经保存的题面或用户修改。
 - 原题图示通过原地址加载，需要联网；题面文字、代码编辑、记录和笔记可离线使用。实际题意以力扣原题链接为准。
+
+## 第二版本地 Python 依赖
+
+- Jedi 0.19.2：Python 静态补全，MIT，https://github.com/davidhalter/jedi 。
+- Parso 0.8.7：Jedi 的 Python 解析依赖，MIT，https://github.com/davidhalter/parso 。
+- psutil 7.2.2：运行进程与内存监控，BSD-3-Clause，https://github.com/giampaolo/psutil 。
+- CodeMirror show-hint 使用同一 5.65.21 包中的原始 JS/CSS，沿用已附 MIT 许可。
+
+Python 包通过 requirements.txt 安装，原许可位于各安装包中；不把虚拟环境上传仓库。补全不调用远程模型，测试数据与参考/独立计算由本项目实现，不来自官方隐藏测试。
