@@ -4,7 +4,6 @@ import sqlite3
 from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import urlparse
 
 from catalog import catalogue, DEFAULT_TAGS
 
@@ -56,7 +55,17 @@ class Store:
                     reference_code TEXT NOT NULL DEFAULT ''
                 );
                 CREATE TABLE IF NOT EXISTS tags (name TEXT PRIMARY KEY);
+                CREATE TABLE IF NOT EXISTS submissions (
+                    id TEXT PRIMARY KEY,problem_id INTEGER NOT NULL REFERENCES problems(id),
+                    created TEXT NOT NULL,day TEXT NOT NULL,code TEXT NOT NULL,code_hash TEXT NOT NULL,
+                    mode TEXT NOT NULL,status TEXT NOT NULL,passed INTEGER NOT NULL,total INTEGER NOT NULL,
+                    completed INTEGER NOT NULL,version TEXT NOT NULL,seed INTEGER,
+                    milliseconds INTEGER NOT NULL,memory_kb INTEGER NOT NULL,
+                    detail TEXT NOT NULL DEFAULT '{}',revealed INTEGER NOT NULL DEFAULT 0
+                );
             ''')
+            if 'submission_id' not in {r['name'] for r in db.execute('PRAGMA table_info(records)')}:
+                db.execute('ALTER TABLE records ADD COLUMN submission_id TEXT')
             db.executemany('INSERT OR IGNORE INTO tags VALUES (?)', [(t,) for t in DEFAULT_TAGS])
             for p in catalogue():
                 db.execute('''INSERT OR IGNORE INTO problems
@@ -85,8 +94,8 @@ class Store:
     def state(self):
         with self.db() as db:
             problems = [dict(r) for r in db.execute('''SELECT id,number,title,url,category,
-                collection,difficulty,done FROM problems ORDER BY id''')]
-            records = [dict(r) for r in db.execute('SELECT problem_id,day,result,tags FROM records')]
+                collection,difficulty,done FROM problems WHERE collection='Hot 100' ORDER BY id''')]
+            records = [dict(r) for r in db.execute("SELECT r.problem_id,r.day,r.result,r.tags FROM records r JOIN problems p ON p.id=r.problem_id WHERE p.collection='Hot 100'")]
             tags = [r[0] for r in db.execute('SELECT name FROM tags ORDER BY rowid')]
         for r in records:
             r['tags'] = json.loads(r['tags'])
@@ -94,7 +103,7 @@ class Store:
 
     def problem(self, pid):
         with self.db() as db:
-            row = db.execute('SELECT * FROM problems WHERE id=?', (pid,)).fetchone()
+            row = db.execute("SELECT * FROM problems WHERE id=? AND collection='Hot 100'", (pid,)).fetchone()
             if row is None:
                 raise LookupError('题目不存在')
             p = dict(row)
@@ -105,12 +114,16 @@ class Store:
                      record=self.decode_record(record), notes=dict(note) if note else {f: '' for f in NOTE_FIELDS})
             return p
 
-    @staticmethod
-    def decode_record(row):
+    def decode_record(self,row):
         if not row:
             return None
         result = dict(row)
         result['tags'] = json.loads(result['tags'])
+        result['judgment']=None
+        if result.get('submission_id'):
+            with self.db() as db:
+                judgment=db.execute('SELECT id,status,passed,total,version,created FROM submissions WHERE id=?',(result['submission_id'],)).fetchone()
+            result['judgment']=dict(judgment) if judgment else None
         return result
 
     def history(self, pid):
@@ -143,9 +156,11 @@ class Store:
         tags = list(dict.fromkeys(tags))
         code, note = text(data, 'code'), text(data, 'note', 10_000) if data['result'] == 'fail' else ''
         with self.db() as db:
-            db.execute('INSERT OR REPLACE INTO records VALUES (?,?,?,?,?,?,?)',
+            submission=db.execute("""SELECT id FROM submissions WHERE problem_id=? AND day=? AND code=?
+                AND status IN ('AC','WA','CE','RE','TLE','MLE','OLE') ORDER BY created DESC LIMIT 1""",(pid,today(),code)).fetchone()
+            db.execute('INSERT OR REPLACE INTO records (problem_id,day,result,code,tags,note,updated,submission_id) VALUES (?,?,?,?,?,?,?,?)',
                        (pid, today(), data['result'], code, json.dumps(tags, ensure_ascii=False), note,
-                        datetime.now(timezone.utc).isoformat()))
+                        datetime.now(timezone.utc).isoformat(),submission['id'] if submission else None))
             db.execute('INSERT OR REPLACE INTO drafts VALUES (?,?,?)', (pid, today(), code))
             db.execute('UPDATE problems SET done=1 WHERE id=?', (pid,))
             db.executemany('INSERT OR IGNORE INTO tags VALUES (?)', [(t,) for t in tags])
@@ -162,29 +177,9 @@ class Store:
             raise ValidationError('请选择需要标记的题目')
         with self.db() as db:
             for pid in set(ids):
-                if not db.execute('SELECT 1 FROM problems WHERE id=?', (pid,)).fetchone():
+                if not db.execute("SELECT 1 FROM problems WHERE id=? AND collection='Hot 100'", (pid,)).fetchone():
                     raise LookupError('选中的题目不存在')
                 db.execute('UPDATE problems SET done=1 WHERE id=?', (pid,))
-
-    def add_problem(self, data):
-        number = data.get('number')
-        if type(number) is not int or not 1 <= number <= 1_000_000:
-            raise ValidationError('请输入有效的题号')
-        title, category = text(data, 'title', 150, True), text(data, 'category', 50, True)
-        url = text(data, 'url', 500, True)
-        parsed = urlparse(url)
-        if parsed.scheme != 'https' or parsed.netloc not in ('leetcode.cn', 'leetcode.com') or not parsed.path.startswith('/problems/'):
-            raise ValidationError('请填写 https://leetcode.cn/problems/.../ 形式的力扣题目链接')
-        description = text(data, 'description', required=True)
-        try:
-            with self.db() as db:
-                result = db.execute('''INSERT INTO problems
-                    (number,title,slug,url,category,collection,description,source)
-                    VALUES (?,?,?,?,?,'自选题目',?,'用户录入')''',
-                    (number, title.strip(), parsed.path.strip('/').split('/')[-1], url, category.strip(), description))
-                return result.lastrowid
-        except sqlite3.IntegrityError as error:
-            raise ValidationError('这个题号已经存在，请从题库打开') from error
 
     def save_description(self, pid, data):
         self.problem(pid)

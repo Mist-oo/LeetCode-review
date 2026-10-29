@@ -66,14 +66,15 @@ class StorageTests(unittest.TestCase):
         self.assertIn('负数处理', reopened.state()['tags'])
         self.assertEqual(reopened.history(1), [])
 
-    def test_custom_problem_requires_leetcode_url_and_unique_number(self):
-        data = dict(number=999999, title='测试', category='自定义', description='内容', url='https://leetcode.cn/problems/test/')
-        pid = self.store.add_problem(data)
-        self.assertEqual(self.store.problem(pid)['collection'], '自选题目')
-        with self.assertRaises(ValidationError):
-            self.store.add_problem(data)
-        with self.assertRaises(ValidationError):
-            self.store.add_problem(dict(data, number=888888, url='javascript:alert(1)'))
+    def test_retired_custom_data_is_hidden_but_preserved(self):
+        with self.store.db() as db:
+            cursor=db.execute("INSERT INTO problems (number,title,slug,url,category,collection) VALUES (999999,'旧自选','old','https://leetcode.cn/problems/old/','自定义','自选题目')")
+            pid=cursor.lastrowid
+            db.execute("INSERT INTO notes (problem_id,idea) VALUES (?, '重要旧笔记')",(pid,))
+        self.assertEqual(len(Store(self.path).state()['problems']),100)
+        with self.assertRaises(LookupError):self.store.problem(pid)
+        with self.store.db() as db:
+            self.assertEqual(db.execute('SELECT idea FROM notes WHERE problem_id=?',(pid,)).fetchone()[0],'重要旧笔记')
 
 
 if __name__ == '__main__':

@@ -10,12 +10,15 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from storage import Store, ValidationError
+from judge.jobs import Jobs,specification
+from completion import complete
 
 ROOT = Path(__file__).resolve().parent
 
 
 def make_server(db_path=None, port=8765):
     store = Store(db_path or ROOT / 'data/review.db', ROOT / 'data/statements.json')
+    jobs = None
 
     class Handler(BaseHTTPRequestHandler):
         def send(self, code, data, content_type='application/json; charset=utf-8'):
@@ -36,16 +39,22 @@ def make_server(db_path=None, port=8765):
                     return self.send(403, {'error': '只允许本机访问'})
                 path = urlparse(self.path).path
                 if path == '/api/health':
-                    return self.send(200, {'ok': True})
+                    return self.send(200, {'ok': True,'version':2})
                 if path == '/api/state':
                     return self.send(200, store.state())
                 parts = path.strip('/').split('/')
                 if len(parts) in (3, 4) and parts[:2] == ['api', 'problems'] and parts[2].isdigit():
                     pid = int(parts[2])
                     if len(parts) == 3:
-                        return self.send(200, store.problem(pid))
+                        problem=store.problem(pid)
+                        problem['acm']=specification(problem['number'])
+                        return self.send(200, problem)
                     if parts[3] == 'history':
                         return self.send(200, store.history(pid))
+                    if parts[3] == 'submissions':
+                        return self.send(200,jobs.history(pid))
+                if len(parts)==3 and parts[:2]==['api','jobs']:
+                    return self.send(200,jobs.get(parts[2]))
                 # Only the static directory is exposed, never the database or source.
                 base = ROOT / 'static'
                 file = (base / ('index.html' if path == '/' else path.lstrip('/'))).resolve()
@@ -73,8 +82,8 @@ def make_server(db_path=None, port=8765):
                     raise ValidationError('请求格式不正确')
                 path = urlparse(self.path).path
                 if self.command == 'POST':
-                    if path == '/api/problems':
-                        return self.send(201, {'id': store.add_problem(data)})
+                    if path == '/api/complete':
+                        return self.send(200,complete(data))
                     if path == '/api/mark-done':
                         store.mark_done(data)
                         return self.send(200, {'ok': True})
@@ -82,6 +91,15 @@ def make_server(db_path=None, port=8765):
                         store.add_tag(data)
                         return self.send(200, {'ok': True})
                 parts = path.strip('/').split('/')
+                if self.command=='POST' and len(parts)==4 and parts[:2]==['api','problems'] and parts[2].isdigit():
+                    if parts[3] in ('run','submit'):
+                        mode='run' if parts[3]=='run' else data.get('mode','submit')
+                        if parts[3]=='submit' and mode not in ('submit','strengthen'):
+                            raise ValidationError('提交模式无效')
+                        return self.send(202,jobs.create(int(parts[2]),data,mode))
+                if self.command=='POST' and len(parts)==4 and parts[:2]==['api','jobs']:
+                    if parts[3]=='cancel':return self.send(200,jobs.cancel(parts[2]))
+                    if parts[3]=='reveal':return self.send(200,jobs.reveal(parts[2]))
                 actions = {'draft': store.save_draft, 'record': store.save_record,
                            'notes': store.save_notes, 'description': store.save_description}
                 if self.command == 'PUT' and len(parts) == 4 and parts[:2] == ['api', 'problems'] and parts[2].isdigit() and parts[3] in actions:
@@ -98,7 +116,17 @@ def make_server(db_path=None, port=8765):
         do_POST = mutate
         do_PUT = mutate
 
-    return ThreadingHTTPServer(('127.0.0.1', port), Handler)
+    class LocalServer(ThreadingHTTPServer):
+        def server_close(self):
+            if jobs:jobs.close()
+            super().server_close()
+    server=LocalServer(('127.0.0.1',port),Handler)
+    try:
+        jobs=Jobs(store)
+        return server
+    except Exception:
+        server.server_close()
+        raise
 
 
 if __name__ == '__main__':
