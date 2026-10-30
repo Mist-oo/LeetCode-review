@@ -3,6 +3,7 @@ async page => {
   const assert=(value,message)=>{if(!value)throw new Error(message);};let checks=0;
   const base=new URL(page.url()).origin;
   await page.evaluate(()=>localStorage.removeItem('leetcode-fixed-variant-cycles'));
+  await page.evaluate(()=>localStorage.setItem('leetcode-review-source','fixed'));
   await page.reload();
   const before=await (await page.request.get(base+'/api/state')).json();
   await page.getByRole('checkbox',{name:'选择 两数之和',exact:true}).check();

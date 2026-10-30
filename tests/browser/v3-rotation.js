@@ -2,6 +2,7 @@ async page => {
   if(new URL(page.url()).origin!=='http://127.0.0.1:8766')throw new Error('Isolated QA on 8766 only');
   const assert=(value,message)=>{if(!value)throw new Error(message);};let checks=0;
   await page.evaluate(()=>localStorage.removeItem('leetcode-fixed-variant-cycles'));
+  await page.evaluate(()=>localStorage.setItem('leetcode-review-source','fixed'));
   await page.reload();await page.getByRole('button',{name:'⤨ 随机复习',exact:true}).click();
   await page.getByRole('button',{name:'换个场景',exact:true}).waitFor();
   const bundle=await (await page.request.get('http://127.0.0.1:8766/api/problems/1/variants')).json();

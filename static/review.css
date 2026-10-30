@@ -3,3 +3,7 @@
 .review-toolbar + .markdown h2 { font-size: 20px; margin-bottom: 18px; }
 .ai-clear-key { display: flex; align-items: center; gap: 6px; margin: 14px 0; font-size: 12px; }
 #ai-settings-form .form-field { margin: 14px 0; }
+.review-source-label { display: flex; align-items: center; gap: 7px; color: #859089; font-size: 11px; }
+.review-source-label select { padding: 5px 7px; font-size: 12px; }
+.review-cost-note { color: #859089; font-size: 11px; margin: -8px 0 16px; }
+.review-toolbar .actions { gap: 6px; flex-wrap: wrap; }

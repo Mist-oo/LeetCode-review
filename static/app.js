@@ -87,7 +87,7 @@ async function openProblem(id, random=false) {
     if(!await canLeave())return;
     if(!current) practiceIds=filteredProblems().map(p=>p.id);
     const p=await api('/problems/'+id); current=p; randomMode=random; notesDirty=false; draftDirty=false;
-    reviewState=random?{problemId:id,revealed:false,bundle:null,variant:null,loading:true,error:''}:null;
+    reviewState=random?{problemId:id,revealed:false,bundle:null,variant:null,loading:true,error:'',source:reviewSourcePreference(),aiLoading:false,request:0}:null;
     renderPractice();
     if(random)loadFixedReview(reviewState);
   }catch(e){toast(e.message,true);}
