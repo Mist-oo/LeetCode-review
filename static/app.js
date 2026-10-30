@@ -102,14 +102,14 @@ function renderPractice() {
     <div class="error-details ${p.record?.result==='fail'?'':'hidden'}" id="errors"><div class="tag-list" id="tags"></div><div class="add-tag-row"><input id="new-tag" placeholder="添加自定义错误标签" maxlength="50" aria-label="自定义错误标签"><button class="small" id="add-tag">＋ 添加</button></div><textarea id="error-note" placeholder="这次具体错在哪里？（选填）" aria-label="当次错误说明">${esc(p.record?.note||'')}</textarea></div>
     <div class="result-bottom"><small>看过提示或改过错误，即使最后通过也记 ❌</small><button class="primary" id="save-result">保存今日记录</button></div></section>
     <div class="next-row"><span>跳过不产生记录，代码草稿会保留</span><button id="next">${randomMode?'换一题 ⤨':'下一题 →'}</button></div></div></div></main>`;
-  editor=CodeMirror.fromTextArea($('#code'),{mode:{name:'python',version:3},lineNumbers:true,screenReaderLabel:'Python 代码编辑器',indentUnit:4,tabSize:4,indentWithTabs:false,extraKeys:{Tab:cm=>cm.replaceSelection('    ','end')},viewportMargin:20});
+  editor=CodeMirror.fromTextArea($('#code'),{mode:{name:'python',version:3},autoCloseBrackets:true,lineNumbers:true,screenReaderLabel:'Python 代码编辑器',indentUnit:4,tabSize:4,indentWithTabs:false,extraKeys:{Tab:cm=>cm.replaceSelection('    ','end')},viewportMargin:20});
   editor.setValue(p.draft); editor.on('change',()=>{draftDirty=true;setSaveStatus('正在保存…');clearTimeout(saveTimer);saveTimer=setTimeout(()=>flushDraft().catch(()=>{}),650);});
   $('#back').onclick=home;$('#copy').onclick=()=>copyText(editor.getValue());$('#next').onclick=nextProblem;
   $$('[data-tab]').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
   $$('input[name=result]').forEach(r=>r.onchange=()=>$('#errors').classList.toggle('hidden',r.value!=='fail'));
   $('#save-result').onclick=saveResult;$('#add-tag').onclick=addTag;
   renderTags(p.record?.tags||[]); showDescription();
-  setupCompletion(editor);setupJudge();
+  setupEditorPairing(editor);setupCompletion(editor);setupJudge();
 }
 function setSaveStatus(message,error=false){const node=$('#save-status');if(node){node.textContent=message;node.classList.toggle('save-error',error);}}
 async function flushDraft() {

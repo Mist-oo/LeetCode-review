@@ -25,5 +25,6 @@
 - Parso 0.8.7：Jedi 的 Python 解析依赖，MIT，https://github.com/davidhalter/parso 。
 - psutil 7.2.2：运行进程与内存监控，BSD-3-Clause，https://github.com/giampaolo/psutil 。
 - CodeMirror show-hint 使用同一 5.65.21 包中的原始 JS/CSS，沿用已附 MIT 许可。
+- CodeMirror closebrackets 使用 [5.65.21 官方源码](https://github.com/codemirror/codemirror5/blob/5.65.21/addon/edit/closebrackets.js)，保留原文件版权声明，沿用已附 MIT 许可。
 
 Python 包通过 requirements.txt 安装，原许可位于各安装包中；不把虚拟环境上传仓库。补全不调用远程模型，测试数据与参考/独立计算由本项目实现，不来自官方隐藏测试。

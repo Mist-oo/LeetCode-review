@@ -54,7 +54,7 @@ python -m judge.benchmark
 
 测试使用临时数据库。`audit` 逐题检查并更新覆盖报告；`benchmark` 验证全部正式提交与性能。前端语法可用 `node --check static/app.js`、`node --check static/judge-ui.js` 检查；运行应用不需要 Node.js。
 
-第三版规划（尚未开发）：[编辑体验与题面变式需求](docs/v3-requirements.md) · [开发步骤与逐功能提交约定](docs/v3-development-plan.md)。
+第三版开发中：[编辑体验与题面变式需求](docs/v3-requirements.md) · [开发进度与逐功能提交约定](docs/v3-development-plan.md)。
 
 文档：[使用说明](docs/usage.md) · [第二版需求](docs/v2-requirements.md) · [第一版需求](docs/requirements.md) · [设计决策](docs/decisions.md) · [开发日志](docs/dev-log.md)。
 
