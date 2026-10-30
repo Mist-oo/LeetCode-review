@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "number": 437,
+  "conditions": [
+    "统计节点值之和等于 targetSum 的非空路径个数，路径只能沿父节点到子节点的方向向下。",
+    "起点不必为根，终点不必为叶，不能转向另一个分支；不同节点路径分别计数，值可为负。"
+  ],
+  "constraints_html": "<ul>\n\t<li>二叉树的节点个数的范围是 <code>[0,1000]</code></li>\n\t<li><meta charset=\"UTF-8\" /><code>-10<sup>9</sup> <= Node.val <= 10<sup>9</sup></code> </li>\n\t<li><code>-1000 <= targetSum <= 1000</code> </li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0400-0499/0437.Path%20Sum%20III/README.md",
+  "versions": [
+    {
+      "id": "fixed-437-1",
+      "title": "统计达标下行审批段",
+      "statement": "二叉审批树的每个步骤带有整数分值。请统计有多少条连续向下的步骤段，其分值和等于目标。可以从任意步骤开始、在任意下级步骤结束，但不能向上走或转到兄弟分支。",
+      "examples": [
+        [
+          [
+            -3
+          ],
+          -5
+        ],
+        [
+          [
+            -1,
+            -1,
+            -2,
+            3,
+            2,
+            -2,
+            null,
+            null,
+            null,
+            null,
+            -3
+          ],
+          -2
+        ]
+      ],
+      "expected_output": "0\n4\n"
+    },
+    {
+      "id": "fixed-437-2",
+      "title": "查找目标读数路线数",
+      "statement": "树形传感网络的节点保存可能为负的读数。选取的路线必须一直从上级走向下级，且至少经过一个节点。请数出读数总和恰好等于 targetSum 的全部路线，起点与终点都不限于根叶。",
+      "examples": [
+        [
+          [
+            2,
+            1,
+            -2
+          ],
+          2
+        ],
+        [
+          [
+            -3,
+            -2,
+            1,
+            null,
+            2,
+            3,
+            2,
+            null,
+            null,
+            null,
+            null,
+            -3
+          ],
+          -3
+        ]
+      ],
+      "expected_output": "1\n4\n"
+    },
+    {
+      "id": "fixed-437-3",
+      "title": "核算层级任务累计段",
+      "statement": "每项任务至多有两个下级任务，节点值表示贡献。你要统计从某节点沿子任务方向连续前进的一段，其累计贡献等于给定目标的选择数量。不同起止节点对应不同路径。",
+      "examples": [
+        [
+          [
+            -1,
+            1
+          ],
+          2
+        ],
+        [
+          [
+            -2,
+            2,
+            1,
+            3,
+            -2,
+            2,
+            null,
+            0,
+            1,
+            null,
+            -3
+          ],
+          -1
+        ]
+      ],
+      "expected_output": "0\n1\n"
+    }
+  ]
+}

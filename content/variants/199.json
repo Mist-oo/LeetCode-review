@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "number": 199,
+  "conditions": [
+    "从树的右侧观察，每层只保留能看到的最右节点，按从上到下输出值。",
+    "不是只沿 right 链读取：右侧分支缺失时，左侧较深节点也可能可见。"
+  ],
+  "constraints_html": "<ul>\n\t<li>二叉树的节点个数的范围是 <code>[0,100]</code></li>\n\t<li><meta charset=\"UTF-8\" /><code>-100&nbsp;&lt;= Node.val &lt;= 100</code>&nbsp;</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0100-0199/0199.Binary%20Tree%20Right%20Side%20View/README.md",
+  "versions": [
+    {
+      "id": "fixed-199-1",
+      "title": "拍摄层级展台的侧影",
+      "statement": "一棵二叉布局从右侧拍摄，每一层只有最靠右的节点能露出来。请从上到下报告可见节点的值；某层右支没有延伸时，左支的节点仍可能进入侧影。",
+      "examples": [
+        [
+          [
+            1,
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            -2,
+            -3,
+            3,
+            null,
+            -3,
+            1,
+            3,
+            null,
+            2,
+            null,
+            1,
+            null,
+            null,
+            null,
+            null,
+            1
+          ]
+        ]
+      ],
+      "expected_output": "1 1\n-2 3 3 1 1\n"
+    },
+    {
+      "id": "fixed-199-2",
+      "title": "统计右方观察到的设备",
+      "statement": "设备沿二叉层级摆放，观察者站在最右边向左看。请列出每一深度能看到的那个设备值，输出顺序从顶部到底部，不能简单只跟随右孩子。",
+      "examples": [
+        [
+          [
+            1,
+            2,
+            -1,
+            null,
+            null,
+            -2,
+            -1,
+            null,
+            null,
+            2,
+            0,
+            null,
+            null,
+            -1
+          ]
+        ],
+        [
+          [
+            -3,
+            null,
+            2,
+            0,
+            3,
+            -3,
+            0,
+            null,
+            2,
+            null,
+            null,
+            null,
+            null,
+            2,
+            null,
+            null,
+            0
+          ]
+        ]
+      ],
+      "expected_output": "1 -1 -1 0 -1\n-3 2 3 2 2 0\n"
+    },
+    {
+      "id": "fixed-199-3",
+      "title": "生成目录图的右侧轮廓",
+      "statement": "给定二叉目录图，想象同一层其他节点都被最右的节点遮住。请输出仍然可见的节点值，从根所在层逐层向下；空树的轮廓为空。",
+      "examples": [
+        [
+          [
+            2,
+            1,
+            3,
+            null,
+            null,
+            null,
+            -3,
+            null,
+            -2,
+            null,
+            1,
+            2,
+            3
+          ]
+        ],
+        [
+          [
+            0,
+            2,
+            -1,
+            -3,
+            null,
+            null,
+            -3,
+            2,
+            null,
+            null,
+            null,
+            1,
+            null,
+            -1,
+            null,
+            null,
+            0
+          ]
+        ]
+      ],
+      "expected_output": "2 3 -3 -2 1 3\n0 -1 -3 2 1 -1 0\n"
+    }
+  ]
+}

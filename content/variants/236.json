@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "number": 236,
+  "conditions": [
+    "p 和 q 是树中已有的两个不同节点，全部节点值互不相同。",
+    "返回同时包含两者的最深祖先节点的值；节点自身也可作为自己的祖先，不能假定树有大小排序关系。"
+  ],
+  "constraints_html": "<ul>\n\t<li>树中节点数目在范围 <code>[2, 10<sup>5</sup>]</code> 内。</li>\n\t<li><code>-10<sup>9</sup> <= Node.val <= 10<sup>9</sup></code></li>\n\t<li>所有 <code>Node.val</code> <code>互不相同</code> 。</li>\n\t<li><code>p != q</code></li>\n\t<li><code>p</code> 和 <code>q</code> 均存在于给定的二叉树中。</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0200-0299/0236.Lowest%20Common%20Ancestor%20of%20a%20Binary%20Tree/README.md",
+  "versions": [
+    {
+      "id": "fixed-236-1",
+      "title": "查找最近共同主管",
+      "statement": "组织层级是一棵二叉树，每个成员的整数标识唯一。给定两名不同成员，请找到同时统辖他们、且层级尽可能低的那位成员；如果一人本就是另一人的上级，他自己也可成为答案。",
+      "examples": [
+        [
+          [
+            59,
+            31
+          ],
+          31,
+          59
+        ],
+        [
+          [
+            98,
+            -11,
+            -36,
+            31,
+            80,
+            null,
+            8,
+            null,
+            null,
+            39
+          ],
+          -36,
+          98
+        ]
+      ],
+      "expected_output": "59\n98\n"
+    },
+    {
+      "id": "fixed-236-2",
+      "title": "定位共同归属目录",
+      "statement": "目录标识 p 和 q 对应树中已有的两个不同节点。请找出它们共同归属的最深目录，目录自身也算属于自己。树中数值只是标识，没有左右大小规则。",
+      "examples": [
+        [
+          [
+            -26,
+            9,
+            -65,
+            null,
+            -57,
+            22,
+            null,
+            null,
+            66,
+            -46,
+            null,
+            null,
+            null,
+            58
+          ],
+          58,
+          -46
+        ],
+        [
+          [
+            45,
+            -83,
+            null,
+            null,
+            -26,
+            null,
+            39
+          ],
+          -26,
+          -83
+        ]
+      ],
+      "expected_output": "-46\n-83\n"
+    },
+    {
+      "id": "fixed-236-3",
+      "title": "寻找最接近的汇合祖先",
+      "statement": "在唯一标识的二叉层级中选择两个节点，沿它们的上级关系寻找共同节点。请返回离这两个节点最近的共同祖先值，而不是固定返回根；其中一个节点本身可能就是答案。",
+      "examples": [
+        [
+          [
+            60,
+            -27,
+            72,
+            13,
+            1,
+            null,
+            -97,
+            null,
+            null,
+            null,
+            null,
+            78,
+            null,
+            -39,
+            -4
+          ],
+          72,
+          13
+        ],
+        [
+          [
+            -51,
+            -69,
+            -86,
+            -65,
+            null,
+            null,
+            null,
+            -90,
+            null,
+            -85
+          ],
+          -51,
+          -69
+        ]
+      ],
+      "expected_output": "60\n-51\n"
+    }
+  ]
+}

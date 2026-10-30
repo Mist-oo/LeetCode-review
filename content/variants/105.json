@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "number": 105,
+  "conditions": [
+    "preorder 是根、左部、右部次序，inorder 是左部、根、右部次序，二者来自同一棵树。",
+    "节点值互不重复，两个序列含相同全部值且保证合法；还原对应的完整二叉树。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= preorder.length &lt;= 3000</code></li>\n\t<li><code>inorder.length == preorder.length</code></li>\n\t<li><code>-3000 &lt;= preorder[i], inorder[i] &lt;= 3000</code></li>\n\t<li><code>preorder</code>&nbsp;和&nbsp;<code>inorder</code>&nbsp;均 <strong>无重复</strong> 元素</li>\n\t<li><code>inorder</code>&nbsp;均出现在&nbsp;<code>preorder</code></li>\n\t<li><code>preorder</code>&nbsp;<strong>保证</strong> 为二叉树的前序遍历序列</li>\n\t<li><code>inorder</code>&nbsp;<strong>保证</strong> 为二叉树的中序遍历序列</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0100-0199/0105.Construct%20Binary%20Tree%20from%20Preorder%20and%20Inorder%20Traversal/README.md",
+  "versions": [
+    {
+      "id": "fixed-105-1",
+      "title": "复原丢失的层级图",
+      "statement": "一张二叉层级图丢失了连接，但留下两份记录：一份先记节点自身再记左右部分，另一份先记左部再记自身和右部。节点值都不同，请据此复原原图。",
+      "examples": [
+        [
+          [
+            13,
+            74
+          ],
+          [
+            74,
+            13
+          ]
+        ],
+        [
+          [
+            -17,
+            -20
+          ],
+          [
+            -17,
+            -20
+          ]
+        ]
+      ],
+      "expected_output": "13 74\n-17 null -20\n"
+    },
+    {
+      "id": "fixed-105-2",
+      "title": "重建双序日志中的流程树",
+      "statement": "同一棵流程树以两种规则记录了节点值。第一种把当前节点放在它全部后代之前，且左部在右部之前；第二种把当前节点放在左部之后、右部之前。请重建树的连接关系。",
+      "examples": [
+        [
+          [
+            7,
+            11,
+            87,
+            -89,
+            36,
+            -100,
+            -6
+          ],
+          [
+            11,
+            7,
+            -89,
+            -100,
+            36,
+            87,
+            -6
+          ]
+        ],
+        [
+          [
+            94,
+            -86,
+            91,
+            -55,
+            -76
+          ],
+          [
+            -55,
+            91,
+            -86,
+            -76,
+            94
+          ]
+        ]
+      ],
+      "expected_output": "7 11 87 null null -89 -6 null 36 null null -100\n94 -86 null 91 -76 -55\n"
+    },
+    {
+      "id": "fixed-105-3",
+      "title": "恢复目录的左右分支",
+      "statement": "目录备份中只有先序和中序两份值列表，没有显式的父子指针。所有目录值唯一，备份保证来自同一个合法二叉树。请恢复这棵目录树并输出完整结构。",
+      "examples": [
+        [
+          [
+            3,
+            77,
+            63,
+            93,
+            -59,
+            -45
+          ],
+          [
+            77,
+            93,
+            63,
+            3,
+            -59,
+            -45
+          ]
+        ],
+        [
+          [
+            81,
+            67
+          ],
+          [
+            67,
+            81
+          ]
+        ]
+      ],
+      "expected_output": "3 77 -59 null 63 null -45 93\n81 67\n"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "number": 98,
+  "conditions": [
+    "每个节点的整个左子树所有值必须严格小于该节点，整个右子树所有值必须严格大于该节点。",
+    "此规则须对所有节点成立，值相等也不符合要求；仅直接父子大小正确不充分。"
+  ],
+  "constraints_html": "<ul>\n\t<li>树中节点数目范围在<code>[1, 10<sup>4</sup>]</code> 内</li>\n\t<li><code>-2<sup>31</sup> &lt;= Node.val &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0098.Validate%20Binary%20Search%20Tree/README.md",
+  "versions": [
+    {
+      "id": "fixed-98-1",
+      "title": "审核分流目录规则",
+      "statement": "一个二叉目录声称按数值分流：节点左部全部比本节点小，右部全部比本节点大。请核验整棵目录是否遵守规则，不仅比较与它直接相连的两个孩子。",
+      "examples": [
+        [
+          [
+            3,
+            -2,
+            3,
+            null,
+            null,
+            null,
+            3,
+            null,
+            3
+          ]
+        ],
+        [
+          [
+            0
+          ]
+        ]
+      ],
+      "expected_output": "false\ntrue\n"
+    },
+    {
+      "id": "fixed-98-2",
+      "title": "验证层级索引的大小关系",
+      "statement": "索引节点保存整数，左右分支承载两个不同值域。要求左侧全部后代严格更小，右侧全部后代严格更大，且每个节点都如此。请返回这个索引结构是否有效，重复值不允许。",
+      "examples": [
+        [
+          [
+            1,
+            null,
+            3,
+            2,
+            -3,
+            null,
+            null,
+            2,
+            -1
+          ]
+        ],
+        [
+          [
+            2,
+            0,
+            0,
+            1,
+            3,
+            -1,
+            null,
+            0,
+            null,
+            3,
+            -2
+          ]
+        ]
+      ],
+      "expected_output": "false\nfalse\n"
+    },
+    {
+      "id": "fixed-98-3",
+      "title": "检查检索树是否合规",
+      "statement": "给定一个二叉层级，判断能否在每个节点都按严格的小于/大于关系选择左侧或右侧。某个后代即使与父节点关系正确，也不能违反更高祖先规定的大小范围。",
+      "examples": [
+        [
+          [
+            3,
+            null,
+            0
+          ]
+        ],
+        [
+          [
+            -2,
+            2,
+            -3,
+            null,
+            null,
+            -1,
+            -3,
+            3,
+            null,
+            -2,
+            -2,
+            null,
+            null,
+            -1
+          ]
+        ]
+      ],
+      "expected_output": "false\nfalse\n"
+    }
+  ]
+}
