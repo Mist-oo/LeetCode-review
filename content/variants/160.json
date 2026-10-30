@@ -1,0 +1,118 @@
+{
+  "schema": 1,
+  "number": 160,
+  "conditions": [
+    "两个无环单链式结构可能共享同一段尾部；相交指同一个节点对象，不是两个节点数值相同。",
+    "返回第一个共享节点在 listA 中的 0 基下标，无交点返回 -1；结构由 skipA/skipB 按 ACM 规范描述。",
+    "原题要求不改变输入结构；ACM 仅核对可观察输出，内部结构处理由使用者自查。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>listA</code> 中节点数目为 <code>m</code></li>\n\t<li><code>listB</code> 中节点数目为 <code>n</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 3 * 10<sup>4</sup></code></li>\n\t<li><code>1 &lt;= Node.val &lt;= 10<sup>5</sup></code></li>\n\t<li><code>0 &lt;= skipA &lt;= m</code></li>\n\t<li><code>0 &lt;= skipB &lt;= n</code></li>\n\t<li>如果 <code>listA</code> 和 <code>listB</code> 没有交点，<code>intersectVal</code> 为 <code>0</code></li>\n\t<li>如果 <code>listA</code> 和 <code>listB</code> 有交点，<code>intersectVal == listA[skipA] == listB[skipB]</code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0100-0199/0160.Intersection%20of%20Two%20Linked%20Lists/README.md",
+  "versions": [
+    {
+      "id": "fixed-160-1",
+      "title": "定位汇合流水线",
+      "statement": "两条单向流水线由一个个节点连接而成，可能在某处接到同一段后续线路。请定位它们首次共用的节点，并报告它在第一条线路中的位置。两个不同节点即使编号数值相同，也不表示线路汇合。",
+      "examples": [
+        [
+          [
+            1
+          ],
+          [
+            5,
+            9
+          ],
+          -1,
+          -1
+        ],
+        [
+          [
+            8,
+            2
+          ],
+          [
+            8,
+            7
+          ],
+          -1,
+          -1
+        ]
+      ],
+      "expected_output": "-1\n-1\n"
+    },
+    {
+      "id": "fixed-160-2",
+      "title": "追踪共享审批尾段",
+      "statement": "两份审批流程各自从入口沿唯一后继前进，流程没有环，但可能合并到共同尾段。请找出第一个真正共享的流程节点；若从未共用节点则报告不存在，不能仅比较节点里的数值。",
+      "examples": [
+        [
+          [
+            1
+          ],
+          [
+            6
+          ],
+          -1,
+          -1
+        ],
+        [
+          [
+            5
+          ],
+          [
+            8,
+            8,
+            3
+          ],
+          -1,
+          -1
+        ]
+      ],
+      "expected_output": "-1\n-1\n"
+    },
+    {
+      "id": "fixed-160-3",
+      "title": "寻找数据链的接合处",
+      "statement": "有两条无环数据链，各节点保存整数并指向下一个节点。有些数据可能实际上引用同一条尾链。请找到最早的共享节点，保持原链关系不变，并按第一条链的下标约定输出。",
+      "examples": [
+        [
+          [
+            7,
+            3,
+            2,
+            3,
+            4,
+            3
+          ],
+          [
+            6,
+            3,
+            4,
+            3
+          ],
+          3,
+          1
+        ],
+        [
+          [
+            9,
+            7,
+            1,
+            8,
+            8
+          ],
+          [
+            6,
+            9,
+            7,
+            9,
+            8
+          ],
+          4,
+          4
+        ]
+      ],
+      "expected_output": "3\n4\n"
+    }
+  ]
+}

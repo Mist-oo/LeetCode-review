@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "number": 19,
+  "conditions": [
+    "删除单链表从尾部数第 n 个节点，n 从 1 开始且保证合法。",
+    "剩余节点保持原相对顺序，返回删除后的链；删除头节点或唯一节点也应正确处理。"
+  ],
+  "constraints_html": "<ul>\n\t<li>链表中结点的数目为 <code>sz</code></li>\n\t<li><code>1 &lt;= sz &lt;= 30</code></li>\n\t<li><code>0 &lt;= Node.val &lt;= 100</code></li>\n\t<li><code>1 &lt;= n &lt;= sz</code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0019.Remove%20Nth%20Node%20From%20End%20of%20List/README.md",
+  "versions": [
+    {
+      "id": "fixed-19-1",
+      "title": "撤销尾部第几项任务",
+      "statement": "任务通过单向链接排队。现在要求撤销从队尾往前数第 n 项任务，队尾本身是第 1 项。请返回撤销后的任务链，其他任务的相对顺序不得改变。",
+      "examples": [
+        [
+          [
+            2,
+            6,
+            3,
+            3
+          ],
+          4
+        ],
+        [
+          [
+            0,
+            0,
+            4,
+            8,
+            5,
+            8
+          ],
+          2
+        ]
+      ],
+      "expected_output": "6 3 3\n0 0 4 8 8\n"
+    },
+    {
+      "id": "fixed-19-2",
+      "title": "清除指定倒序记录",
+      "statement": "档案链只提供头节点，但要删除的目标用距尾部的次序描述。给定合法 n，删除倒数第 n 条记录并输出剩余记录值；目标可能正好是链头。",
+      "examples": [
+        [
+          [
+            2,
+            9
+          ],
+          1
+        ],
+        [
+          [
+            3,
+            0,
+            4,
+            8,
+            6
+          ],
+          3
+        ]
+      ],
+      "expected_output": "2\n3 0 8 6\n"
+    },
+    {
+      "id": "fixed-19-3",
+      "title": "调整末端计数名单",
+      "statement": "名单按单链表保存，操作员从最后一项开始编号为 1、2 等。请移除编号为 n 的节点，返回调整后的名单；若原来只有一个节点，结果可为空。",
+      "examples": [
+        [
+          [
+            9
+          ],
+          1
+        ],
+        [
+          [
+            0,
+            5,
+            6,
+            6
+          ],
+          2
+        ]
+      ],
+      "expected_output": "\n0 5 6\n"
+    }
+  ]
+}

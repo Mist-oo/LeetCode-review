@@ -1,0 +1,139 @@
+{
+  "schema": 1,
+  "number": 240,
+  "conditions": [
+    "矩阵每行从左到右非递减，每列从上到下非递减；不要求一行末项小于下一行首项。",
+    "判断 target 是否在矩阵中出现，返回布尔值；重复元素允许，矩阵可为长方形。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>m == matrix.length</code></li>\n\t<li><code>n == matrix[i].length</code></li>\n\t<li><code>1 &lt;= n, m &lt;= 300</code></li>\n\t<li><code>-10<sup>9</sup>&nbsp;&lt;= matrix[i][j] &lt;= 10<sup>9</sup></code></li>\n\t<li>每行的所有元素从左到右升序排列</li>\n\t<li>每列的所有元素从上到下升序排列</li>\n\t<li><code>-10<sup>9</sup>&nbsp;&lt;= target &lt;= 10<sup>9</sup></code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0200-0299/0240.Search%20a%202D%20Matrix%20II/README.md",
+  "versions": [
+    {
+      "id": "fixed-240-1",
+      "title": "查验分级数据",
+      "statement": "一张数值表同时按两个维度分级：每行向右不减，每列向下也不减。给定一个待查值，请判断表中是否有这个值；不能假定整张表按逐行展开后仍然有序。",
+      "examples": [
+        [
+          [
+            [
+              -10,
+              -7,
+              -4,
+              -1
+            ],
+            [
+              -8,
+              -5,
+              -2,
+              1
+            ],
+            [
+              -6,
+              -3,
+              0,
+              3
+            ],
+            [
+              -4,
+              -1,
+              2,
+              5
+            ]
+          ],
+          5
+        ],
+        [
+          [
+            [
+              -10,
+              -7
+            ],
+            [
+              -8,
+              -5
+            ],
+            [
+              -6,
+              -3
+            ],
+            [
+              -4,
+              -1
+            ]
+          ],
+          -7
+        ]
+      ],
+      "expected_output": "true\ntrue\n"
+    },
+    {
+      "id": "fixed-240-2",
+      "title": "检查仓位指标",
+      "statement": "仓库用矩形网格记录指标，每条横向通道和每条纵向通道上的指标都从小到大排列。现在只需要确认某个目标指标是否存在于任意仓位，输出是否存在。",
+      "examples": [
+        [
+          [
+            [
+              -10
+            ],
+            [
+              -8
+            ],
+            [
+              -6
+            ]
+          ],
+          -23
+        ],
+        [
+          [
+            [
+              -10,
+              -7
+            ],
+            [
+              -8,
+              -5
+            ]
+          ],
+          -10
+        ]
+      ],
+      "expected_output": "false\ntrue\n"
+    },
+    {
+      "id": "fixed-240-3",
+      "title": "查询双向有序面板",
+      "statement": "控制面板的每行与每列分别保持非递减顺序，但相邻两行之间没有整体大小关系。请高效判断目标数值是否出现在面板上，不需要输出坐标。",
+      "examples": [
+        [
+          [
+            [
+              -10,
+              -7
+            ]
+          ],
+          16
+        ],
+        [
+          [
+            [
+              -10,
+              -7,
+              -4,
+              -1
+            ],
+            [
+              -8,
+              -5,
+              -2,
+              1
+            ]
+          ],
+          -8
+        ]
+      ],
+      "expected_output": "false\ntrue\n"
+    }
+  ]
+}

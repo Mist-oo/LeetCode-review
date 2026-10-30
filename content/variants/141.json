@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "number": 141,
+  "conditions": [
+    "若沿 next 关系可以再次到达同一个节点，则结构中存在环；仅数值重复不代表有环。",
+    "输入的 pos 只描述末节点的链接关系，-1 表示无回连；按链表结构判定并输出布尔值，内部构造/访问由使用者自查。"
+  ],
+  "constraints_html": "<ul>\n\t<li>链表中节点的数目范围是 <code>[0, 10<sup>4</sup>]</code></li>\n\t<li><code>-10<sup>5</sup> &lt;= Node.val &lt;= 10<sup>5</sup></code></li>\n\t<li><code>pos</code> 为 <code>-1</code> 或者链表中的一个 <strong>有效索引</strong> 。</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0100-0199/0141.Linked%20List%20Cycle/README.md",
+  "versions": [
+    {
+      "id": "fixed-141-1",
+      "title": "检测循环交接",
+      "statement": "若干节点通过单向链接依次交接任务，末节点可能重新指向前面的某个节点。请判断从入口出发是否会重新进入已经访问过的同一节点。节点里的重复数值不应被误认为回路。",
+      "examples": [
+        [
+          [
+            7,
+            8,
+            3,
+            1,
+            1
+          ],
+          -1
+        ],
+        [
+          [
+            0,
+            0,
+            4,
+            9,
+            2,
+            0,
+            9,
+            1
+          ],
+          -1
+        ]
+      ],
+      "expected_output": "false\nfalse\n"
+    },
+    {
+      "id": "fixed-141-2",
+      "title": "检查流程是否回到旧节点",
+      "statement": "一条流程从头节点开始，每个节点至多指向一个后继。系统需要确认这个流程会结束，还是会回到先前的某个节点并持续循环。请返回是否存在循环。",
+      "examples": [
+        [
+          [
+            1,
+            1,
+            7
+          ],
+          2
+        ],
+        [
+          [
+            2,
+            7,
+            4,
+            7
+          ],
+          1
+        ]
+      ],
+      "expected_output": "true\ntrue\n"
+    },
+    {
+      "id": "fixed-141-3",
+      "title": "诊断单向引用回路",
+      "statement": "数据记录通过 next 引用连接，尾部可能没有后继，也可能回连到已有记录。请从链头判断是否存在可重复到达同一节点的回路，数值相等但对象不同的记录仍视为不同节点。",
+      "examples": [
+        [
+          [
+            6,
+            9,
+            4,
+            0,
+            7,
+            0
+          ],
+          5
+        ],
+        [
+          [
+            9,
+            0,
+            5
+          ],
+          2
+        ]
+      ],
+      "expected_output": "true\ntrue\n"
+    }
+  ]
+}
