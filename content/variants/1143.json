@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "number": 1143,
+  "conditions": [
+    "允许分别从两个字符串删除字符，但保留各自剩余字符的相对顺序。",
+    "求能同时从二者得到的最长相同字符序列长度，不要求原位置连续；无公共字符时为 0。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 <= text1.length, text2.length <= 1000</code></li>\n\t<li><code>text1</code> 和 <code>text2</code> 仅由小写英文字符组成。</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/1100-1199/1143.Longest%20Common%20Subsequence/README.md",
+  "versions": [
+    {
+      "id": "fixed-1143-1",
+      "title": "比较两份日志的保序公共记录",
+      "statement": "两份字符日志可以各自舍弃一些记录，但不能打乱剩余顺序。请找出两边都能保留下来的最长相同字符序列长度，不要求字符在原日志中连续。",
+      "examples": [
+        [
+          "accbb",
+          "cb"
+        ],
+        [
+          "abbc",
+          "aaa"
+        ]
+      ],
+      "expected_output": "2\n1\n"
+    },
+    {
+      "id": "fixed-1143-2",
+      "title": "提取双版本文本的共同骨架",
+      "statement": "两条文本可能多出或缺少字符。你可以在各自内部删除字符，使剩余序列一致，且顺序仍与各自原文相同。请返回可保留的最大长度，没有共同内容时为零。",
+      "examples": [
+        [
+          "cbbbbbaa",
+          "b"
+        ],
+        [
+          "aaaca",
+          "c"
+        ]
+      ],
+      "expected_output": "1\n1\n"
+    },
+    {
+      "id": "fixed-1143-3",
+      "title": "统计两条编码的最长一致次序",
+      "statement": "给定两个字符串，请选出一个在双方都能按原先后次序找到的字符序列，允许跳过中间字符。求这种序列的最大长度，不是最长的连续相同片段。",
+      "examples": [
+        [
+          "ba",
+          "bbaac"
+        ],
+        [
+          "babcacbb",
+          "baccb"
+        ]
+      ],
+      "expected_output": "2\n5\n"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "number": 72,
+  "conditions": [
+    "把 word1 变为 word2，每次只能插入一个字符、删除一个字符或替换一个字符，每次成本为 1。",
+    "返回最少操作数；允许空字符串，交换两个字符不算单次允许操作。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>0 &lt;= word1.length, word2.length &lt;= 500</code></li>\n\t<li><code>word1</code> 和 <code>word2</code> 由小写英文字母组成</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0072.Edit%20Distance/README.md",
+  "versions": [
+    {
+      "id": "fixed-72-1",
+      "title": "计算标签修订的最少动作",
+      "statement": "旧标签要修改成新标签，每个动作只能插入、删除或替换一个字符。请计算最少需要多少个动作，每种动作代价相同；空标签也允许。",
+      "examples": [
+        [
+          "",
+          "bc"
+        ],
+        [
+          "bcabc",
+          "baa"
+        ]
+      ],
+      "expected_output": "2\n3\n"
+    },
+    {
+      "id": "fixed-72-2",
+      "title": "评估文本迁移成本",
+      "statement": "有源字符串和目标字符串，迁移只允许三类单位操作：增一字符、删一字符、改一字符。请返回完成转换的最小总操作数，不能把交换位置当成一次操作。",
+      "examples": [
+        [
+          "bbcabcc",
+          ""
+        ],
+        [
+          "caaaab",
+          "cab"
+        ]
+      ],
+      "expected_output": "7\n3\n"
+    },
+    {
+      "id": "fixed-72-3",
+      "title": "寻找编码更正的最短步骤",
+      "statement": "要把一条小写编码准确变成另一条，可逐字符进行插入、删除或替换。每步计一次，请求最少步数，不要求输出具体修改方案。",
+      "examples": [
+        [
+          "acbbccaca",
+          "caaba"
+        ],
+        [
+          "abccb",
+          "cbba"
+        ]
+      ],
+      "expected_output": "6\n4\n"
+    }
+  ]
+}

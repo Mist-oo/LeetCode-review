@@ -1,0 +1,116 @@
+{
+  "schema": 1,
+  "number": 64,
+  "conditions": [
+    "网格为非负整数，从左上角到右下角，每次只向右或向下移动一格。",
+    "最小化所经所有格子的值之和，起点和终点都计入；返回最小和，不是路径条数。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>m == grid.length</code></li>\n\t<li><code>n == grid[i].length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 200</code></li>\n\t<li><code>0 &lt;= grid[i][j] &lt;= 200</code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0064.Minimum%20Path%20Sum/README.md",
+  "versions": [
+    {
+      "id": "fixed-64-1",
+      "title": "寻找最低成本的网格通道",
+      "statement": "矩形地图每格标有非负通行成本，必须从左上到右下，每次只能右移或下移一格。请返回最低总成本，起点和终点的成本都需要计算。",
+      "examples": [
+        [
+          [
+            [
+              4,
+              0
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              1,
+              5
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ]
+      ],
+      "expected_output": "4\n1\n"
+    },
+    {
+      "id": "fixed-64-2",
+      "title": "优化逐格搬运的累计开销",
+      "statement": "搬运路线穿过整数费用网格，只允许向右或向下进入相邻位置。你要在所有从左上到右下的路线中选择费用和最小的一条，并输出累计费用。",
+      "examples": [
+        [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              2
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              2,
+              3
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              4,
+              5
+            ]
+          ]
+        ]
+      ],
+      "expected_output": "7\n9\n"
+    },
+    {
+      "id": "fixed-64-3",
+      "title": "计算顺向穿越的最小评分",
+      "statement": "每个网格位置有一个非负分值，完整路线从左上角走到右下角，仅能向右或向下。请使沿途经过格子的总分最小，不得略过首尾格的分值。",
+      "examples": [
+        [
+          [
+            [
+              0,
+              4,
+              0,
+              1
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              0
+            ],
+            [
+              0
+            ]
+          ]
+        ]
+      ],
+      "expected_output": "5\n0\n"
+    }
+  ]
+}

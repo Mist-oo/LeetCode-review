@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "number": 62,
+  "conditions": [
+    "在 m×n 网格中从左上角到右下角，每次只能向右或向下一格，不能越界。",
+    "统计所有不同移动路径，没有障碍格；1×1 时有一条无需移动的路径，结果遵守原数值范围保证。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= m, n &lt;= 100</code></li>\n\t<li>题目数据保证答案小于等于 <code>2 * 10<sup>9</sup></code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0062.Unique%20Paths/README.md",
+  "versions": [
+    {
+      "id": "fixed-62-1",
+      "title": "统计单向穿行的网格路线",
+      "statement": "一个矩形场地分成 m 行 n 列，你从左上角出发，只能向右或向下进入相邻格，目标是右下角。请统计所有不同的到达路线，场地没有额外障碍。",
+      "examples": [
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          6
+        ]
+      ],
+      "expected_output": "126\n252\n"
+    },
+    {
+      "id": "fixed-62-2",
+      "title": "规划只右移和下移的巡检",
+      "statement": "巡检起点在网格左上，终点在右下，每步只能右移一格或下移一格。请计算可以采用多少种移动序列，不需要选最快一条，也不能走出网格。",
+      "examples": [
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          8
+        ]
+      ],
+      "expected_output": "35\n330\n"
+    },
+    {
+      "id": "fixed-62-3",
+      "title": "计算矩形通道的路径数",
+      "statement": "一张无障碍网格只开放向右、向下两个方向的相邻通道。请从左上入口到右下出口统计所有路径；若入口与出口是同一格，不移动也算一条路径。",
+      "examples": [
+        [
+          4,
+          2
+        ],
+        [
+          2,
+          7
+        ]
+      ],
+      "expected_output": "4\n7\n"
+    }
+  ]
+}

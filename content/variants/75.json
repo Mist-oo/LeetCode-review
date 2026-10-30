@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "number": 75,
+  "conditions": [
+    "序列元素只可能为 0、1、2，将其按 0 在前、1 居中、2 在后的顺序原地整理。",
+    "保留各值出现次数，不能使用库内置 sort 函数；ACM 核对输出，内部原地/禁用库要求由使用者自查。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>n == nums.length</code></li>\n\t<li><code>1 &lt;= n &lt;= 300</code></li>\n\t<li><code>nums[i]</code> 为 0、1 或 2</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0075.Sort%20Colors/README.md",
+  "versions": [
+    {
+      "id": "fixed-75-1",
+      "title": "整理三级物料标记",
+      "statement": "物料只分为三类，用 0、1、2 表示。请在原清单中把同类放到一起，并依次排成 0 类、1 类、2 类，不能丢失任何记录，也不能调用内置排序函数。",
+      "examples": [
+        [
+          [
+            2,
+            1,
+            0,
+            2,
+            2,
+            2,
+            0
+          ]
+        ],
+        [
+          [
+            0
+          ]
+        ]
+      ],
+      "expected_output": "0 0 1 2 2 2 2\n0\n"
+    },
+    {
+      "id": "fixed-75-2",
+      "title": "重排三色设备状态",
+      "statement": "一排设备的状态编码只有 0、1、2，需要按这三个值的固定顺序整理。请保留每种状态的数量并原地输出结果，使用者须遵守不调用库内置 sort 的要求。",
+      "examples": [
+        [
+          [
+            2,
+            2,
+            0,
+            2,
+            1,
+            1,
+            2
+          ]
+        ],
+        [
+          [
+            0
+          ]
+        ]
+      ],
+      "expected_output": "0 1 1 2 2 2 2\n0\n"
+    },
+    {
+      "id": "fixed-75-3",
+      "title": "按固定优先级归拢三类记录",
+      "statement": "三类记录以整数 0、1、2 存在同一数组。请把所有 0 放在前面，随后是全部 1，最后是全部 2，仍使用原数组完成调整。",
+      "examples": [
+        [
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        [
+          [
+            2,
+            0,
+            1,
+            0,
+            0,
+            2
+          ]
+        ]
+      ],
+      "expected_output": "0 0 1\n0 0 0 1 2 2\n"
+    }
+  ]
+}

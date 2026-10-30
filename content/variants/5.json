@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "number": 5,
+  "conditions": [
+    "从字符串中选择一个连续子串，正向与反向的字符序列必须相同。",
+    "返回长度最大的子串本身，不是长度；相同长度的不同合法答案均接受，大小写有区别。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= s.length &lt;= 1000</code></li>\n\t<li><code>s</code> 仅由数字和英文字母组成</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0005.Longest%20Palindromic%20Substring/README.md",
+  "versions": [
+    {
+      "id": "fixed-5-1",
+      "title": "提取最长镜像标签",
+      "statement": "一条字母数字标签中，有些连续片段倒过来读与原样完全相同。请返回其中最长的一段，不能删除中间字符后再拼接；有多个同长结果时返回任意一个。",
+      "examples": [
+        [
+          "a"
+        ],
+        [
+          "bcccaa"
+        ]
+      ],
+      "expected_output": "a\nccc\n"
+    },
+    {
+      "id": "fixed-5-2",
+      "title": "截取可双向读取的最长文本",
+      "statement": "给定大小写敏感的字符串，请找到最长的连续对称片段，要求两端向内对应字符一致。输出片段内容，而不是它的长度或位置。",
+      "examples": [
+        [
+          "a"
+        ],
+        [
+          "a"
+        ]
+      ],
+      "expected_output": "a\na\n"
+    },
+    {
+      "id": "fixed-5-3",
+      "title": "寻找编码内最长的对称段",
+      "statement": "编码由字母和数字组成，你要圈出一段连续字符，使顺读和逆读相同。请最大化字符数并返回实际片段，单个字符也符合条件。",
+      "examples": [
+        [
+          "cbbcac"
+        ],
+        [
+          "bababaac"
+        ]
+      ],
+      "expected_output": "cbbc\nbabab\n"
+    }
+  ]
+}

@@ -1,13 +1,14 @@
 {
-  "available_problems": 90,
+  "available_problems": 100,
   "expected_problems": 100,
-  "versions": 270,
-  "examples": 540,
+  "versions": 300,
+  "examples": 600,
   "numbers": [
     1,
     2,
     3,
     4,
+    5,
     11,
     15,
     17,
@@ -18,6 +19,7 @@
     23,
     24,
     25,
+    31,
     32,
     33,
     34,
@@ -34,9 +36,13 @@
     54,
     55,
     56,
+    62,
+    64,
     70,
+    72,
     73,
     74,
+    75,
     76,
     78,
     79,
@@ -54,6 +60,7 @@
     124,
     128,
     131,
+    136,
     138,
     139,
     141,
@@ -64,6 +71,7 @@
     153,
     155,
     160,
+    169,
     189,
     198,
     199,
@@ -81,6 +89,7 @@
     240,
     279,
     283,
+    287,
     295,
     300,
     322,
@@ -93,21 +102,11 @@
     560,
     739,
     763,
-    994
-  ],
-  "missing": [
-    5,
-    31,
-    62,
-    64,
-    72,
-    75,
-    136,
-    169,
-    287,
+    994,
     1143
   ],
-  "all_complete": false,
+  "missing": [],
+  "all_complete": true,
   "entries": [
     {
       "number": 1,
@@ -133,6 +132,13 @@
     {
       "number": 4,
       "version": "fixed-v1:c5e01527e46db82e",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
+      "number": 5,
+      "version": "fixed-v1:f5cead2600e762f2",
       "versions": 3,
       "examples": 6,
       "independent_checked": true
@@ -203,6 +209,13 @@
     {
       "number": 25,
       "version": "fixed-v1:1d5964d309932446",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
+      "number": 31,
+      "version": "fixed-v1:94da2bfae4fcae0d",
       "versions": 3,
       "examples": 6,
       "independent_checked": true
@@ -320,8 +333,29 @@
       "independent_checked": true
     },
     {
+      "number": 62,
+      "version": "fixed-v1:c9851d04a1fba7dc",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
+      "number": 64,
+      "version": "fixed-v1:b272733486b30075",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
       "number": 70,
       "version": "fixed-v1:e4d847aad0b9c644",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
+      "number": 72,
+      "version": "fixed-v1:32b702370d4f70ee",
       "versions": 3,
       "examples": 6,
       "independent_checked": true
@@ -336,6 +370,13 @@
     {
       "number": 74,
       "version": "fixed-v1:5eea769cd11b5aaa",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
+      "number": 75,
+      "version": "fixed-v1:9056ed5637bda342",
       "versions": 3,
       "examples": 6,
       "independent_checked": true
@@ -460,6 +501,13 @@
       "independent_checked": true
     },
     {
+      "number": 136,
+      "version": "fixed-v1:604811400b4ca610",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
       "number": 138,
       "version": "fixed-v1:cef5850d19a30fa6",
       "versions": 3,
@@ -525,6 +573,13 @@
     {
       "number": 160,
       "version": "fixed-v1:5c2449b7e5719d5a",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
+      "number": 169,
+      "version": "fixed-v1:1ffd6159811506a1",
       "versions": 3,
       "examples": 6,
       "independent_checked": true
@@ -649,6 +704,13 @@
       "independent_checked": true
     },
     {
+      "number": 287,
+      "version": "fixed-v1:0d762dbb6bbd7774",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
       "number": 295,
       "version": "fixed-v1:e76cf6ee7addcab0",
       "versions": 3,
@@ -735,6 +797,13 @@
     {
       "number": 994,
       "version": "fixed-v1:2141c5ab9ec74303",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
+      "number": 1143,
+      "version": "fixed-v1:012db562eb368363",
       "versions": 3,
       "examples": 6,
       "independent_checked": true
