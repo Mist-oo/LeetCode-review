@@ -1,0 +1,229 @@
+{
+  "schema": 1,
+  "number": 208,
+  "conditions": [
+    "维护初始为空的小写英文词条集合，insert 登记词条，search 仅在完整词条已登记时返回 true。",
+    "startsWith 查询是否至少有一个已登记词条以给定前缀开头；不能把前缀存在当成完整词条存在。",
+    "重复插入不产生额外查询结果，按操作顺序执行；每组重新初始化，只输出查询结果。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= word.length, prefix.length &lt;= 2000</code></li>\n\t<li><code>word</code> 和 <code>prefix</code> 仅由小写英文字母组成</li>\n\t<li><code>insert</code>、<code>search</code> 和 <code>startsWith</code> 调用次数 <strong>总计</strong> 不超过 <code>3 * 10<sup>4</sup></code> 次</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0200-0299/0208.Implement%20Trie%20%28Prefix%20Tree%29/README.md",
+  "versions": [
+    {
+      "id": "fixed-208-1",
+      "title": "登记词条并查询前部匹配",
+      "statement": "系统需要维护一批小写字母词条。你要支持登记完整词条、查询完整词条是否登记，以及查询是否有已登记词条以某段字符开头。完整匹配与开头匹配必须区分，请依次执行操作。",
+      "examples": [
+        [
+          [
+            [
+              "insert",
+              "ccccc"
+            ],
+            [
+              "startsWith",
+              "bbac"
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              "search",
+              "aac"
+            ],
+            [
+              "insert",
+              "cc"
+            ],
+            [
+              "startsWith",
+              "a"
+            ],
+            [
+              "insert",
+              "bcc"
+            ],
+            [
+              "search",
+              "a"
+            ],
+            [
+              "startsWith",
+              "bc"
+            ],
+            [
+              "search",
+              "ccc"
+            ],
+            [
+              "insert",
+              "bc"
+            ],
+            [
+              "startsWith",
+              "aa"
+            ],
+            [
+              "search",
+              "cb"
+            ],
+            [
+              "search",
+              "cbcac"
+            ]
+          ]
+        ]
+      ],
+      "expected_output": "false\nfalse false false true false false false false\n"
+    },
+    {
+      "id": "fixed-208-2",
+      "title": "建设名称检索服务",
+      "statement": "名称库最初为空，insert 加入名称，search 检查整个名称是否存在，startsWith 检查给定开头是否被任意名称使用。重复加入同名内容不影响存在性，请输出所有查询答案。",
+      "examples": [
+        [
+          [
+            [
+              "search",
+              "a"
+            ],
+            [
+              "insert",
+              "cbcaa"
+            ],
+            [
+              "startsWith",
+              "cacc"
+            ],
+            [
+              "search",
+              "bbbb"
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              "search",
+              "cca"
+            ],
+            [
+              "insert",
+              "aaacc"
+            ],
+            [
+              "search",
+              "cb"
+            ],
+            [
+              "startsWith",
+              "accc"
+            ]
+          ]
+        ]
+      ],
+      "expected_output": "false false false\nfalse false false\n"
+    },
+    {
+      "id": "fixed-208-3",
+      "title": "管理可扩展的编码目录",
+      "statement": "目录存储小写字母编码，运行中可不断登记新编码。用户既能询问完整编码，也能询问是否存在以指定字符段开头的编码。请实现这三种操作，不能把半个编码误判为完整登记项。",
+      "examples": [
+        [
+          [
+            [
+              "startsWith",
+              "cbca"
+            ],
+            [
+              "search",
+              "cccac"
+            ],
+            [
+              "search",
+              "acbb"
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              "search",
+              "caca"
+            ],
+            [
+              "insert",
+              "a"
+            ],
+            [
+              "search",
+              "cbaab"
+            ],
+            [
+              "insert",
+              "baa"
+            ],
+            [
+              "insert",
+              "a"
+            ],
+            [
+              "insert",
+              "ab"
+            ],
+            [
+              "insert",
+              "bbc"
+            ],
+            [
+              "insert",
+              "abcbb"
+            ],
+            [
+              "insert",
+              "acaa"
+            ],
+            [
+              "startsWith",
+              "caaa"
+            ],
+            [
+              "search",
+              "aa"
+            ],
+            [
+              "startsWith",
+              "cac"
+            ],
+            [
+              "search",
+              "c"
+            ],
+            [
+              "search",
+              "ac"
+            ],
+            [
+              "search",
+              "ccb"
+            ],
+            [
+              "insert",
+              "bbcbb"
+            ],
+            [
+              "insert",
+              "ccac"
+            ],
+            [
+              "search",
+              "aa"
+            ]
+          ]
+        ]
+      ],
+      "expected_output": "false false false\nfalse false false false false false false false false\n"
+    }
+  ]
+}

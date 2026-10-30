@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "number": 17,
+  "conditions": [
+    "输入只含 2～9，每个数字按给定映射选择一个字母，选择的字母按数字原顺序连接。",
+    "映射：2=abc，3=def，4=ghi，5=jkl，6=mno，7=pqrs，8=tuv，9=wxyz。",
+    "列出所有不同字母串，顺序不限，不要求构成真实单词。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= digits.length &lt;= 4</code></li>\n\t<li><code>digits[i]</code> 是范围 <code>['2', '9']</code> 的一个数字。</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0017.Letter%20Combinations%20of%20a%20Phone%20Number/README.md",
+  "versions": [
+    {
+      "id": "fixed-17-1",
+      "title": "展开按键编码候选",
+      "statement": "一串数字编码中的每一位代表一组候选字母，采用常见电话按键映射。请从每一位对应字母组中各取一个，按原数字顺序组成完整字符串，列出所有候选，不要求是词典单词。",
+      "examples": [
+        [
+          "94"
+        ],
+        [
+          "8"
+        ]
+      ],
+      "expected_output": "12\nwg\nwh\nwi\nxg\nxh\nxi\nyg\nyh\nyi\nzg\nzh\nzi\n3\nt\nu\nv\n"
+    },
+    {
+      "id": "fixed-17-2",
+      "title": "恢复多选字符口令",
+      "statement": "口令被记录为仅含 2～9 的数字，每个数字可恢复为其按键上的任意一个字母。请生成所有可能的原字符口令，字符位置不能互换，每一位都要选恰好一个字母。",
+      "examples": [
+        [
+          "4"
+        ],
+        [
+          "5"
+        ]
+      ],
+      "expected_output": "3\ng\nh\ni\n3\nj\nk\nl\n"
+    },
+    {
+      "id": "fixed-17-3",
+      "title": "生成数字标签的文字形式",
+      "statement": "一张标签只有数字 2～9，每位可按规定字符组翻译成一个小写字母。请输出所有完整翻译结果，7 和 9 对应四个候选，其余对应三个，顺序由原标签决定。",
+      "examples": [
+        [
+          "2"
+        ],
+        [
+          "326"
+        ]
+      ],
+      "expected_output": "3\na\nb\nc\n27\ndam\ndan\ndao\ndbm\ndbn\ndbo\ndcm\ndcn\ndco\neam\nean\neao\nebm\nebn\nebo\necm\necn\neco\nfam\nfan\nfao\nfbm\nfbn\nfbo\nfcm\nfcn\nfco\n"
+    }
+  ]
+}

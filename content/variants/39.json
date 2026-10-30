@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "number": 39,
+  "conditions": [
+    "候选正整数互不重复，每种值可无限次使用，所选值的和必须恰好等于 target。",
+    "列出全部不同的计数方案，数量不同算不同方案，仅顺序不同不算；原题保证方案数少于 150。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= candidates.length &lt;= 30</code></li>\n\t<li><code>2 &lt;= candidates[i] &lt;= 40</code></li>\n\t<li><code>candidates</code> 的所有元素 <strong>互不相同</strong></li>\n\t<li><code>1 &lt;= target &lt;= 40</code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0039.Combination%20Sum/README.md",
+  "versions": [
+    {
+      "id": "fixed-39-1",
+      "title": "组合指定规格的总量",
+      "statement": "仓库提供若干不同的正整数规格，每种库存都可视为无限。请找出所有能恰好凑成目标总量的规格组合。使用同一规格多次是允许的，只改变取用顺序不算新方案。",
+      "examples": [
+        [
+          [
+            6
+          ],
+          13
+        ],
+        [
+          [
+            11
+          ],
+          20
+        ]
+      ],
+      "expected_output": "0\n0\n"
+    },
+    {
+      "id": "fixed-39-2",
+      "title": "列出重复模块搭配",
+      "statement": "一套装配可反复使用候选列表中的模块，每种模块有一个不同的正整数贡献。请列出贡献和正好等于 target 的全部搭配，以每种模块的使用次数区分方案。",
+      "examples": [
+        [
+          [
+            11
+          ],
+          5
+        ],
+        [
+          [
+            3,
+            4,
+            9,
+            5,
+            11,
+            7
+          ],
+          14
+        ]
+      ],
+      "expected_output": "0\n7\n3 3 3 5\n3 3 4 4\n3 4 7\n3 11\n4 5 5\n5 9\n7 7\n"
+    },
+    {
+      "id": "fixed-39-3",
+      "title": "生成精确配额方案",
+      "statement": "给定互不相同的可选单位值，你可以任意重复选取它们，直到总和恰好达到配额。请输出全部不同组合，不能超额，也不能把同样数量的单位因排序不同重复报告。",
+      "examples": [
+        [
+          [
+            5,
+            11
+          ],
+          16
+        ],
+        [
+          [
+            8,
+            11,
+            9,
+            10,
+            7,
+            6
+          ],
+          2
+        ]
+      ],
+      "expected_output": "1\n5 11\n0\n"
+    }
+  ]
+}

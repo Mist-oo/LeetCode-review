@@ -1,0 +1,153 @@
+{
+  "schema": 1,
+  "number": 207,
+  "conditions": [
+    "任务编号为 0 到 numCourses-1，关系 [a,b] 表示必须先完成 b 才能完成 a。",
+    "判断能否安排顺序完成全部任务，不仅是某个入口可达部分；关系有方向，返回布尔值。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= numCourses &lt;= 2000</code></li>\n\t<li><code>0 &lt;= prerequisites.length &lt;= 5000</code></li>\n\t<li><code>prerequisites[i].length == 2</code></li>\n\t<li><code>0 &lt;= a<sub>i</sub>, b<sub>i</sub> &lt; numCourses</code></li>\n\t<li><code>prerequisites[i]</code> 中的所有课程对 <strong>互不相同</strong></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0200-0299/0207.Course%20Schedule/README.md",
+  "versions": [
+    {
+      "id": "fixed-207-1",
+      "title": "判断任务能否全部排期",
+      "statement": "一组任务存在前置依赖，关系 [a,b] 表示 b 完成后才能进行 a。你可以自由安排没有依赖冲突的任务顺序。请判断是否存在一个安排，能完成所有编号任务，而不是只完成其中一部分。",
+      "examples": [
+        [
+          7,
+          [
+            [
+              0,
+              5
+            ],
+            [
+              5,
+              4
+            ]
+          ]
+        ],
+        [
+          4,
+          [
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              0
+            ]
+          ]
+        ]
+      ],
+      "expected_output": "true\nfalse\n"
+    },
+    {
+      "id": "fixed-207-2",
+      "title": "审核流水工序依赖",
+      "statement": "工序编号从 0 开始，每条限制指定某工序必须在另一工序之后进行。请判断这些限制能否同时满足，从而让所有工序最终完成；给出的关系不能当成无方向的连接。",
+      "examples": [
+        [
+          1,
+          []
+        ],
+        [
+          1,
+          [
+            [
+              0,
+              0
+            ]
+          ]
+        ]
+      ],
+      "expected_output": "true\nfalse\n"
+    },
+    {
+      "id": "fixed-207-3",
+      "title": "检查项目的先后约束",
+      "statement": "项目由 numCourses 个任务组成，prerequisites 中每对数描述后项必须先于前项。请判断是否有合法的整体执行顺序。即使某个互相依赖的小组与其他任务不连通，也不能忽略它。",
+      "examples": [
+        [
+          2,
+          [
+            [
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ]
+        ],
+        [
+          4,
+          [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              2
+            ],
+            [
+              2,
+              0
+            ]
+          ]
+        ]
+      ],
+      "expected_output": "false\nfalse\n"
+    }
+  ]
+}
