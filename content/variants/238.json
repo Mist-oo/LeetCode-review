@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "number": 238,
+  "conditions": [
+    "输出等长数组，第 i 项是除位置 i 以外所有元素的乘积，位置不同即分别处理。",
+    "输入可包含零和负数，原题保证相关前缀与后缀乘积在 32 位整数范围内。",
+    "原题要求 O(n) 时间且不使用除法；ACM 判题核对输出，内部实现限制由使用者自查。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>2 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-30 &lt;= nums[i] &lt;= 30</code></li>\n\t<li>输入&nbsp;<strong>保证</strong> 数组&nbsp;<code>answer[i]</code>&nbsp;在&nbsp; <strong>32 位</strong> 整数范围内</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0200-0299/0238.Product%20of%20Array%20Except%20Self/README.md",
+  "versions": [
+    {
+      "id": "fixed-238-1",
+      "title": "评估单项缺席后的倍率",
+      "statement": "一组整数倍率共同参与组合计算。为了评估某一项缺席的影响，需要对每个位置分别计算其余所有倍率的乘积。请输出这些结果，零倍率和负倍率也按普通整数乘法处理。",
+      "examples": [
+        [
+          [
+            -2,
+            3,
+            -4,
+            -5,
+            3,
+            2,
+            0,
+            1
+          ]
+        ],
+        [
+          [
+            4,
+            0
+          ]
+        ]
+      ],
+      "expected_output": "0 0 0 0 0 0 -720 0\n0 4\n"
+    },
+    {
+      "id": "fixed-238-2",
+      "title": "生成逐位排除报告",
+      "statement": "生产线记录了若干整数参数。报告的第 i 项要求暂时排除第 i 个参数，再把所有剩余参数相乘。请生成整份报告，不能把相同数值的其他位置一并排除。",
+      "examples": [
+        [
+          [
+            4,
+            2,
+            -2,
+            -3
+          ]
+        ],
+        [
+          [
+            3,
+            0,
+            -4,
+            0,
+            2,
+            -4
+          ]
+        ]
+      ],
+      "expected_output": "12 24 -24 -16\n0 0 0 0 0 0\n"
+    },
+    {
+      "id": "fixed-238-3",
+      "title": "计算备用组合系数",
+      "statement": "每个模块带有一个整数系数。系统依次假设每个模块不可用，并要求其余模块的系数乘积。请按模块原顺序给出结果，遵守不使用除法的实现要求。",
+      "examples": [
+        [
+          [
+            0,
+            5,
+            -1,
+            -4,
+            0
+          ]
+        ],
+        [
+          [
+            1,
+            4
+          ]
+        ]
+      ],
+      "expected_output": "0 0 0 0 0\n4 1\n"
+    }
+  ]
+}

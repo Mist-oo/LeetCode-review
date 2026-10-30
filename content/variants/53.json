@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "number": 53,
+  "conditions": [
+    "在非空整数数组中选择至少一个元素构成的连续子数组，返回所有此类片段中最大的元素和。",
+    "负数和零均合法；不能跳过元素，不能选择空段，返回和而非下标。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0053.Maximum%20Subarray/README.md",
+  "versions": [
+    {
+      "id": "fixed-53-1",
+      "title": "寻找最佳营业时段",
+      "statement": "每天的净收益按时间排列，亏损日为负数。你要选择一个非空连续营业时段，使总净收益尽可能高。请报告最高总收益，即使所有日子都亏损也必须选至少一天。",
+      "examples": [
+        [
+          [
+            -5,
+            2
+          ]
+        ],
+        [
+          [
+            4,
+            1,
+            2,
+            4,
+            0,
+            -5
+          ]
+        ]
+      ],
+      "expected_output": "2\n11\n"
+    },
+    {
+      "id": "fixed-53-2",
+      "title": "截取最强连续信号",
+      "statement": "一组有正有负的整数表示连续采样的贡献。只能截取一段不中断的采样，不能删去中间的负贡献。求能够取得的最大贡献总和。",
+      "examples": [
+        [
+          [
+            4,
+            0,
+            4,
+            2,
+            -2,
+            -5,
+            -3
+          ]
+        ],
+        [
+          [
+            5,
+            5
+          ]
+        ]
+      ],
+      "expected_output": "10\n10\n"
+    },
+    {
+      "id": "fixed-53-3",
+      "title": "挑选连续工作批次",
+      "statement": "一项任务必须覆盖连续的一段批次，每批次有一个可能为负的评分。请找到评分总和最大的非空批次段，并输出总和，不需要报告起止位置。",
+      "examples": [
+        [
+          [
+            5,
+            5,
+            -4,
+            -4,
+            0,
+            0,
+            -4,
+            4
+          ]
+        ],
+        [
+          [
+            -5,
+            -5,
+            3,
+            0,
+            0
+          ]
+        ]
+      ],
+      "expected_output": "10\n3\n"
+    }
+  ]
+}

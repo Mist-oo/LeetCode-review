@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "number": 189,
+  "conditions": [
+    "将序列中的每个元素向右移动 k 个位置，越过右端的元素从左端继续，k 是非负数。",
+    "输出移动后的完整序列，k 可以大于长度，k=0 时保持不变。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-2<sup>31</sup> &lt;= nums[i] &lt;= 2<sup>31</sup> - 1</code></li>\n\t<li><code>0 &lt;= k &lt;= 10<sup>5</sup></code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0100-0199/0189.Rotate%20Array/README.md",
+  "versions": [
+    {
+      "id": "fixed-189-1",
+      "title": "调整循环看板",
+      "statement": "一排任务编号显示在首尾相连的看板上。管理员把所有编号统一向右移动 k 格，移出右边的编号从左边重新出现。请给出调整后的显示顺序。",
+      "examples": [
+        [
+          [
+            -5,
+            -4
+          ],
+          3
+        ],
+        [
+          [
+            -2,
+            0,
+            3,
+            3
+          ],
+          16
+        ]
+      ],
+      "expected_output": "-4 -5\n-2 0 3 3\n"
+    },
+    {
+      "id": "fixed-189-2",
+      "title": "重新对齐环形工位",
+      "statement": "整数任务按顺序占据一圈工位，编号从某个固定工位开始读取。每项任务都向右转移 k 个工位，允许转过多圈。请按原读取起点报告新的任务序列。",
+      "examples": [
+        [
+          [
+            -1,
+            -4,
+            -4
+          ],
+          27
+        ],
+        [
+          [
+            -1,
+            5,
+            -3,
+            -5,
+            -5,
+            5
+          ],
+          6
+        ]
+      ],
+      "expected_output": "-1 -4 -4\n-1 5 -3 -5 -5 5\n"
+    },
+    {
+      "id": "fixed-189-3",
+      "title": "轮换播报名单",
+      "statement": "播报系统保存一份整数名单，每轮操作把末尾元素挪到开头。现在一次性进行 k 轮同样操作，请计算最终名单；名单中的重复元素仍需保留。",
+      "examples": [
+        [
+          [
+            -5,
+            -4,
+            -2,
+            4,
+            0,
+            -4,
+            -4,
+            2
+          ],
+          23
+        ],
+        [
+          [
+            -1,
+            -3,
+            0
+          ],
+          10
+        ]
+      ],
+      "expected_output": "-4 -2 4 0 -4 -4 2 -5\n0 -1 -3\n"
+    }
+  ]
+}

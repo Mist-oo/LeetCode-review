@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "number": 41,
+  "conditions": [
+    "在未排序整数序列中，找出没有出现过的最小正整数；零和负数不属于候选答案。",
+    "原题要求 O(n) 时间和常数级额外空间；输入中可能重复，ACM 判题核对答案，内部空间使用由使用者自查。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-2<sup>31</sup> &lt;= nums[i] &lt;= 2<sup>31</sup> - 1</code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0041.First%20Missing%20Positive/README.md",
+  "versions": [
+    {
+      "id": "fixed-41-1",
+      "title": "分配最小空闲工号",
+      "statement": "已有工号记录顺序混乱，还可能混入零、负数和重复记录。合法新工号必须是正整数，请分配尚未出现的最小合法工号。记录中的异常非正数不占用合法工号。",
+      "examples": [
+        [
+          [
+            5,
+            4
+          ]
+        ],
+        [
+          [
+            -5,
+            -5,
+            -3,
+            1,
+            3,
+            -5,
+            -5
+          ]
+        ]
+      ],
+      "expected_output": "1\n2\n"
+    },
+    {
+      "id": "fixed-41-2",
+      "title": "寻找第一个缺失档位",
+      "statement": "设备收到一批整数档位标记，但可用档位从 1 开始连续编号。请找出尚未出现的第一个正档位，不要求输入有序，也不能把重复标记当成多个新档位。",
+      "examples": [
+        [
+          [
+            -3,
+            1,
+            -2,
+            4,
+            1,
+            0,
+            3
+          ]
+        ],
+        [
+          [
+            -5,
+            -3
+          ]
+        ]
+      ],
+      "expected_output": "2\n1\n"
+    },
+    {
+      "id": "fixed-41-3",
+      "title": "确定最早未领取号码",
+      "statement": "一张清单记录已领取号码，清单可能含有无效的非正数。请确定从 1 开始最小的未领取号码。你需要满足规定的线性时间和常数额外空间要求。",
+      "examples": [
+        [
+          [
+            5,
+            -5,
+            0,
+            -5
+          ]
+        ],
+        [
+          [
+            -3,
+            -1,
+            1,
+            0,
+            0,
+            2,
+            -4
+          ]
+        ]
+      ],
+      "expected_output": "1\n3\n"
+    }
+  ]
+}

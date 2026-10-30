@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "number": 76,
+  "conditions": [
+    "从 s 中选取连续片段，必须覆盖 t 的全部字符及各自出现次数，区分大小写。",
+    "返回符合条件的最短片段，无解返回空字符串；题目保证最优答案唯一。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>m == s.length</code></li>\n\t<li><code>n == t.length</code></li>\n\t<li><code>1 &lt;= m, n &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s</code> 和 <code>t</code> 由英文字母组成</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0076.Minimum%20Window%20Substring/README.md",
+  "versions": [
+    {
+      "id": "fixed-76-1",
+      "title": "截取最短证据段",
+      "statement": "一段大小写敏感的字符日志 s 中，需要截取尽可能短的连续证据。证据要包含清单 t 中的全部字符，清单里重复的字符也要有足够份数。字符先后顺序不限，无可行证据时返回空串。",
+      "examples": [
+        [
+          "QABXAC",
+          "ABC"
+        ],
+        [
+          "aa",
+          "aaa"
+        ]
+      ],
+      "expected_output": "BXAC\n\n"
+    },
+    {
+      "id": "fixed-76-2",
+      "title": "寻找最小材料带",
+      "statement": "材料带上的标记依次构成字符串 s，你只能剪下一段连续材料。目标清单 t 对每种标记提出了数量要求，多出来的标记允许保留。请返回满足清单的最短一段，大小写标记视为不同。",
+      "examples": [
+        [
+          "bAaCbA",
+          "AaC"
+        ],
+        [
+          "XYZ",
+          "z"
+        ]
+      ],
+      "expected_output": "AaC\n\n"
+    },
+    {
+      "id": "fixed-76-3",
+      "title": "压缩检索范围",
+      "statement": "检索员有一长串编码 s，以及需要同时看到的字符清单 t。请把检索范围收缩为覆盖清单中全部字符数量的最短连续片段；不能从不相邻位置拼接范围，没有答案时给出空串。",
+      "examples": [
+        [
+          "caaabx",
+          "aab"
+        ],
+        [
+          "Aa",
+          "A"
+        ]
+      ],
+      "expected_output": "aab\nA\n"
+    }
+  ]
+}
