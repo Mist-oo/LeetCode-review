@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "number": 84,
+  "conditions": [
+    "柱子相邻、宽度均为 1，高度为非负整数；矩形必须完整位于柱形轮廓之下。",
+    "选择一段连续柱子所跨区域，求可容纳的最大矩形面积，允许零高度。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 <= heights.length <=10<sup>5</sup></code></li>\n\t<li><code>0 <= heights[i] <= 10<sup>4</sup></code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0084.Largest%20Rectangle%20in%20Histogram/README.md",
+  "versions": [
+    {
+      "id": "fixed-84-1",
+      "title": "规划轮廓下的最大广告牌",
+      "statement": "一排相邻支撑区的可用高度各不相同，每区宽度为 1。广告牌必须是完整矩形，横跨连续若干区且不能超过任何所跨区的高度。请计算能够放下的最大面积。",
+      "examples": [
+        [
+          [
+            1,
+            1,
+            3,
+            3,
+            5,
+            2,
+            2,
+            4
+          ]
+        ],
+        [
+          [
+            4,
+            2
+          ]
+        ]
+      ],
+      "expected_output": "12\n4\n"
+    },
+    {
+      "id": "fixed-84-2",
+      "title": "寻找柱形区域内的最大矩形",
+      "statement": "地块沿直线分成等宽竖条，每条可用高度给定。你只能圈出一个完全落在这些竖条形成的区域内的矩形。请返回最大面积，不能跨过低矮竖条后仍使用更高的统一高度。",
+      "examples": [
+        [
+          [
+            5,
+            5
+          ]
+        ],
+        [
+          [
+            4,
+            4,
+            1,
+            5,
+            3,
+            5
+          ]
+        ]
+      ],
+      "expected_output": "10\n9\n"
+    },
+    {
+      "id": "fixed-84-3",
+      "title": "估算连续净空的最大占地面",
+      "statement": "设备上方净空用相邻单位宽柱状高度表示。一个矩形组件必须占据连续宽度，并受到覆盖范围内所有高度的限制。请找出最大的可用矩形面积。",
+      "examples": [
+        [
+          [
+            2,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            5,
+            4
+          ]
+        ]
+      ],
+      "expected_output": "2\n8\n"
+    }
+  ]
+}

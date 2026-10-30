@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "number": 763,
+  "conditions": [
+    "把整个字符串按原顺序切成尽可能多的非空连续片段。",
+    "同一种字母的所有出现必须位于同一个片段，不能跨段；输出各段长度而非内容，拼接仍为原串。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= s.length &lt;= 500</code></li>\n\t<li><code>s</code> 仅由小写英文字母组成</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0700-0799/0763.Partition%20Labels/README.md",
+  "versions": [
+    {
+      "id": "fixed-763-1",
+      "title": "切分互不共享类别的日志段",
+      "statement": "一条小写字母日志要按原顺序切成若干连续段，要求同一字母类别不能分散到不同段。请使段数尽可能多，并依次返回各段长度，不允许删掉或重排字符。",
+      "examples": [
+        [
+          "a"
+        ],
+        [
+          "a"
+        ]
+      ],
+      "expected_output": "1\n1\n"
+    },
+    {
+      "id": "fixed-763-2",
+      "title": "划出独占字母的编码区",
+      "statement": "编码字符串需要分区，每种字母只能属于一个区，虽然可以在该区内重复出现。请在覆盖完整原串的前提下尽量多分区，输出每个区的字符数。",
+      "examples": [
+        [
+          "aac"
+        ],
+        [
+          "aaac"
+        ]
+      ],
+      "expected_output": "2 1\n3 1\n"
+    },
+    {
+      "id": "fixed-763-3",
+      "title": "安排不重复分配的标记批次",
+      "statement": "标记序列只能沿原顺序分成连续批次，一种标记一旦分给某批就不能再出现在其他批。请找到批次数最多的划分，依次报告批次长度，而不是返回某个最长批次。",
+      "examples": [
+        [
+          "babcba"
+        ],
+        [
+          "ccacbca"
+        ]
+      ],
+      "expected_output": "6\n7\n"
+    }
+  ]
+}

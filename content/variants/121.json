@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "number": 121,
+  "conditions": [
+    "最多完成一次交易：先在某日买入，再在以后一个不同日子卖出。",
+    "最大化卖价减买价，无法获得正收益时可不交易并返回 0；不能先卖后买或进行多次交易。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 <= prices.length <= 10<sup>5</sup></code></li>\n\t<li><code>0 <= prices[i] <= 10<sup>4</sup></code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0100-0199/0121.Best%20Time%20to%20Buy%20and%20Sell%20Stock/README.md",
+  "versions": [
+    {
+      "id": "fixed-121-1",
+      "title": "规划一次采购转售",
+      "statement": "商品每天价格已知，只允许采购一次，并在未来某个不同日子转售一次。请计算这笔交易可能获得的最大价差收益；若没有获利机会，返回 0。",
+      "examples": [
+        [
+          [
+            2,
+            2,
+            2,
+            4
+          ]
+        ],
+        [
+          [
+            1,
+            5,
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected_output": "2\n4\n"
+    },
+    {
+      "id": "fixed-121-2",
+      "title": "寻找单次换手的最佳收益",
+      "statement": "你拿到一串按时间排列的报价，最多选两个时点完成先买后卖。请返回最高利润，不能把多个上涨区间的收益累加成多次交易。",
+      "examples": [
+        [
+          [
+            1,
+            1
+          ]
+        ],
+        [
+          [
+            2,
+            1,
+            5
+          ]
+        ]
+      ],
+      "expected_output": "0\n4\n"
+    },
+    {
+      "id": "fixed-121-3",
+      "title": "计算一买一卖的最高净差",
+      "statement": "一件资产在连续日期有不同价格。你可以不操作，或先买入再等到之后某日卖出，但不能在同日完成两步。请找出最多一次交易能得到的最高非负收益。",
+      "examples": [
+        [
+          [
+            5,
+            4,
+            3,
+            2,
+            5,
+            5,
+            5,
+            1
+          ]
+        ],
+        [
+          [
+            0,
+            4
+          ]
+        ]
+      ],
+      "expected_output": "3\n4\n"
+    }
+  ]
+}

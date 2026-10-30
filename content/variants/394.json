@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "number": 394,
+  "conditions": [
+    "k[内容] 表示将方括号中的内容解开后重复 k 次，k 为正整数，可有多位数且可嵌套。",
+    "输入保证格式合法，没有额外空格，数字只表示次数，原始内容不含数字；完整输出长度不超过 100000。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= s.length &lt;= 30</code></li>\n\t<li><meta charset=\"UTF-8\" /><code>s</code>&nbsp;由小写英文字母、数字和方括号<meta charset=\"UTF-8\" />&nbsp;<code>'[]'</code> 组成</li>\n\t<li><code>s</code>&nbsp;保证是一个&nbsp;<strong>有效</strong>&nbsp;的输入。</li>\n\t<li><code>s</code>&nbsp;中所有整数的取值范围为<meta charset=\"UTF-8\" />&nbsp;<code>[1, 300]</code>&nbsp;</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0300-0399/0394.Decode%20String/README.md",
+  "versions": [
+    {
+      "id": "fixed-394-1",
+      "title": "还原压缩播报文本",
+      "statement": "播报脚本把重复内容写成 k[内容]，其中内容还可能包含同样的重复标记。请按层还原完整文本，多位数字共同表示一次重复次数，连续的普通字母原样保留。",
+      "examples": [
+        [
+          "3[aaa3[ba]]"
+        ],
+        [
+          "4[aa1[ac]]"
+        ]
+      ],
+      "expected_output": "aaabababaaaabababaaaabababa\naaacaaacaaacaaac\n"
+    },
+    {
+      "id": "fixed-394-2",
+      "title": "展开重复工单片段",
+      "statement": "一种编码用正整数和方括号表示重复次数，例如某段内容可在内部继续使用重复编码。给定保证合法的整条工单，请输出全部展开后的字符，不保留次数和方括号。",
+      "examples": [
+        [
+          "3[c1[a]]"
+        ],
+        [
+          "3[c3[cc]]"
+        ]
+      ],
+      "expected_output": "cacaca\nccccccccccccccccccccc\n"
+    },
+    {
+      "id": "fixed-394-3",
+      "title": "恢复层层压缩的标签串",
+      "statement": "标签中的数字专门说明后面方括号内内容要重复多少遍，括号之间可嵌套，括号外的字母也属于结果。请恢复最终字符串，不把次数数字当作普通内容。",
+      "examples": [
+        [
+          "3[a3[c]]"
+        ],
+        [
+          "4[b2[b]]"
+        ]
+      ],
+      "expected_output": "acccacccaccc\nbbbbbbbbbbbb\n"
+    }
+  ]
+}

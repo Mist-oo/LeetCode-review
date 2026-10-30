@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "number": 45,
+  "conditions": [
+    "移动规则与当前位置的最大向右跳跃长度一致，可以选择较小步数，不得越界。",
+    "从 0 到 n-1 求最少跳跃次数，输入保证可达；单节点时为 0 次，不是累计跳过的位置数量。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= nums[i] &lt;= 1000</code></li>\n\t<li>题目保证可以到达&nbsp;<code>n - 1</code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0045.Jump%20Game%20II/README.md",
+  "versions": [
+    {
+      "id": "fixed-45-1",
+      "title": "规划最少换乘的跳站路线",
+      "statement": "各站给出一次最多能跨越的站点距离，允许选择较近的落点。已知从首站能够到达末站，请求出最少要跳转几次，不需要输出具体路线。",
+      "examples": [
+        [
+          [
+            3,
+            3,
+            5
+          ]
+        ],
+        [
+          [
+            4,
+            1
+          ]
+        ]
+      ],
+      "expected_output": "1\n1\n"
+    },
+    {
+      "id": "fixed-45-2",
+      "title": "优化有限航程的起落次数",
+      "statement": "每个停靠点允许向右飞行不超过给定距离，落点仍须在列表内。你从第一个点出发，目标是用尽可能少的起落到达最后一个点，数据保证有解。",
+      "examples": [
+        [
+          [
+            5,
+            2,
+            4,
+            4,
+            5,
+            4
+          ]
+        ],
+        [
+          [
+            4,
+            1,
+            2,
+            1,
+            5,
+            1,
+            1
+          ]
+        ]
+      ],
+      "expected_output": "1\n2\n"
+    },
+    {
+      "id": "fixed-45-3",
+      "title": "计算最短步数的跳转计划",
+      "statement": "从下标 0 开始，每个位置的值是当前可前进的最大位置数。请在所有能到达 n-1 的方案中找出跳跃次数最小的一个；只有一个位置时答案是零。",
+      "examples": [
+        [
+          [
+            2,
+            3,
+            4,
+            1
+          ]
+        ],
+        [
+          [
+            4,
+            3,
+            5,
+            4
+          ]
+        ]
+      ],
+      "expected_output": "2\n1\n"
+    }
+  ]
+}

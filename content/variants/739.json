@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "number": 739,
+  "conditions": [
+    "对每个位置，寻找其后第一个数值严格更高的位置，返回相隔的位置数。",
+    "相等不算更高，没有更高后续值时输出 0；结果长度与输入一致。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;=&nbsp;temperatures.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>30 &lt;=&nbsp;temperatures[i]&nbsp;&lt;= 100</code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0700-0799/0739.Daily%20Temperatures/README.md",
+  "versions": [
+    {
+      "id": "fixed-739-1",
+      "title": "等待下一次更高读数",
+      "statement": "仪器按天记录整数读数。对每一天，请报告还需要等多少天，才会首次遇到严格更高的读数；之后一直没有更高读数则记为零，相等不算升高。",
+      "examples": [
+        [
+          [
+            70,
+            36,
+            48,
+            86,
+            36,
+            66
+          ]
+        ],
+        [
+          [
+            54,
+            43,
+            57,
+            41,
+            69,
+            98
+          ]
+        ]
+      ],
+      "expected_output": "3 1 1 0 1 0\n2 1 2 1 1 0\n"
+    },
+    {
+      "id": "fixed-739-2",
+      "title": "计算首次超越的间隔",
+      "statement": "给定按时间排列的一串指标，逐项寻找后面第一个超过当前值的指标。请输出它与当前位置相差几步，不要输出那个更大指标本身。",
+      "examples": [
+        [
+          [
+            62,
+            53
+          ]
+        ],
+        [
+          [
+            91,
+            99
+          ]
+        ]
+      ],
+      "expected_output": "0 0\n1 0\n"
+    },
+    {
+      "id": "fixed-739-3",
+      "title": "生成升高等待报表",
+      "statement": "报表中的每项数值都要配一个等待长度，表示往后首次出现比它高的数值还要经过多少项。没有这样的后项时为 0，重复的相同数值不结束等待。",
+      "examples": [
+        [
+          [
+            100
+          ]
+        ],
+        [
+          [
+            55
+          ]
+        ]
+      ],
+      "expected_output": "0\n0\n"
+    }
+  ]
+}

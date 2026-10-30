@@ -1,8 +1,8 @@
 {
-  "available_problems": 70,
+  "available_problems": 80,
   "expected_problems": 100,
-  "versions": 210,
-  "examples": 420,
+  "versions": 240,
+  "examples": 480,
   "numbers": [
     1,
     2,
@@ -24,18 +24,21 @@
     39,
     41,
     42,
+    45,
     46,
     48,
     49,
     51,
     53,
     54,
+    55,
     56,
     73,
     74,
     76,
     78,
     79,
+    84,
     94,
     98,
     101,
@@ -44,6 +47,7 @@
     105,
     108,
     114,
+    121,
     124,
     128,
     131,
@@ -61,6 +65,7 @@
     206,
     207,
     208,
+    215,
     226,
     230,
     234,
@@ -69,42 +74,37 @@
     239,
     240,
     283,
+    295,
+    347,
+    394,
     437,
     438,
     543,
     560,
+    739,
+    763,
     994
   ],
   "missing": [
     5,
     31,
     32,
-    45,
-    55,
     62,
     64,
     70,
     72,
     75,
-    84,
     118,
-    121,
     136,
     139,
     152,
     169,
     198,
-    215,
     279,
     287,
-    295,
     300,
     322,
-    347,
-    394,
     416,
-    739,
-    763,
     1143
   ],
   "all_complete": false,
@@ -250,6 +250,13 @@
       "independent_checked": true
     },
     {
+      "number": 45,
+      "version": "fixed-v1:82d325eb33c3d036",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
       "number": 46,
       "version": "fixed-v1:3cf81b7e5ce6795d",
       "versions": 3,
@@ -292,6 +299,13 @@
       "independent_checked": true
     },
     {
+      "number": 55,
+      "version": "fixed-v1:f32091ed99e868ba",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
       "number": 56,
       "version": "fixed-v1:6a790ebecf93f557",
       "versions": 3,
@@ -329,6 +343,13 @@
     {
       "number": 79,
       "version": "fixed-v1:cc48ca04da46b55c",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
+      "number": 84,
+      "version": "fixed-v1:4e4c858ea3298dc2",
       "versions": 3,
       "examples": 6,
       "independent_checked": true
@@ -385,6 +406,13 @@
     {
       "number": 114,
       "version": "fixed-v1:28f2824f30dcdf43",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
+      "number": 121,
+      "version": "fixed-v1:81754e917c405a3f",
       "versions": 3,
       "examples": 6,
       "independent_checked": true
@@ -509,6 +537,13 @@
       "independent_checked": true
     },
     {
+      "number": 215,
+      "version": "fixed-v1:377c8d766b6065b4",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
       "number": 226,
       "version": "fixed-v1:774e66e617a9dc87",
       "versions": 3,
@@ -565,6 +600,27 @@
       "independent_checked": true
     },
     {
+      "number": 295,
+      "version": "fixed-v1:e76cf6ee7addcab0",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
+      "number": 347,
+      "version": "fixed-v1:c7192f9e3d862752",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
+      "number": 394,
+      "version": "fixed-v1:bd75075a2fd48b85",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
       "number": 437,
       "version": "fixed-v1:22216a2c4c2f4e41",
       "versions": 3,
@@ -588,6 +644,20 @@
     {
       "number": 560,
       "version": "fixed-v1:60bc3db5c45a1383",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
+      "number": 739,
+      "version": "fixed-v1:233535f1cacd00c2",
+      "versions": 3,
+      "examples": 6,
+      "independent_checked": true
+    },
+    {
+      "number": 763,
+      "version": "fixed-v1:8ed18d985c31adf4",
       "versions": 3,
       "examples": 6,
       "independent_checked": true
