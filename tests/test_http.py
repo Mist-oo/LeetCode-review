@@ -37,7 +37,7 @@ class HttpTests(unittest.TestCase):
             return error.code, error.read(), error.headers
 
     def test_static_and_all_vendored_assets_serve(self):
-        for path in ['/', '/app.js', '/judge-ui.js', '/judge.css', '/style.css', '/vendor/codemirror.js', '/vendor/python.js', '/vendor/marked.js', '/vendor/purify.js','/vendor/show-hint.js','/vendor/show-hint.css']:
+        for path in ['/', '/app.js', '/judge-ui.js', '/judge.css', '/style.css', '/editor.css','/editor-tools.js','/vendor/closebrackets.js','/vendor/codemirror.js', '/vendor/python.js', '/vendor/marked.js', '/vendor/purify.js','/vendor/show-hint.js','/vendor/show-hint.css']:
             code, body, _ = self.request(path)
             self.assertEqual(code, 200, path)
             self.assertTrue(body)
@@ -70,6 +70,12 @@ class HttpTests(unittest.TestCase):
         spec=json.loads(body)['acm']
         self.assertIn('EOF',spec['introduction'])
         self.assertTrue(spec['sample_input'])
+
+    def test_variant_route_and_missing_problem(self):
+        code,body,_=self.request('/api/problems/1/variants')
+        self.assertEqual(code,200)
+        self.assertIn('available',json.loads(body))
+        self.assertEqual(self.request('/api/problems/999999/variants')[0],404)
 
     def test_async_submit_hidden_failure_and_reveal(self):
         code,body,_=self.request('/api/problems/1/submit','POST',dict(code='print("0 0")'))

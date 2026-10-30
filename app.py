@@ -13,6 +13,7 @@ from urllib.parse import urlparse
 from storage import Store, ValidationError
 from judge.jobs import Jobs,specification
 from completion import complete
+from variants import fixed_bundle
 
 ROOT = Path(__file__).resolve().parent
 
@@ -54,6 +55,12 @@ def make_server(db_path=None, port=8765):
                         return self.send(200, store.history(pid))
                     if parts[3] == 'submissions':
                         return self.send(200,jobs.history(pid))
+                    if parts[3] == 'variants':
+                        number=store.problem(pid)['number']
+                        try:bundle=fixed_bundle(number)
+                        except (ValueError,TypeError,KeyError):
+                            return self.send(503, {'error': '固定改写题面数据暂不可用，请重试或查看原题'})
+                        return self.send(200,bundle)
                 if len(parts)==3 and parts[:2]==['api','jobs']:
                     return self.send(200,jobs.get(parts[2]))
                 # Only the static directory is exposed, never the database or source.
