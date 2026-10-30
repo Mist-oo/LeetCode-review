@@ -14,12 +14,14 @@ from storage import Store, ValidationError
 from judge.jobs import Jobs,specification
 from completion import complete
 from variants import fixed_bundle
+from ai_settings import AISettings
 
 ROOT = Path(__file__).resolve().parent
 
 
 def make_server(db_path=None, port=8765):
     store = Store(db_path or ROOT / 'data/review.db', ROOT / 'data/statements.json')
+    ai_settings=AISettings(store.path.with_suffix('.ai-settings.json'))
     jobs = None
 
     class Handler(BaseHTTPRequestHandler):
@@ -42,6 +44,10 @@ def make_server(db_path=None, port=8765):
                 path = urlparse(self.path).path
                 if path == '/api/health':
                     return self.send(200, {'ok': True,'version':2})
+                if path == '/api/ai/settings':
+                    try:return self.send(200,ai_settings.public())
+                    except (ValidationError,OSError):
+                        return self.send(503,{'error':'本机 AI 设置无法读取，请重新填写并保存'})
                 if path == '/api/state':
                     return self.send(200, store.state())
                 parts = path.strip('/').split('/')
@@ -89,6 +95,9 @@ def make_server(db_path=None, port=8765):
                 if not isinstance(data, dict):
                     raise ValidationError('请求格式不正确')
                 path = urlparse(self.path).path
+                if self.command=='PUT' and path=='/api/ai/settings':
+                    try:return self.send(200,ai_settings.save(data))
+                    except OSError:return self.send(503,{'error':'本机 AI 设置保存失败，请检查目录权限后重试'})
                 if self.command == 'POST':
                     if path == '/api/complete':
                         return self.send(200,complete(data))

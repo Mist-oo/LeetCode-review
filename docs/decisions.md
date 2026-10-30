@@ -82,3 +82,9 @@
 
 - 在编辑器 wrapper 上使用非被动捕获 wheel 监听，仅处理 ctrlKey 的缩放；普通滚动不拦截。字号范围 10～28px，使用浏览器本机偏好存储并校验数值。
 - 浏览器真实 Ctrl＋滚轮和普通纵横滚动已经验证；真实触控板手势须另行确认，不能将合成事件通过记作硬件通过。
+
+### V3-08 实现决定
+
+- 使用兼容 Chat Completions 的 HTTP 协议，服务地址/模型由用户填写，不硬编码厂商或默认付费模型。协议依据为 [OpenAI API 参考](https://developers.openai.com/api/reference/resources/chat)。不宣称支持所有厂商的专有协议。
+- 设置按当前数据库文件派生独立 .ai-settings.json，测试库不会读写正式配置；原子替换文件，密钥写入后仅返回 has_key 标记，留空保留、显式清除。
+- 默认 data/ 与任何目录下的该命名文件/临时文件均被 Git 忽略；远程 HTTPS，本机 HTTP 可供兼容服务测试。保存设置不调用模型服务。

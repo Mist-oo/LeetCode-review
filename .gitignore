@@ -18,6 +18,8 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+*.ai-settings.json
+*.ai-settings.json.tmp
 
 # Frontend dependencies and generated output
 node_modules/

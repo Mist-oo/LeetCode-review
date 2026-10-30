@@ -1,3 +1,5 @@
 .review-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
 .review-toolbar .chip { font-size: 12px; }
 .review-toolbar + .markdown h2 { font-size: 20px; margin-bottom: 18px; }
+.ai-clear-key { display: flex; align-items: center; gap: 6px; margin: 14px 0; font-size: 12px; }
+#ai-settings-form .form-field { margin: 14px 0; }
