@@ -23,6 +23,24 @@ def service_url(value):
     return value
 
 
+def public_settings(data):
+    return dict(base_url=data['base_url'],model=data['model'],has_key=bool(data['api_key']),
+                configured=all(data.values()),protocol='chat-completions')
+
+
+def completion_endpoint(data):
+    if not all(data.values()):raise ValidationError('请先配置 AI 服务地址、模型名和密钥')
+    base=service_url(data['base_url'])
+    return base if base.endswith('/chat/completions') else base+'/chat/completions'
+
+
+class SettingsSnapshot:
+    def __init__(self,data):self._data=dict(data)
+    def credentials(self):return dict(self._data)
+    def public(self):return public_settings(self._data)
+    def endpoint(self):return completion_endpoint(self._data)
+
+
 class AISettings:
     def __init__(self,path):
         self.path=Path(path);self.lock=threading.RLock()
@@ -40,8 +58,7 @@ class AISettings:
     def public(self):
         with self.lock:
             data=self._read()
-            return dict(base_url=data['base_url'],model=data['model'],has_key=bool(data['api_key']),
-                        configured=all(data.values()),protocol='chat-completions')
+            return public_settings(data)
 
     def credentials(self):
         with self.lock:return self._read()
@@ -67,7 +84,4 @@ class AISettings:
             return self.public()
 
     def endpoint(self):
-        data=self.credentials()
-        if not all(data.values()):raise ValidationError('请先配置 AI 服务地址、模型名和密钥')
-        base=service_url(data['base_url'])
-        return base if base.endswith('/chat/completions') else base+'/chat/completions'
+        return completion_endpoint(self.credentials())

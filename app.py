@@ -15,6 +15,7 @@ from judge.jobs import Jobs,specification
 from completion import complete
 from variants import fixed_bundle
 from ai_settings import AISettings
+from ai_variants import AIError,generate_variant
 
 ROOT = Path(__file__).resolve().parent
 
@@ -109,6 +110,9 @@ def make_server(db_path=None, port=8765):
                         return self.send(200, {'ok': True})
                 parts = path.strip('/').split('/')
                 if self.command=='POST' and len(parts)==4 and parts[:2]==['api','problems'] and parts[2].isdigit():
+                    if parts[3]=='ai-variant':
+                        try:return self.send(200,generate_variant(store.problem(int(parts[2]))['number'],ai_settings))
+                        except AIError as error:return self.send(502,{'error':str(error)})
                     if parts[3] in ('run','submit'):
                         mode='run' if parts[3]=='run' else data.get('mode','submit')
                         if parts[3]=='submit' and mode not in ('submit','strengthen'):

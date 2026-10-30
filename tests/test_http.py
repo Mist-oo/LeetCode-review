@@ -85,6 +85,12 @@ class HttpTests(unittest.TestCase):
         self.assertTrue((Path(self.tmp.name)/'test.ai-settings.json').exists())
         self.assertEqual(self.request('/data/review.ai-settings.json')[0],404)
 
+    def test_ai_generation_without_configuration_has_safe_failure(self):
+        self.request('/api/ai/settings','PUT',dict(base_url='',model='',clear_key=True))
+        code,body,_=self.request('/api/problems/1/ai-variant','POST',{})
+        self.assertEqual(code,502)
+        self.assertIn('配置',json.loads(body)['error'])
+
     def test_async_submit_hidden_failure_and_reveal(self):
         code,body,_=self.request('/api/problems/1/submit','POST',dict(code='print("0 0")'))
         self.assertEqual(code,202)
