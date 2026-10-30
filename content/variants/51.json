@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "number": 51,
+  "conditions": [
+    "在 n×n 网格中放置恰好 n 个标记，任意两个不能处于同一行、同一列或同一斜线。",
+    "输出全部不同布置，标记用 Q、空位用 .；没有方案时返回空结果，不能只返回方案数量。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= n &lt;= 9</code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0051.N-Queens/README.md",
+  "versions": [
+    {
+      "id": "fixed-51-1",
+      "title": "布置互不干扰的发射器",
+      "statement": "一块 n×n 面板上要安装 n 台发射器。两台只要处于同一行、同一列或同一条斜线上就会互相干扰。请列出所有互不干扰的安装图，用 Q 标记设备、. 标记空位。",
+      "examples": [
+        [
+          4
+        ],
+        [
+          1
+        ]
+      ],
+      "expected_output": "2\n.Q..\n...Q\nQ...\n..Q.\n..Q.\nQ...\n...Q\n.Q..\n1\nQ\n"
+    },
+    {
+      "id": "fixed-51-2",
+      "title": "安排斜向也互斥的观察点",
+      "statement": "方形区域分成 n 行 n 列，需要放置 n 个观察点。任意两个观察点不能在横向、纵向或两种斜向上对齐。请输出全部不同的有效布局，每个布局保留完整网格。",
+      "examples": [
+        [
+          4
+        ],
+        [
+          3
+        ]
+      ],
+      "expected_output": "2\n.Q..\n...Q\nQ...\n..Q.\n..Q.\nQ...\n...Q\n.Q..\n0\n"
+    },
+    {
+      "id": "fixed-51-3",
+      "title": "生成网格安全摆放图",
+      "statement": "n 个装置要摆在 n×n 的格子中，它们会沿所在行、列和整条对角线相互影响。请找出所有没有冲突的摆放方案，方案必须恰好使用 n 个装置，不能漏解或重复。",
+      "examples": [
+        [
+          5
+        ],
+        [
+          3
+        ]
+      ],
+      "expected_output": "10\nQ....\n..Q..\n....Q\n.Q...\n...Q.\nQ....\n...Q.\n.Q...\n....Q\n..Q..\n.Q...\n...Q.\nQ....\n..Q..\n....Q\n.Q...\n....Q\n..Q..\nQ....\n...Q.\n..Q..\nQ....\n...Q.\n.Q...\n....Q\n..Q..\n....Q\n.Q...\n...Q.\nQ....\n...Q.\nQ....\n..Q..\n....Q\n.Q...\n...Q.\n.Q...\n....Q\n..Q..\nQ....\n....Q\n.Q...\n...Q.\nQ....\n..Q..\n....Q\n..Q..\nQ....\n...Q.\n.Q...\n0\n"
+    }
+  ]
+}

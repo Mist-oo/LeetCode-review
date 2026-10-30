@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "number": 131,
+  "conditions": [
+    "将整个字符串切成若干非空连续子串，按原次序拼接必须恰好恢复原串。",
+    "每段从左到右与从右到左相同，返回全部不同切分方案；段内字符和段间先后不可重排。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= s.length &lt;= 16</code></li>\n\t<li><code>s</code> 仅由小写英文字母组成</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0100-0199/0131.Palindrome%20Partitioning/README.md",
+  "versions": [
+    {
+      "id": "fixed-131-1",
+      "title": "划分双向可读的标签段",
+      "statement": "一串标签需要切成若干段，每段正向读与反向读都必须一样。请列出所有合法切法，不能丢掉字符、调换片段或让片段重叠；单个字符也可以成段。",
+      "examples": [
+        [
+          "caabaabc"
+        ],
+        [
+          "ab"
+        ]
+      ],
+      "expected_output": "8\n8\nc\na\na\nb\na\na\nb\nc\n7\nc\na\na\nb\naa\nb\nc\n5\nc\na\na\nbaab\nc\n6\nc\na\naba\na\nb\nc\n7\nc\naa\nb\na\na\nb\nc\n6\nc\naa\nb\naa\nb\nc\n4\nc\naa\nbaab\nc\n4\nc\naabaa\nb\nc\n1\n2\na\nb\n"
+    },
+    {
+      "id": "fixed-131-2",
+      "title": "生成镜像文本分组",
+      "statement": "系统要把一条文本按原顺序完整分组，每组都应关于中点对称。你可以选择不同的切分位置，请输出全部有效的分组方案，空片段不允许。",
+      "examples": [
+        [
+          "accb"
+        ],
+        [
+          "bac"
+        ]
+      ],
+      "expected_output": "2\n4\na\nc\nc\nb\n3\na\ncc\nb\n1\n3\nb\na\nc\n"
+    },
+    {
+      "id": "fixed-131-3",
+      "title": "枚举对称编码切片",
+      "statement": "给定小写字母编码，请把它分成非空连续块，使每块倒过来仍与自身相同。请返回所有切分方案，块的顺序由原编码决定，不能把同样的切法重复报告。",
+      "examples": [
+        [
+          "c"
+        ],
+        [
+          "cabab"
+        ]
+      ],
+      "expected_output": "1\n1\nc\n3\n5\nc\na\nb\na\nb\n3\nc\na\nbab\n3\nc\naba\nb\n"
+    }
+  ]
+}

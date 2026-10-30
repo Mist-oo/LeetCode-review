@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "number": 33,
+  "conditions": [
+    "输入原为互不重复的严格升序数组，在未知位置进行循环旋转，可能等于未旋转。",
+    "目标存在则返回旋转后数组的 0 基下标，不存在返回 -1；要求 O(log n) 时间。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 5000</code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n\t<li><code>nums</code> 中的每个值都 <strong>独一无二</strong></li>\n\t<li>题目数据保证 <code>nums</code> 在预先未知的某个下标上进行了旋转</li>\n\t<li><code>-10<sup>4</sup> &lt;= target &lt;= 10<sup>4</sup></code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0033.Search%20in%20Rotated%20Sorted%20Array/README.md",
+  "versions": [
+    {
+      "id": "fixed-33-1",
+      "title": "查找错位循环清单中的编号",
+      "statement": "一份严格递增的编号清单被从某处切开，并把前段整体接到了后面。给定这种循环错位后的清单，请返回目标编号当前的下标，不存在则返回 -1，编号没有重复。",
+      "examples": [
+        [
+          [
+            2,
+            6,
+            8,
+            12,
+            27
+          ],
+          2
+        ],
+        [
+          [
+            28,
+            -22,
+            -16,
+            -9,
+            -3,
+            26
+          ],
+          -3
+        ]
+      ],
+      "expected_output": "0\n4\n"
+    },
+    {
+      "id": "fixed-33-2",
+      "title": "检索轮换后的有序记录",
+      "statement": "设备原先按数值升序存储不同记录，后来整份记录做了未知次数的循环移位。请在当前记录中定位 target，返回当前位置而非原排序位置，满足对数时间要求。",
+      "examples": [
+        [
+          [
+            -12,
+            8,
+            22
+          ],
+          8
+        ],
+        [
+          [
+            -29
+          ],
+          -29
+        ]
+      ],
+      "expected_output": "1\n0\n"
+    },
+    {
+      "id": "fixed-33-3",
+      "title": "定位被改变起点的递增序列",
+      "statement": "一圈互不相同的整数按原递增顺序排列，但读取起点被改到了未知位置，因此线性输入可能中途回到较小值。请查询目标的输入下标，目标缺失时返回 -1。",
+      "examples": [
+        [
+          [
+            18,
+            28,
+            29,
+            -28,
+            -17,
+            -2,
+            9,
+            13
+          ],
+          -17
+        ],
+        [
+          [
+            24,
+            28,
+            -15,
+            -1,
+            8,
+            18
+          ],
+          -1
+        ]
+      ],
+      "expected_output": "4\n3\n"
+    }
+  ]
+}

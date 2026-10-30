@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "number": 35,
+  "conditions": [
+    "数组严格升序且数值互不相同，目标存在时返回其 0 基下标。",
+    "目标不存在时返回插入后仍保持升序的位置，位置可为 0 或数组长度；要求 O(log n) 时间。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>-10<sup>4</sup> &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>\n\t<li><code>nums</code> 为&nbsp;<strong>无重复元素&nbsp;</strong>的&nbsp;<strong>升序&nbsp;</strong>排列数组</li>\n\t<li><code>-10<sup>4</sup> &lt;= target &lt;= 10<sup>4</sup></code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0035.Search%20Insert%20Position/README.md",
+  "versions": [
+    {
+      "id": "fixed-35-1",
+      "title": "定位新编号的归档位置",
+      "statement": "档案编号已经严格从小到大排列。若待查编号已在清单中，请返回位置；否则返回它应插入的位置，以保持排序，允许放在最前或最后。请满足规定的对数时间要求。",
+      "examples": [
+        [
+          [
+            -15,
+            -2,
+            9,
+            10
+          ],
+          -25
+        ],
+        [
+          [
+            -25,
+            -22,
+            -5,
+            10,
+            16,
+            17,
+            18
+          ],
+          10
+        ]
+      ],
+      "expected_output": "0\n3\n"
+    },
+    {
+      "id": "fixed-35-2",
+      "title": "确定指标在有序表中的落点",
+      "statement": "一个没有重复值的升序整数表收到目标值。你要报告该值现有的位置，或在缺失时报告正确的插入下标，不需要真的修改表。",
+      "examples": [
+        [
+          [
+            -5
+          ],
+          -5
+        ],
+        [
+          [
+            -26,
+            -24,
+            -19,
+            -8,
+            16,
+            24
+          ],
+          6
+        ]
+      ],
+      "expected_output": "0\n4\n"
+    },
+    {
+      "id": "fixed-35-3",
+      "title": "计算排好序名单的插入位",
+      "statement": "名单按不同整数编号递增排列。请查找 target：找到就返回原下标，找不到就返回维持递增顺序的插入位置。所有下标从零开始，尾后位置也是合法答案。",
+      "examples": [
+        [
+          [
+            -30,
+            -14,
+            -3,
+            -2,
+            -1,
+            16,
+            28,
+            29
+          ],
+          2
+        ],
+        [
+          [
+            5,
+            13,
+            14,
+            16,
+            22,
+            24,
+            25
+          ],
+          13
+        ]
+      ],
+      "expected_output": "5\n1\n"
+    }
+  ]
+}

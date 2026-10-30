@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "number": 20,
+  "conditions": [
+    "输入仅含圆、方、花三类括号，每个左括号须由同类型右括号按正确嵌套次序闭合。",
+    "每个右括号都要有前面对应的左括号，结束后不能留下未闭合符号；仅总数量相同不充分。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= s.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>s</code> 仅由括号 <code>'()[]{}'</code> 组成</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0020.Valid%20Parentheses/README.md",
+  "versions": [
+    {
+      "id": "fixed-20-1",
+      "title": "核验三种边界标记",
+      "statement": "文本只由 ()、[]、{} 三类开始和结束标记组成。请判断所有标记是否按同类且正确嵌套的次序配对，不能交叉闭合，也不能有多余的开始或结束标记。",
+      "examples": [
+        [
+          "[(]])]{("
+        ],
+        [
+          "((]}[)"
+        ]
+      ],
+      "expected_output": "false\nfalse\n"
+    },
+    {
+      "id": "fixed-20-2",
+      "title": "检查配置段的嵌套顺序",
+      "statement": "配置片段用圆、方、花括号区分三类段。每次结束一段时必须关闭当前尚未结束的最内层同类段。请判断整个符号串是否合法，不能只比较每类符号的个数。",
+      "examples": [
+        [
+          "}}{}{{]("
+        ],
+        [
+          ")({(]{(([]"
+        ]
+      ],
+      "expected_output": "false\nfalse\n"
+    },
+    {
+      "id": "fixed-20-3",
+      "title": "验证成对符号记录",
+      "statement": "一条记录只有六种括号字符。请检查每个右符号是否按顺序匹配先前的同类左符号，且最终全部配完；遇到类型不一致或顺序交叉就不合法。",
+      "examples": [
+        [
+          ")){}]][}{(})"
+        ],
+        [
+          "}({())))"
+        ]
+      ],
+      "expected_output": "false\nfalse\n"
+    }
+  ]
+}
