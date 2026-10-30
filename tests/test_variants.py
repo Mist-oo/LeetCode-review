@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from variants import fixed_bundle,validate_bundle
+from variants import fixed_bundle,validate_bundle,NUMBERS
 
 
 def example_bundle():
@@ -53,3 +53,9 @@ class VariantTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             self.assertFalse(fixed_bundle(1,folder)['available'])
             with self.assertRaises(LookupError):fixed_bundle(999999,folder)
+
+    def test_every_available_bundled_statement(self):
+        for number in sorted(NUMBERS):
+            with self.subTest(number=number):
+                bundle=fixed_bundle(number)
+                if bundle['available']:self.assertEqual(len(bundle['versions']),3)

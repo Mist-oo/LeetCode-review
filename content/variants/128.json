@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "number": 128,
+  "conditions": [
+    "寻找由不同整数构成、相邻数值相差 1 的最长连续数值区间，返回其长度。",
+    "这些整数不要求在原数组中相邻或保持原顺序；重复值不增加长度，空输入返回 0。",
+    "要求整体时间复杂度 O(n)。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>0 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0100-0199/0128.Longest%20Consecutive%20Sequence/README.md",
+  "versions": [
+    {
+      "id": "fixed-128-1",
+      "title": "补齐编号档案",
+      "statement": "档案馆收到一批顺序混乱、可能重复的整数编号。请判断已收到的编号中，最长的一段无缺号连续编号有多长。不同编号可以来自清单的任意位置，重复收件不算新增编号。",
+      "examples": [
+        [
+          []
+        ],
+        [
+          []
+        ]
+      ],
+      "expected_output": "0\n0\n"
+    },
+    {
+      "id": "fixed-128-2",
+      "title": "检查连续检测等级",
+      "statement": "检测仪记录了若干整数等级，记录顺序与等级无关。请找出能够从某个整数开始逐一加一、且每一级都在记录中出现过的最长等级段，报告等级个数。没有记录时答案为零。",
+      "examples": [
+        [
+          [
+            5,
+            3,
+            -1,
+            -5,
+            1,
+            -1,
+            2
+          ]
+        ],
+        [
+          [
+            -5,
+            1,
+            -2,
+            5,
+            -4,
+            -4,
+            5,
+            -2
+          ]
+        ]
+      ],
+      "expected_output": "3\n2\n"
+    },
+    {
+      "id": "fixed-128-3",
+      "title": "寻找完整票号段",
+      "statement": "一批票号没有按大小排列，某些票号还重复上报。你要找出已经全部出现的最长连续整数票号段。这里的连续指票号数值连续，不是上报清单中的位置连续。",
+      "examples": [
+        [
+          [
+            -2,
+            -2
+          ]
+        ],
+        [
+          []
+        ]
+      ],
+      "expected_output": "1\n0\n"
+    }
+  ]
+}

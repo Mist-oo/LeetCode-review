@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 from catalog import catalogue
-from judge.protocols import encode_case,judge_output,decode_cases
+from judge.protocols import encode_case,judge_output,decode_cases,accepts
 from judge.reference import solve
 from judge.validation import validate
 
@@ -62,15 +62,24 @@ def fixed_bundle(number,folder=CONTENT):
 
 
 def audit(require_all=False):
-    available=[];versions=examples=0
+    from judge.oracle import oracle
+    available=[];entries=[];versions=examples=0
     for number in sorted(NUMBERS):
         bundle=fixed_bundle(number)
         if not bundle['available']:continue
         available.append(number);versions+=len(bundle['versions']);examples+=2*len(bundle['versions'])
+        raw=json.loads((CONTENT/f'{number}.json').read_text('utf-8'))
+        for version in raw['versions']:
+            for args in version['examples']:
+                actual=solve(number,args);independent=oracle(number,args)
+                if not (accepts(number,args,actual,independent) and accepts(number,args,independent,actual)):
+                    raise ValueError(f'变式 {version["id"]} 样例的独立答案对照失败')
+        entries.append(dict(number=number,version=bundle['content_version'],versions=3,examples=6,independent_checked=True))
     unexpected=[p.name for p in CONTENT.glob('*.json') if not p.stem.isdigit() or int(p.stem) not in NUMBERS]
     if unexpected:raise ValueError(f'非 Hot 100 文件: {unexpected}')
     report=dict(available_problems=len(available),expected_problems=100,versions=versions,examples=examples,
-                numbers=available,missing=sorted(NUMBERS-set(available)),all_complete=len(available)==100)
+                numbers=available,missing=sorted(NUMBERS-set(available)),all_complete=len(available)==100,entries=entries)
+    (ROOT/'docs'/'variant-coverage.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n','utf-8')
     print(json.dumps(report,ensure_ascii=False))
     if require_all and not report['all_complete']:raise SystemExit('固定改写题面尚未全量完成')
     return report

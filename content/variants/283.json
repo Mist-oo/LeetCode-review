@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "number": 283,
+  "conditions": [
+    "将所有值为 0 的元素移到序列末尾，其余元素的相对顺序必须保持。",
+    "原题要求在原数组上完成变换，不复制整个数组；ACM 判题核对变换后序列，内部原地要求由使用者自查。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>-2<sup>31</sup>&nbsp;&lt;= nums[i] &lt;= 2<sup>31</sup>&nbsp;- 1</code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0200-0299/0283.Move%20Zeroes/README.md",
+  "versions": [
+    {
+      "id": "fixed-283-1",
+      "title": "清理占位记录",
+      "statement": "数据导出队列用整数 0 表示空占位。请把这些空占位挪到队列尾部，让实际记录靠前，但实际记录彼此的先后顺序不能改变。输出清理后的完整队列。",
+      "examples": [
+        [
+          [
+            1,
+            4,
+            3,
+            2,
+            5,
+            3
+          ]
+        ],
+        [
+          [
+            4
+          ]
+        ]
+      ],
+      "expected_output": "1 4 3 2 5 3\n4\n"
+    },
+    {
+      "id": "fixed-283-2",
+      "title": "整理闲置工位",
+      "statement": "一排工位用整数表示当前任务，0 表示闲置。管理员想把所有闲置标记集中在末尾，同时保留有任务工位的原有相对顺序。请在原序列上完成整理并给出结果。",
+      "examples": [
+        [
+          [
+            -3
+          ]
+        ],
+        [
+          [
+            -2
+          ]
+        ]
+      ],
+      "expected_output": "-3\n-2\n"
+    },
+    {
+      "id": "fixed-283-3",
+      "title": "压后无效采样",
+      "statement": "仪器把被屏蔽的采样记为 0，其余采样需要按原顺序继续处理。请在不改变有效采样相对顺序的前提下，把所有 0 移到最后；结果长度应与输入相同。",
+      "examples": [
+        [
+          [
+            -3,
+            -5,
+            4,
+            -2,
+            0,
+            0,
+            2
+          ]
+        ],
+        [
+          [
+            -2,
+            5,
+            -1,
+            -5,
+            5,
+            -5,
+            3
+          ]
+        ]
+      ],
+      "expected_output": "-3 -5 4 -2 2 0 0\n-2 5 -1 -5 5 -5 3\n"
+    }
+  ]
+}

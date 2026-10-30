@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "number": 3,
+  "conditions": [
+    "寻找不包含重复字符的最长连续片段，返回字符个数，不返回片段本身。",
+    "片段必须在原字符串中连续；空字符串返回 0，空格、数字和符号都按字符计。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>0 &lt;= s.length &lt;= 10<sup>5</sup></code></li>\n\t<li><code>s</code>&nbsp;由英文字母、数字、符号和空格组成</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0003.Longest%20Substring%20Without%20Repeating%20Characters/README.md",
+  "versions": [
+    {
+      "id": "fixed-3-1",
+      "title": "截取无重复标记段",
+      "statement": "一条日志由字符标记组成，分析员想截取一段连续日志，要求其中任何标记都只出现一次。请报告最长可截取长度；字符包括字母、数字、空格及符号。",
+      "examples": [
+        [
+          ""
+        ],
+        [
+          "bAAb"
+        ]
+      ],
+      "expected_output": "0\n2\n"
+    },
+    {
+      "id": "fixed-3-2",
+      "title": "规划唯一字符窗口",
+      "statement": "屏幕显示一串输入字符，你只能框选其中连续的一段。框内不能有两个相同字符，请求出框选字符数的最大值。不能通过删掉中间字符拼接答案。",
+      "examples": [
+        [
+          ""
+        ],
+        [
+          "ba!!9b9"
+        ]
+      ],
+      "expected_output": "0\n3\n"
+    },
+    {
+      "id": "fixed-3-3",
+      "title": "查找不冲突的信号片段",
+      "statement": "通信记录是一串字符，同一字符在选中的片段内重复出现会造成冲突。你需要找到最长的无冲突连续片段并返回长度。没有信号时长度为 0。",
+      "examples": [
+        [
+          " bAaa!9b!"
+        ],
+        [
+          "!9A9 A99"
+        ]
+      ],
+      "expected_output": "4\n3\n"
+    }
+  ]
+}

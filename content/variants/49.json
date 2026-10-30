@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "number": 49,
+  "conditions": [
+    "同一组中的字符串必须能通过重新排列全部字符得到彼此，字符种类及各自出现次数都要相同。",
+    "所有输入字符串都必须被分入一个组，重复输入也保留；组间及组内顺序不限，空字符串合法。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= strs.length &lt;= 10<sup>4</sup></code></li>\n\t<li><code>0 &lt;= strs[i].length &lt;= 100</code></li>\n\t<li><code>strs[i]</code>&nbsp;仅包含小写字母</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0049.Group%20Anagrams/README.md",
+  "versions": [
+    {
+      "id": "fixed-49-1",
+      "title": "归档重排标签",
+      "statement": "仓库里的标签可能把字母印成不同顺序。只要两张标签使用的每种字母及数量完全相同，就应归为同一档。请把整批标签分档，保留每一张标签，包括重复或空白标签。",
+      "examples": [
+        [
+          [
+            "",
+            "cbbcc",
+            "bcab",
+            "c",
+            "cbacc",
+            "bc",
+            "ccbba"
+          ]
+        ],
+        [
+          [
+            "baa"
+          ]
+        ]
+      ],
+      "expected_output": "7\n1\n\n1\ncbbcc\n1\nbcab\n1\nc\n1\ncbacc\n1\nbc\n1\nccbba\n1\n1\nbaa\n"
+    },
+    {
+      "id": "fixed-49-2",
+      "title": "整理扰乱的单词卡",
+      "statement": "课堂上的单词卡被打乱了字母位置。老师只关心一张卡能否用另一张卡的所有字母重新排列出来，而不要求它本身是词典中的单词。请按这一规则整理所有卡片，输出各组卡片。",
+      "examples": [
+        [
+          [
+            "acc",
+            "a",
+            "b",
+            "acb",
+            "bca",
+            "ca",
+            "bcb",
+            "ba"
+          ]
+        ],
+        [
+          [
+            "acbb",
+            "cbcbc"
+          ]
+        ]
+      ],
+      "expected_output": "7\n1\nacc\n1\na\n1\nb\n2\nacb\nbca\n1\nca\n1\nbcb\n1\nba\n2\n1\nacbb\n1\ncbcbc\n"
+    },
+    {
+      "id": "fixed-49-3",
+      "title": "合并等价物料编码",
+      "statement": "一类物料的编码由小写字母组成，字母的先后顺序不参与识别，但每种字母的个数参与识别。请将识别结果相同的编码放在一组，不能遗漏输入中的重复项。",
+      "examples": [
+        [
+          [
+            "cac",
+            "bcac",
+            "ccb",
+            "baaa",
+            "acbbb",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            "ab",
+            "bcbcb",
+            "",
+            "cbaaa",
+            "ac",
+            "cab"
+          ]
+        ]
+      ],
+      "expected_output": "6\n1\ncac\n1\nbcac\n1\nccb\n1\nbaaa\n1\nacbbb\n1\n\n6\n3\n\n\n\n1\nab\n1\nbcbcb\n1\ncbaaa\n1\nac\n1\ncab\n"
+    }
+  ]
+}

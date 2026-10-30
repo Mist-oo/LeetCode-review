@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "number": 438,
+  "conditions": [
+    "在 s 中寻找长度等于 p 且每种字符出现次数与 p 一致的连续片段。",
+    "返回所有匹配片段从 0 开始的起点，允许片段重叠，顺序不限；s 和 p 只包含小写英文字母。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= s.length, p.length &lt;= 3 * 10<sup>4</sup></code></li>\n\t<li><code>s</code>&nbsp;和&nbsp;<code>p</code>&nbsp;仅包含小写字母</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0400-0499/0438.Find%20All%20Anagrams%20in%20a%20String/README.md",
+  "versions": [
+    {
+      "id": "fixed-438-1",
+      "title": "定位混排口令",
+      "statement": "长记录 s 中可能藏着若干段口令，口令的字母顺序可以打乱，但字母数量必须与 p 完全相同。请找出所有这样的连续片段，报告它们的起始位置，重叠的匹配也不能漏掉。",
+      "examples": [
+        [
+          "cb",
+          "bb"
+        ],
+        [
+          "aacbbbbca",
+          "bcaac"
+        ]
+      ],
+      "expected_output": "\n\n"
+    },
+    {
+      "id": "fixed-438-2",
+      "title": "查找等价标记批次",
+      "statement": "流水线每次取一段与模板 p 等长的连续字符作为候选批次。只要候选批次与模板包含相同种类和数量的字母就算匹配。请在记录 s 中列出所有匹配起点。",
+      "examples": [
+        [
+          "c",
+          "bca"
+        ],
+        [
+          "cccccaaa",
+          "bbccb"
+        ]
+      ],
+      "expected_output": "\n\n"
+    },
+    {
+      "id": "fixed-438-3",
+      "title": "扫描重排后的图案",
+      "statement": "一幅文字图案 p 可能以任意字母排列出现在长文本 s 中。每次出现必须占据连续且长度相同的一段，不能增减任何字母。请输出全部出现位置，包含相互重叠的情况。",
+      "examples": [
+        [
+          "aabbcaa",
+          "ccac"
+        ],
+        [
+          "bbb",
+          "ccaaa"
+        ]
+      ],
+      "expected_output": "\n\n"
+    }
+  ]
+}
