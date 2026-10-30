@@ -10,6 +10,18 @@ from judge.validation import validate
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_public_notes_are_specific_without_other_question_identity(self):
+        for n in (15,46,78,94,199,114):
+            with self.subTest(number=n):
+                details=public_spec(n)['details']
+                self.assertNotIn('114',details)
+                self.assertNotIn('三数之和',details)
+                self.assertNotIn('全排列',details)
+                self.assertNotIn('子集',details)
+        self.assertIn('每行内部顺序有意义',public_spec(46)['details'])
+        self.assertIn('右侧可见',public_spec(199)['details'])
+        self.assertIn('右链',public_spec(114)['details'])
+
     def test_all_100_input_output_roundtrips(self):
         self.assertEqual(set(SPECS), {p['number'] for p in catalogue()})
         total = 0
