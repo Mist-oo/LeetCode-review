@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "number": 279,
+  "conditions": [
+    "选择一个或多个完全平方数，使其总和恰好为正整数 n，同一个平方数可重复使用。",
+    "返回最少需要的平方数数量，完全平方数是某整数自乘所得的值，不是任意正整数。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= n &lt;= 10<sup>4</sup></code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0200-0299/0279.Perfect%20Squares/README.md",
+  "versions": [
+    {
+      "id": "fixed-279-1",
+      "title": "拼出指定面积的方形片总量",
+      "statement": "你有任意数量的方形片，每片面积只能是 1、4、9 等整数边长的平方。需要使所选面积总和恰好为 n，请求最少片数；相同尺寸可以多次使用。",
+      "examples": [
+        [
+          56
+        ],
+        [
+          14
+        ]
+      ],
+      "expected_output": "3\n3\n"
+    },
+    {
+      "id": "fixed-279-2",
+      "title": "分解为尽量少的平方计数",
+      "statement": "一个正整数总量需要拆成若干整数平方值之和。平方值可以重复，目标是让项数尽量少，而不是列出所有分解方式。请返回最少项数。",
+      "examples": [
+        [
+          44
+        ],
+        [
+          42
+        ]
+      ],
+      "expected_output": "3\n3\n"
+    },
+    {
+      "id": "fixed-279-3",
+      "title": "选择平方规格的模块",
+      "statement": "模块的贡献值必须是某个整数自乘的结果，每种规格供应充足。请用尽可能少的模块恰好凑成 n，输出所需数量，不允许用非平方规格代替。",
+      "examples": [
+        [
+          36
+        ],
+        [
+          33
+        ]
+      ],
+      "expected_output": "1\n3\n"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "number": 139,
+  "conditions": [
+    "用字典中的一个或多个完整词条按顺序拼接，必须恰好组成 s，不能插入、删除或重排字符。",
+    "同一词条可重复使用，不要求使用全部字典词条，返回是否可行。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= s.length &lt;= 300</code></li>\n\t<li><code>1 &lt;= wordDict.length &lt;= 1000</code></li>\n\t<li><code>1 &lt;= wordDict[i].length &lt;= 20</code></li>\n\t<li><code>s</code> 和 <code>wordDict[i]</code> 仅由小写英文字母组成</li>\n\t<li><code>wordDict</code> 中的所有字符串 <strong>互不相同</strong></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0100-0199/0139.Word%20Break/README.md",
+  "versions": [
+    {
+      "id": "fixed-139-1",
+      "title": "检查编码能否由登记片段拼成",
+      "statement": "系统登记了一批小写字母片段。给定完整编码 s，请判断能否仅用登记片段依次拼接得到它；片段可以重复使用，也可以完全不用某些登记项，但不能留下未匹配字符。",
+      "examples": [
+        [
+          "abcacbbbbc",
+          [
+            "aab",
+            "abcc",
+            "ba",
+            "bacb",
+            "bbac",
+            "bc",
+            "c",
+            "cba"
+          ]
+        ],
+        [
+          "caabbacb",
+          [
+            "a",
+            "ac",
+            "bb",
+            "ca",
+            "caa",
+            "ccb"
+          ]
+        ]
+      ],
+      "expected_output": "false\nfalse\n"
+    },
+    {
+      "id": "fixed-139-2",
+      "title": "核验词条组合的完整文本",
+      "statement": "一条文本没有分隔符，需要判断能否切成若干完整的字典词条。每个词条可以出现多次，字典中其他词条无需使用，请只回答是否存在完整切分。",
+      "examples": [
+        [
+          "c",
+          [
+            "aacc",
+            "abb",
+            "b",
+            "c",
+            "cb",
+            "cbb"
+          ]
+        ],
+        [
+          "bc",
+          [
+            "ab",
+            "aba",
+            "b",
+            "bb",
+            "bcc",
+            "c",
+            "cab"
+          ]
+        ]
+      ],
+      "expected_output": "true\ntrue\n"
+    },
+    {
+      "id": "fixed-139-3",
+      "title": "验证模板片段的接续结果",
+      "statement": "给定可用字符串列表与目标字符串，请判断能否按任意次数选取这些完整片段并连接成目标。片段内部不能改字或重排，目标的全部字符都必须覆盖。",
+      "examples": [
+        [
+          "babbac",
+          [
+            "aa",
+            "abab",
+            "acb",
+            "b",
+            "ba",
+            "baac",
+            "bc",
+            "cc"
+          ]
+        ],
+        [
+          "b",
+          [
+            "ac",
+            "b",
+            "bbb",
+            "bbbb",
+            "c",
+            "ccaa"
+          ]
+        ]
+      ],
+      "expected_output": "false\ntrue\n"
+    }
+  ]
+}

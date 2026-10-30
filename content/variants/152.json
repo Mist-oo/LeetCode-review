@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "number": 152,
+  "conditions": [
+    "从数组中选择至少一个元素的连续片段，返回其全部元素相乘可得到的最大乘积。",
+    "数值可能为负或零，单元素片段乘积为其自身，不能选空段；答案满足原 32 位范围保证。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= nums.length &lt;= 2 * 10<sup>4</sup></code></li>\n\t<li><code>-10 &lt;= nums[i] &lt;= 10</code></li>\n\t<li><code>nums</code> 的任何子数组的乘积都 <strong>保证</strong>&nbsp;是一个 <strong>32-位</strong> 整数</li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0100-0199/0152.Maximum%20Product%20Subarray/README.md",
+  "versions": [
+    {
+      "id": "fixed-152-1",
+      "title": "挑选连续倍率的最优组合",
+      "statement": "一串整数倍率必须按连续片段选取，片段内全部倍率相乘得到结果。倍率可为负或零，请求最大结果，至少选择一个位置，不能通过跳过中间值拼接。",
+      "examples": [
+        [
+          [
+            2
+          ]
+        ],
+        [
+          [
+            1,
+            2,
+            -1,
+            2,
+            2,
+            2,
+            3
+          ]
+        ]
+      ],
+      "expected_output": "2\n24\n"
+    },
+    {
+      "id": "fixed-152-2",
+      "title": "寻找贡献乘积最高的批次段",
+      "statement": "每个批次给出一个整数因子。你只能选非空连续若干批次，收益按这些因子的乘积计算。请返回最高乘积，只有一个批次的选择也合法。",
+      "examples": [
+        [
+          [
+            -2,
+            -4,
+            0,
+            5,
+            -1,
+            1,
+            5,
+            -2
+          ]
+        ],
+        [
+          [
+            3,
+            5,
+            0,
+            3
+          ]
+        ]
+      ],
+      "expected_output": "50\n15\n"
+    },
+    {
+      "id": "fixed-152-3",
+      "title": "计算连续系数的最大合成值",
+      "statement": "一组正负或零系数按顺序排列，要求选择一段连续系数全部相乘。请最大化乘积并输出，不能用空段的默认值替代真正选择。",
+      "examples": [
+        [
+          [
+            1,
+            -2,
+            -4,
+            3,
+            1,
+            3,
+            -2
+          ]
+        ],
+        [
+          [
+            -4,
+            -1,
+            -1
+          ]
+        ]
+      ],
+      "expected_output": "72\n4\n"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "number": 32,
+  "conditions": [
+    "输入只含左右圆括号，选择一个连续子串，要求其中符号完整、按嵌套顺序匹配。",
+    "返回最长合法子串的字符长度，不是括号对数，也不能删掉内部字符形成非连续结果；无合法片段时为 0。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>0 &lt;= s.length &lt;= 3 * 10<sup>4</sup></code></li>\n\t<li><code>s[i]</code> 为 <code>'('</code> 或 <code>')'</code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0032.Longest%20Valid%20Parentheses/README.md",
+  "versions": [
+    {
+      "id": "fixed-32-1",
+      "title": "截取最长完整边界段",
+      "statement": "记录只含左右圆括号，你想从中截取一段连续内容，使所有括号正确匹配且完整闭合。请报告可截取的最大字符数，不能通过删除中间符号修补片段。",
+      "examples": [
+        [
+          "()(("
+        ],
+        [
+          "))"
+        ]
+      ],
+      "expected_output": "2\n0\n"
+    },
+    {
+      "id": "fixed-32-2",
+      "title": "查找有效嵌套标记的最长区间",
+      "statement": "一条括号标记记录可能整体不合法。请找出其中最长的连续合法部分，返回长度；长度按字符计，不按成对标记数量计。",
+      "examples": [
+        [
+          "(((((())"
+        ],
+        [
+          "))"
+        ]
+      ],
+      "expected_output": "4\n0\n"
+    },
+    {
+      "id": "fixed-32-3",
+      "title": "提取无残缺的括号片段",
+      "statement": "给定仅含 ( 和 ) 的字符串，请选择最长的连续片段，使每个结束符都按顺序匹配相应开始符且没有剩余。若任何非空片段都不合法，返回零。",
+      "examples": [
+        [
+          "()))(((("
+        ],
+        [
+          ")"
+        ]
+      ],
+      "expected_output": "2\n0\n"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "number": 322,
+  "conditions": [
+    "每种正整数面额可以无限次使用，求恰好凑成 amount 的最少枚数。",
+    "总额为 0 时返回 0，无法精确组成时返回 -1；不是统计组合数量，也不允许超额。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= coins.length &lt;= 12</code></li>\n\t<li><code>1 &lt;= coins[i] &lt;= 2<sup>31</sup> - 1</code></li>\n\t<li><code>0 &lt;= amount &lt;= 10<sup>4</sup></code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0300-0399/0322.Coin%20Change/README.md",
+  "versions": [
+    {
+      "id": "fixed-322-1",
+      "title": "兑换最少数量的凭证",
+      "statement": "可用凭证有若干正整数面额，每种数量不限。请恰好兑换给定总额，使用凭证张数越少越好；无法凑成时返回 -1，总额为零不需要凭证。",
+      "examples": [
+        [
+          [
+            8
+          ],
+          45
+        ],
+        [
+          [
+            1,
+            13
+          ],
+          27
+        ]
+      ],
+      "expected_output": "-1\n3\n"
+    },
+    {
+      "id": "fixed-322-2",
+      "title": "选择最省件数的定量包",
+      "statement": "仓库有若干固定整数规格的包裹，每种都能重复取用。你要恰好达到目标总量，求最少包裹件数，而不是取最接近的总量。",
+      "examples": [
+        [
+          [
+            9
+          ],
+          27
+        ],
+        [
+          [
+            4,
+            8
+          ],
+          30
+        ]
+      ],
+      "expected_output": "3\n-1\n"
+    },
+    {
+      "id": "fixed-322-3",
+      "title": "优化无限库存的配额组合",
+      "statement": "不同单位值的模块可无限重复使用。请计算组成 amount 所需的最少模块个数，没有精确组合则报告 -1，不返回所有组合方案。",
+      "examples": [
+        [
+          [
+            12,
+            6
+          ],
+          11
+        ],
+        [
+          [
+            7,
+            4,
+            13,
+            5
+          ],
+          9
+        ]
+      ],
+      "expected_output": "-1\n2\n"
+    }
+  ]
+}

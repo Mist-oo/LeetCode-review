@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "number": 416,
+  "conditions": [
+    "所有元素为正整数，必须将全部元素分入两个互不重叠的子集合，每个位置恰好分配一次。",
+    "判断两集合的元素和能否相等，集合不要求在原数组中连续；不是仅寻找两个等值片段。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 <= nums.length <= 200</code></li>\n\t<li><code>1 <= nums[i] <= 100</code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0400-0499/0416.Partition%20Equal%20Subset%20Sum/README.md",
+  "versions": [
+    {
+      "id": "fixed-416-1",
+      "title": "把物资均分给两组",
+      "statement": "每件物资有正整数重量，需要把所有物资分给两个组，每件恰好属于一组。请判断能否让两组总重量相同，原清单位置不限制物资分配。",
+      "examples": [
+        [
+          [
+            4
+          ]
+        ],
+        [
+          [
+            2,
+            6
+          ]
+        ]
+      ],
+      "expected_output": "false\nfalse\n"
+    },
+    {
+      "id": "fixed-416-2",
+      "title": "检查双路负载是否可均衡",
+      "statement": "一批不可拆分的任务各有正整数负载，需要全部分配到两个通道。请判断是否存在一种分配让总负载相等，不能遗留任何任务，也不要求连续任务归在一起。",
+      "examples": [
+        [
+          [
+            4,
+            4,
+            5,
+            4,
+            6,
+            6,
+            3
+          ]
+        ],
+        [
+          [
+            6,
+            5,
+            3
+          ]
+        ]
+      ],
+      "expected_output": "true\nfalse\n"
+    },
+    {
+      "id": "fixed-416-3",
+      "title": "判断能否等额拆分整份清单",
+      "statement": "清单里每个正整数对应一件独立项目。请将所有项目分成两个不交叠集合，使总额相同，回答是否可行；相同数值的不同位置仍是不同项目。",
+      "examples": [
+        [
+          [
+            2,
+            5,
+            3,
+            2,
+            3,
+            6
+          ]
+        ],
+        [
+          [
+            2,
+            2
+          ]
+        ]
+      ],
+      "expected_output": "false\ntrue\n"
+    }
+  ]
+}

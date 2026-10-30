@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "number": 70,
+  "conditions": [
+    "从起点到恰好 n 阶，每次只能前进 1 阶或 2 阶。",
+    "不同的步长先后顺序算不同方法，返回所有方法数量，不是最少步数。"
+  ],
+  "constraints_html": "<ul>\n\t<li><code>1 &lt;= n &lt;= 45</code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0000-0099/0070.Climbing%20Stairs/README.md",
+  "versions": [
+    {
+      "id": "fixed-70-1",
+      "title": "统计短跨步的到达方式",
+      "statement": "一段通道有 n 个单位距离，每次只能向前走 1 或 2 个单位，必须恰好到终点。请统计所有不同走法，先走一步再走两步与相反顺序视为不同。",
+      "examples": [
+        [
+          14
+        ],
+        [
+          2
+        ]
+      ],
+      "expected_output": "610\n2\n"
+    },
+    {
+      "id": "fixed-70-2",
+      "title": "安排逐级推进指令",
+      "statement": "设备要从等级 0 提升到等级 n，每条指令可提升 1 级或 2 级。请计算所有能恰好完成目标的指令序列数量，不能超过目标等级。",
+      "examples": [
+        [
+          14
+        ],
+        [
+          3
+        ]
+      ],
+      "expected_output": "610\n3\n"
+    },
+    {
+      "id": "fixed-70-3",
+      "title": "计算单步双步的路径总数",
+      "statement": "从起始位置到距离 n 的终点，每次可选择一步或两步。请给出有多少种步长序列，而不是最快需要多少次；步长顺序不同就分别计数。",
+      "examples": [
+        [
+          2
+        ],
+        [
+          9
+        ]
+      ],
+      "expected_output": "2\n55\n"
+    }
+  ]
+}
