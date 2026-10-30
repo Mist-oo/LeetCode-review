@@ -3,3 +3,7 @@
   font-size: 14px;
   font-weight: 600;
 }
+.editor-footer { gap: 8px; flex-wrap: wrap; }
+.editor-font-controls { display: flex; align-items: center; gap: 5px; }
+.editor-font-controls button { padding: 2px 6px; font-size: 11px; }
+.editor-font-controls output { min-width: 39px; text-align: center; color: #527540; }

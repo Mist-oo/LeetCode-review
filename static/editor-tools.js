@@ -41,3 +41,35 @@ function setupEditorPairing(cm) {
   }
   cm.addKeyMap({"'\"'":quoteKey('"'),"'''":quoteKey("'")});
 }
+
+function setupEditorPreferences(cm) {
+  const storageKey='leetcode-editor-font-size',defaultSize=14,minSize=10,maxSize=28;
+  const display=document.querySelector('#editor-font-size');
+  const decrease=document.querySelector('#font-decrease'),increase=document.querySelector('#font-increase');
+  let size=defaultSize,wheelDelta=0;
+  try {
+    const stored=Number(localStorage.getItem(storageKey));
+    if(Number.isFinite(stored)&&stored>=minSize&&stored<=maxSize)size=stored;
+  } catch { /* Font controls remain usable if storage is unavailable. */ }
+  function apply(value) {
+    size=Math.round(Math.min(maxSize,Math.max(minSize,value))*10)/10;
+    cm.getWrapperElement().style.fontSize=`${size}px`;
+    display.textContent=`${size}px`;
+    decrease.disabled=size<=minSize;increase.disabled=size>=maxSize;
+    try {localStorage.setItem(storageKey,String(size));}catch{}
+    cm.closeHint?.();cm.refresh();
+  }
+  decrease.onclick=()=>apply(size-1);increase.onclick=()=>apply(size+1);
+  document.querySelector('#font-reset').onclick=()=>{wheelDelta=0;apply(defaultSize);};
+  cm.getWrapperElement().addEventListener('wheel',event=>{
+    // Chromium exposes touchpad pinch as a ctrl-modified wheel event. Leave
+    // ordinary wheel/two-finger scrolling entirely to CodeMirror/the browser.
+    if(!event.ctrlKey)return;
+    event.preventDefault();event.stopPropagation();
+    const unit=event.deltaMode===1?16:event.deltaMode===2?cm.getScrollerElement().clientHeight:1;
+    wheelDelta+=Math.max(-40,Math.min(40,event.deltaY*unit));
+    const steps=Math.trunc(wheelDelta/4);
+    if(steps){wheelDelta-=steps*4;apply(size-steps*.2);}
+  },{capture:true,passive:false});
+  apply(size);
+}
