@@ -91,6 +91,11 @@ class HttpTests(unittest.TestCase):
         self.assertEqual(code,502)
         self.assertIn('配置',json.loads(body)['error'])
 
+    def test_ai_force_flag_rejects_string_without_generation(self):
+        code,body,_=self.request('/api/problems/1/ai-variant','POST',{'force':'false'})
+        self.assertEqual(code,400)
+        self.assertIn('格式',json.loads(body)['error'])
+
     def test_async_submit_hidden_failure_and_reveal(self):
         code,body,_=self.request('/api/problems/1/submit','POST',dict(code='print("0 0")'))
         self.assertEqual(code,202)

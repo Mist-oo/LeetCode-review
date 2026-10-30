@@ -15,7 +15,8 @@ from judge.jobs import Jobs,specification
 from completion import complete
 from variants import fixed_bundle
 from ai_settings import AISettings
-from ai_variants import AIError,generate_variant
+from ai_variants import AIError,BUSY
+from ai_cache import AIReviewCache
 
 ROOT = Path(__file__).resolve().parent
 
@@ -24,6 +25,7 @@ def make_server(db_path=None, port=8765):
     store = Store(db_path or ROOT / 'data/review.db', ROOT / 'data/statements.json')
     ai_settings=AISettings(store.path.with_suffix('.ai-settings.json'))
     jobs = None
+    ai_cache=None
 
     class Handler(BaseHTTPRequestHandler):
         def send(self, code, data, content_type='application/json; charset=utf-8'):
@@ -44,7 +46,7 @@ def make_server(db_path=None, port=8765):
                     return self.send(403, {'error': '只允许本机访问'})
                 path = urlparse(self.path).path
                 if path == '/api/health':
-                    return self.send(200, {'ok': True,'version':2})
+                    return self.send(200, {'ok': True,'version':2,'ai_generating':BUSY.is_set() or bool(ai_cache and ai_cache.lock.locked())})
                 if path == '/api/ai/settings':
                     try:return self.send(200,ai_settings.public())
                     except (ValidationError,OSError):
@@ -111,7 +113,7 @@ def make_server(db_path=None, port=8765):
                 parts = path.strip('/').split('/')
                 if self.command=='POST' and len(parts)==4 and parts[:2]==['api','problems'] and parts[2].isdigit():
                     if parts[3]=='ai-variant':
-                        try:return self.send(200,generate_variant(store.problem(int(parts[2]))['number'],ai_settings))
+                        try:return self.send(200,ai_cache.get_or_generate(store.problem(int(parts[2]))['number'],data.get('force',False)))
                         except AIError as error:return self.send(502,{'error':str(error)})
                     if parts[3] in ('run','submit'):
                         mode='run' if parts[3]=='run' else data.get('mode','submit')
@@ -151,6 +153,7 @@ def make_server(db_path=None, port=8765):
     server=LocalServer(('127.0.0.1',port),Handler)
     try:
         jobs=Jobs(store)
+        ai_cache=AIReviewCache(store,ai_settings)
         return server
     except Exception:
         server.server_close()

@@ -66,9 +66,10 @@ class AIVariantTests(unittest.TestCase):
         self.assertNotIn('fake-local-test-key',json.dumps(result))
 
     def test_semantic_review_rejection_does_not_echo_provider_content(self):
-        self.enqueue(candidate());self.enqueue(dict(equivalent=False,issues=['fake-local-test-key provider echoed secret']))
+        self.enqueue(candidate());self.enqueue(dict(equivalent=False,issues=['provider-private-diagnostic: 原条件被修改']))
         with self.assertRaises(AIError) as error:generate_variant(1,self.settings)
         self.assertNotIn('fake-local-test-key',str(error.exception))
+        self.assertNotIn('provider-private-diagnostic',str(error.exception))
         self.assertIn('一致性',str(error.exception))
 
     def test_missing_conditions_and_invalid_input_rejected(self):
@@ -124,6 +125,11 @@ class AIVariantTests(unittest.TestCase):
             with self.assertRaises(AIError):generate_variant(1,self.settings)
             self.assertEqual(self.server.received,[])
         finally:GATE.release()
+
+    def test_provider_echoed_key_in_valid_content_is_not_displayed(self):
+        value=candidate();value['statement']+='fake-local-test-key';self.enqueue(value)
+        with self.assertRaises(AIError) as error:call_chat(self.settings,[])
+        self.assertNotIn('fake-local-test-key',str(error.exception))
 
     def test_invalid_candidate_does_not_spend_review_request(self):
         value=candidate();value['condition_ids']=[];self.enqueue(value)

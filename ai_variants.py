@@ -23,6 +23,7 @@ from ai_settings import SettingsSnapshot,completion_endpoint
 PROMPT_VERSION='review-ai-v1'
 MAX_RESPONSE=128000
 GATE=threading.BoundedSemaphore(1)
+BUSY=threading.Event()
 TITLES={p['number']:p['title'] for p in catalogue()}
 
 
@@ -48,6 +49,7 @@ def call_chat(settings,messages,timeout=25):
         if choice.get('finish_reason')!='stop':raise AIError('AI 服务未完整生成题面，请稍后重试')
         content=choice['message']['content']
         if not isinstance(content,str) or not content.strip():raise AIError('AI 服务未返回可用题面正文')
+        if credentials['api_key'] in content:raise AIError('AI 服务返回了不适合展示的内容，请检查服务设置')
         return parse_json(content)
     except HTTPError as error:
         status=error.code;error.close()
@@ -153,6 +155,7 @@ def validate_candidate(number,bundle,candidate,previous=None):
 
 def generate_variant(number,settings,previous=None,transport=None):
     if not GATE.acquire(blocking=False):raise AIError('已有 AI 题面正在生成，请稍后再试')
+    BUSY.set()
     try:
         transport=transport or call_chat
         settings=SettingsSnapshot(settings.credentials())
@@ -187,6 +190,7 @@ def generate_variant(number,settings,previous=None,transport=None):
         if time.monotonic()>deadline:raise AIError('AI 生成超时，请稍后重试')
         variant.update(created=datetime.now(timezone.utc).isoformat(),model=settings.public()['model'],
                        contract_version=bundle['content_version'],prompt_version=PROMPT_VERSION,
+                       review_passed=True,
                        validation='示例经程序与独立计算检查，题意经模型复核；未经人工审核')
         return variant
     except (AIError,LookupError):raise
@@ -194,4 +198,4 @@ def generate_variant(number,settings,previous=None,transport=None):
     except (socket.timeout,TimeoutError):raise AIError('AI 生成超时，请稍后重试') from None
     except (ValueError,TypeError,KeyError,IndexError,RecursionError,OSError):
         raise AIError('AI 生成或检查失败，请使用固定改写或重试') from None
-    finally:GATE.release()
+    finally:BUSY.clear();GATE.release()
