@@ -1,0 +1,5 @@
+/* Local editor preferences; the rest of the page keeps its own typography. */
+.CodeMirror {
+  font-size: 14px;
+  font-weight: 600;
+}
