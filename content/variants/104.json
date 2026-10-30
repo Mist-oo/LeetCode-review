@@ -1,0 +1,105 @@
+{
+  "schema": 1,
+  "number": 104,
+  "conditions": [
+    "深度按从根到叶子的路径所含节点数计，求最长路径的节点数。",
+    "根节点自身计一层，空树深度为 0；不是计算边数或节点总数。"
+  ],
+  "constraints_html": "<ul>\n\t<li>树中节点的数量在&nbsp;<code>[0, 10<sup>4</sup>]</code>&nbsp;区间内。</li>\n\t<li><code>-100 &lt;= Node.val &lt;= 100</code></li>\n</ul>",
+  "source": "https://github.com/doocs/leetcode/blob/2104ae8bdd661a1ebb6b5c703f050b8060b51e32/solution/0100-0199/0104.Maximum%20Depth%20of%20Binary%20Tree/README.md",
+  "versions": [
+    {
+      "id": "fixed-104-1",
+      "title": "衡量分级审批的最深层次",
+      "statement": "一项审批从根流程开始，每个流程最多有左右两个下级。请找出从入口到某个最末级流程需要经过的最多流程节点数，入口本身也算一层。",
+      "examples": [
+        [
+          [
+            0,
+            3,
+            0,
+            2,
+            null,
+            -1,
+            3,
+            -1,
+            -1,
+            -2
+          ]
+        ],
+        [
+          [
+            -3
+          ]
+        ]
+      ],
+      "expected_output": "4\n1\n"
+    },
+    {
+      "id": "fixed-104-2",
+      "title": "统计最长上下级链",
+      "statement": "组织结构以二叉层级保存。你需要报告从最高级节点到任一没有下级的节点，最长的一条链包含多少个节点。没有节点时返回零，不要把边数当作层数。",
+      "examples": [
+        [
+          [
+            -1,
+            1
+          ]
+        ],
+        [
+          [
+            2,
+            -3,
+            -1,
+            -2,
+            1,
+            null,
+            2,
+            -3,
+            -1,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            1
+          ]
+        ]
+      ],
+      "expected_output": "2\n5\n"
+    },
+    {
+      "id": "fixed-104-3",
+      "title": "计算设备树的最深连接层",
+      "statement": "设备层级从一个根设备出发，每个设备最多连接两个下级。请计算最远末端所在的深度，按经过的设备数量计数，而不是统计整个网络的设备总数。",
+      "examples": [
+        [
+          [
+            2
+          ]
+        ],
+        [
+          [
+            -1,
+            -2,
+            -1,
+            1,
+            null,
+            null,
+            null,
+            -3,
+            3,
+            null,
+            null,
+            null,
+            -1,
+            null,
+            -3
+          ]
+        ]
+      ],
+      "expected_output": "1\n6\n"
+    }
+  ]
+}

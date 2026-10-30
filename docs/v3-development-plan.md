@@ -27,7 +27,7 @@
 | 03 | 代码区字号缩放与持久化 | 捏合、Ctrl＋滚轮、普通滚动、重置、刷新；[验收记录](verification/v3-03-zoom.md) | 浏览器已验证，真实触控板待确认 |
 | 04 | 随机题面的展示框架与原题遮挡 | 默认隐藏身份信息、主动展开、换题复位、普通练习不变；[验收记录](verification/v3-04-presentation.md) | 框架已验证，题面分批补齐 |
 | 05 | 固定改写数据结构及读取校验 | 稳定题目/版本标识、内容读取、示例约束与参考输出校验；[验收记录](verification/v3-05-variant-data.md) | 已验证，正式题面另行分批补齐 |
-| 06 | 分批补齐 100 题 × 3 个固定版本 | 每批写明题号、3 个版本的语义审核及示例检查；[首批](verification/v3-06-variants-01.md)、[第二批](verification/v3-06-variants-02.md)、[第三批](verification/v3-06-variants-03.md) | 30/100 题，90/300 个版本；继续补齐 |
+| 06 | 分批补齐 100 题 × 3 个固定版本 | 每批写明题号、3 个版本的语义审核及示例检查；[首批](verification/v3-06-variants-01.md)、[第二批](verification/v3-06-variants-02.md)、[第三批](verification/v3-06-variants-03.md)、[第四批](verification/v3-06-variants-04.md) | 40/100 题，120/300 个版本；继续补齐 |
 | 07 | 固定版本轮换及来源偏好保存 | 同题轮换、离线读取、首次默认及跨刷新保留；[验收记录](verification/v3-07-rotation.md) | 固定轮换已验证；来源偏好随 11 实现 |
 | 08 | 自行配置 AI 服务 | API 地址/密钥/模型名，调用协议、配置校验、密钥忽略及无泄露；`verification/v3-08-ai-config.md` | 待开发 |
 | 09 | AI 改写生成与结果检查 | 受约束生成、合法示例、响应解析、超时与无效输出处理；`verification/v3-09-ai-generation.md` | 待开发 |
