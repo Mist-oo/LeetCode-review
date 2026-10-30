@@ -1,6 +1,7 @@
 async page => {
   if(new URL(page.url()).origin!=='http://127.0.0.1:8766')throw new Error('Isolated QA only');
   const errors=[];page.on('pageerror',error=>errors.push(String(error)));
+  await page.evaluate(()=>localStorage.removeItem('leetcode-fixed-variant-cycles'));
   await page.reload();
   await page.route('**/api/problems/1/variants',async route=>{await new Promise(resolve=>setTimeout(resolve,800));await route.continue();});
   await page.getByRole('button',{name:'⤨ 随机复习',exact:true}).click();

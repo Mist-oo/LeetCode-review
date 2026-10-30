@@ -1,0 +1,29 @@
+async page => {
+  if(new URL(page.url()).origin!=='http://127.0.0.1:8766')throw new Error('Isolated QA on 8766 only');
+  const assert=(value,message)=>{if(!value)throw new Error(message);};let checks=0;
+  await page.evaluate(()=>localStorage.removeItem('leetcode-fixed-variant-cycles'));
+  await page.reload();await page.getByRole('button',{name:'⤨ 随机复习',exact:true}).click();
+  await page.getByRole('button',{name:'换个场景',exact:true}).waitFor();
+  const bundle=await (await page.request.get('http://127.0.0.1:8766/api/problems/1/variants')).json();
+  assert(await page.locator('#practice-title').innerText()===bundle.versions[0].title,'first version');checks++;
+  const text=await page.locator('.CodeMirror').evaluate(el=>el.CodeMirror.getValue());
+  await page.getByRole('button',{name:'换个场景',exact:true}).click();
+  assert(await page.locator('#practice-title').innerText()===bundle.versions[1].title,'second version');checks++;
+  assert(await page.locator('#test-input').inputValue()===bundle.versions[1].sample_input,'sample follows variant');checks++;
+  await page.locator('.judge-input>summary').click();
+  await page.locator('#test-input').fill('my custom input');
+  await page.getByRole('button',{name:'换个场景',exact:true}).click();
+  assert(await page.locator('#practice-title').innerText()===bundle.versions[2].title,'third version');checks++;
+  assert(await page.locator('#test-input').inputValue()==='my custom input','custom input preserved');checks++;
+  await page.getByRole('button',{name:'换个场景',exact:true}).click();
+  assert(await page.locator('#practice-title').innerText()===bundle.versions[0].title,'wrap after three');checks++;
+  assert(await page.locator('.CodeMirror').evaluate(el=>el.CodeMirror.getValue())===text,'code unchanged');checks++;
+  await page.reload();await page.getByRole('button',{name:'⤨ 随机复习',exact:true}).click();
+  await page.waitForFunction(title=>document.querySelector('#practice-title')?.textContent===title,bundle.versions[1].title);
+  checks++;
+  await page.evaluate(()=>localStorage.setItem('leetcode-fixed-variant-cycles','not json'));
+  await page.reload();await page.getByRole('button',{name:'⤨ 随机复习',exact:true}).click();
+  await page.waitForFunction(title=>document.querySelector('#practice-title')?.textContent===title,bundle.versions[0].title);
+  checks++;
+  return {checks,passed:true};
+}
