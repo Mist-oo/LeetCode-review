@@ -1,0 +1,49 @@
+async page => {
+  if(new URL(page.url()).origin!=='http://127.0.0.1:8766')throw new Error('Isolated QA on 8766 only');
+  const assert=(value,message)=>{if(!value)throw new Error(message);};let checks=0;
+  const base=new URL(page.url()).origin;
+  await page.reload();
+  const before=await (await page.request.get(base+'/api/state')).json();
+  await page.getByRole('checkbox',{name:'选择 两数之和',exact:true}).check();
+  await page.getByRole('button',{name:'标记以前做过 (1)',exact:true}).click();
+  await page.getByRole('button',{name:'⤨ 随机复习',exact:true}).click();
+  await page.getByRole('heading',{name:'核对两笔款项',exact:true}).first().waitFor();
+  const hidden=await page.evaluate(()=>({text:document.body.innerText,title:document.title,
+    link:document.querySelector('#leetcode-link').getClientRects().length,
+    heading:document.querySelector('#practice-title').textContent}));
+  assert(!hidden.text.includes('两数之和')&&!hidden.text.includes('哈希')&&!hidden.title.includes('两数之和'),'no default identity text');checks++;
+  assert(hidden.link===0&&hidden.heading==='核对两笔款项','original link/number hidden');checks++;
+  await page.locator('.CodeMirror').evaluate(el=>{el.CodeMirror.setValue('print("qa")');});
+  const bundle=await (await page.request.get(base+'/api/problems/1/variants')).json();
+  assert(await page.locator('#test-input').inputValue()===bundle.versions[0].sample_input,'run uses rewritten examples');checks++;
+  await page.getByRole('button',{name:'ACM 格式',exact:true}).click();
+  assert((await page.locator('#panel').innerText()).includes(bundle.versions[0].sample_input.trim()),'ACM uses matching samples');checks++;
+  assert(!(await page.locator('#practice-title').innerText()).includes('两数之和'),'ACM does not reveal identity');checks++;
+  await page.getByRole('button',{name:'题目',exact:true}).click();
+  await page.screenshot({path:'output/playwright/v3-review-hidden.png',fullPage:false});
+  await page.getByRole('button',{name:'查看原题',exact:true}).click();
+  assert(await page.locator('#practice-title').innerText()==='1. 两数之和','explicit reveal title');checks++;
+  assert(await page.locator('#leetcode-link').isVisible(),'explicit reveal link');checks++;
+  assert((await page.locator('#panel').innerText()).includes('nums'),'original description shown');checks++;
+  await page.getByRole('button',{name:'收起原题，返回场景',exact:true}).click();
+  assert(!(await page.locator('#practice-title').innerText()).includes('两数之和'),'hide restores blind heading');checks++;
+  await page.getByRole('button',{name:'查看原题',exact:true}).click();
+  await page.getByRole('button',{name:'换一题 ⤨',exact:true}).click();
+  await page.getByRole('button',{name:'查看原题',exact:true}).waitFor();
+  assert(!(await page.locator('#practice-title').innerText()).includes('两数之和'),'next resets reveal even same problem');checks++;
+  assert(await page.locator('.CodeMirror').evaluate(el=>el.CodeMirror.getValue())==='print("qa")','draft preserved');checks++;
+  await page.getByRole('button',{name:'← 记录矩阵',exact:true}).click();
+  await page.getByRole('button',{name:'1 两数之和',exact:true}).click();
+  assert(await page.locator('#practice-title').innerText()==='1. 两数之和'&&await page.locator('#leetcode-link').isVisible(),'normal practice unchanged');checks++;
+  const after=await (await page.request.get(base+'/api/state')).json();
+  assert(after.records.length===before.records.length,'reveals do not create daily results');checks++;
+  await page.getByRole('button',{name:'← 记录矩阵',exact:true}).click();
+  await page.route('**/api/problems/1/variants',route=>route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({error:'测试：题面暂不可用'})}));
+  await page.getByRole('button',{name:'⤨ 随机复习',exact:true}).click();
+  await page.getByText('测试：题面暂不可用',{exact:true}).waitFor();
+  assert(!(await page.locator('#practice-title').innerText()).includes('两数之和'),'failure does not silently reveal');checks++;
+  await page.getByRole('button',{name:'查看原题',exact:true}).click();
+  assert(await page.locator('#leetcode-link').isVisible(),'original still accessible on failure');checks++;
+  await page.unroute('**/api/problems/1/variants');
+  return {checks,passed:true};
+}

@@ -37,7 +37,7 @@ class HttpTests(unittest.TestCase):
             return error.code, error.read(), error.headers
 
     def test_static_and_all_vendored_assets_serve(self):
-        for path in ['/', '/app.js', '/judge-ui.js', '/judge.css', '/style.css', '/editor.css','/editor-tools.js','/vendor/closebrackets.js','/vendor/codemirror.js', '/vendor/python.js', '/vendor/marked.js', '/vendor/purify.js','/vendor/show-hint.js','/vendor/show-hint.css']:
+        for path in ['/', '/app.js', '/judge-ui.js', '/judge.css', '/style.css', '/review.css','/review-ui.js','/editor.css','/editor-tools.js','/vendor/closebrackets.js','/vendor/codemirror.js', '/vendor/python.js', '/vendor/marked.js', '/vendor/purify.js','/vendor/show-hint.js','/vendor/show-hint.css']:
             code, body, _ = self.request(path)
             self.assertEqual(code, 200, path)
             self.assertTrue(body)

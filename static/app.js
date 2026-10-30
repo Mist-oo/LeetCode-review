@@ -6,6 +6,7 @@ const app = $('#app'), modal = $('#modal');
 let state, current = null, editor = null, notesDirty = false, draftDirty = false;
 let saveTimer, saveQueue = Promise.resolve(), toastTimer, randomMode = false, practiceIds = [];
 let filters = {search:'', category:'', seen:''}, selected = new Set(), dateCount = 7;
+let reviewState=null;
 const noteFields = [['idea','解题思路'],['key_points','关键点'],['precautions','注意事项'],['boundaries','易错边界'],['reference_code','Python 参考代码']];
 
 function toast(message, error=false) {
@@ -34,7 +35,7 @@ function filteredProblems() {
 }
 async function refreshState() { state=await api('/state'); }
 function renderHome() {
-  current=null; editor=null; draftDirty=false; notesDirty=false;
+  current=null; editor=null; reviewState=null; draftDirty=false; notesDirty=false;
   const groups=categories();
   app.innerHTML=`<div class="shell"><aside class="sidebar"><div class="brand"><img src="/icon.svg" alt=""><div>拾题<small>LEETCODE REVIEW</small></div></div>
     <button class="nav-btn active" id="all-problems">▦ <span>练习记录</span></button>
@@ -85,7 +86,9 @@ async function openProblem(id, random=false) {
     if(!await canLeave())return;
     if(!current) practiceIds=filteredProblems().map(p=>p.id);
     const p=await api('/problems/'+id); current=p; randomMode=random; notesDirty=false; draftDirty=false;
+    reviewState=random?{problemId:id,revealed:false,bundle:null,variant:null,loading:true,error:''}:null;
     renderPractice();
+    if(random)loadFixedReview(reviewState);
   }catch(e){toast(e.message,true);}
 }
 async function home() {
@@ -94,7 +97,7 @@ async function home() {
 }
 function renderPractice() {
   const p=current;
-  app.innerHTML=`<main class="practice-page"><header class="practice-top"><button class="ghost" id="back">← 记录矩阵</button><div class="problem-heading"><div class="eyebrow">${randomMode?'RANDOM REVIEW / 随机复习':'FOCUSED PRACTICE / 按题练习'}</div><h1><span class="muted">${p.number}.</span> ${esc(p.title)}</h1></div><a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">在力扣查看 ↗</a><span class="chip">${p.day.replaceAll('-','.')}</span></header>
+  app.innerHTML=`<main class="practice-page"><header class="practice-top"><button class="ghost" id="back">← 记录矩阵</button><div class="problem-heading"><div class="eyebrow">${randomMode?'RANDOM REVIEW / 随机复习':'FOCUSED PRACTICE / 按题练习'}</div><h1 id="practice-title">${randomMode?esc(reviewState?.variant?.title||'场景练习'):`<span class="muted">${p.number}.</span> ${esc(p.title)}`}</h1></div><a id="leetcode-link" class="${randomMode?'hidden':''}" href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">在力扣查看 ↗</a><span class="chip">${p.day.replaceAll('-','.')}</span></header>
     <div class="practice-grid"><section class="card"><div class="tabs"><button class="tab active" data-tab="description">题目</button><button class="tab" data-tab="acm">ACM 格式</button><button class="tab" data-tab="notes">笔记</button><button class="tab" data-tab="history">练习历史</button></div><div class="panel-body" id="panel"></div></section>
     <div><section class="card"><div class="editor-header"><span><strong>Python 3</strong><small>ACM · 多组直到 EOF</small></span><div class="actions"><label class="completion-switch"><input id="completion-toggle" type="checkbox">上下文补全</label><button class="small ghost" id="copy">复制代码 ⧉</button></div></div><textarea id="code" aria-label="Python 代码编辑器"></textarea><div class="editor-footer"><span id="save-status">当天草稿已恢复</span><span>Ctrl+Space 补全</span><div class="editor-font-controls" aria-label="代码字号"><button type="button" id="font-decrease" aria-label="减小代码字号" title="减小代码字号">A−</button><output id="editor-font-size" aria-live="polite">14px</output><button type="button" id="font-increase" aria-label="增大代码字号" title="增大代码字号">A＋</button><button type="button" id="font-reset" title="恢复默认字号 · 14px">恢复默认</button></div></div><div id="signature" class="signature hidden"></div></section>
     <section class="card judge-card" id="judge-card"></section>
@@ -129,6 +132,10 @@ async function canLeave() {
   try {await flushDraft();return true;}catch{return confirm('草稿尚未保存。建议先复制代码；仍要离开并放弃未保存内容吗？');}
 }
 function showDescription() {
+  if(randomMode)return showReviewDescription();
+  showOriginalDescription();
+}
+function showOriginalDescription() {
   $('#panel').innerHTML=`${randomMode?'':`<div class="content-meta"><span class="chip">${esc(current.category)}</span><span>${esc(current.difficulty)}</span><span class="muted">${esc(current.collection)}</span></div>`}${current.description?`<div class="markdown">${renderMarkdown(current.description)}</div>`:'<div class="help-text">这道题尚无本地题面。可以在力扣打开原题，粘贴题目描述、示例与约束后保存。</div>'}<div class="source-note">${current.source.startsWith('https://github.com/doocs/leetcode/')?`题面来源：<a href="${esc(current.source)}">doocs/leetcode</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a><br>仅提取题面，未导入解法。图示可能需要联网加载。`:'题面来源：'+esc(current.source||'待补充')}<br><button class="small ghost" id="edit-description">编辑 / 补充题面</button></div>`;
   bindLinks($('#panel'));$('#edit-description').onclick=showEditDescription;
 }
