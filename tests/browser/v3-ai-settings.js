@@ -2,7 +2,7 @@ async page => {
   if(new URL(page.url()).origin!=='http://127.0.0.1:8766')throw new Error('Isolated QA on 8766 only');
   const assert=(value,message)=>{if(!value)throw new Error(message);};let checks=0;
   const external=[];page.on('request',request=>{if(!request.url().startsWith('http://127.0.0.1:8766'))external.push(request.url());});
-  await page.reload();await page.getByRole('button',{name:'AI 设置',exact:true}).click();
+  await page.reload();await page.getByRole('button',{name:'AI 设置',exact:true}).click();await page.locator('#modal').waitFor({state:'visible'});
   await page.locator('#ai-base-url').fill('https://example.invalid/v1/');
   await page.locator('#ai-model').fill('fake-model');
   await page.locator('#ai-api-key').fill('fake-local-test-key');
@@ -11,7 +11,7 @@ async page => {
   let result=await (await page.request.get('http://127.0.0.1:8766/api/ai/settings')).json();
   assert(result.configured&&result.has_key,'saved config');checks++;
   assert(!JSON.stringify(result).includes('fake-local-test-key')&&!('api_key' in result),'read API hides key');checks++;
-  await page.getByRole('button',{name:'AI 设置',exact:true}).click();
+  await page.getByRole('button',{name:'AI 设置',exact:true}).click();await page.locator('#modal').waitFor({state:'visible'});
   assert(await page.locator('#ai-api-key').inputValue()==='','saved key never repopulated');checks++;
   assert(await page.locator('#ai-base-url').inputValue()==='https://example.invalid/v1','normalized URL');checks++;
   await page.locator('#ai-model').fill('fake-model-2');
@@ -19,7 +19,7 @@ async page => {
   await page.locator('#modal').waitFor({state:'hidden'});
   result=await (await page.request.get('http://127.0.0.1:8766/api/ai/settings')).json();
   assert(result.model==='fake-model-2'&&result.has_key,'blank key preserves secret');checks++;
-  await page.getByRole('button',{name:'AI 设置',exact:true}).click();
+  await page.getByRole('button',{name:'AI 设置',exact:true}).click();await page.locator('#modal').waitFor({state:'visible'});
   await page.locator('#ai-base-url').fill('http://example.invalid/v1');
   await page.getByRole('button',{name:'保存到本机',exact:true}).click();
   await page.waitForFunction(()=>document.querySelector('#ai-settings-status')?.textContent.includes('HTTPS'));

@@ -1,4 +1,4 @@
-# 拾题 · LeetCode Review V2
+# 拾题 · LeetCode Review V3
 
 个人本地 Hot 100 刷题工具：EOF ACM 判题、Python 上下文补全、每日记录和长期笔记。电脑浏览器使用，无需账号，不依赖 Docker，不对外提供代码提交服务。
 
@@ -22,6 +22,8 @@ Windows 双击 **`start.cmd`**：优先使用项目 `.venv`，检查并安装运
 - **Hot 100**：固定 100 题、17 分类，支持搜索、分类练习、已做题随机复习。移除自选题入口，旧自选数据留存但隐藏。
 - **EOF ACM**：先读“ACM 格式”，按组边界读取到 EOF，不含 T；自行编写完整程序，不提供模板。
 - **代码编辑**：高亮、缩进、草稿自动保存、复制；本地 Jedi 上下文补全与函数签名，可关闭，Ctrl+Space 手动触发，无 AI 续写。
+- **编辑体验**：括号/引号配对、Python 三引号与选区包裹；默认 14px、字重 600；代码区捏合或 Ctrl＋滚轮缩放，普通两指滑动仍滚动代码，字号可记忆与重置。
+- **场景复习**：随机复习默认隐藏原题身份，主动展开原题；100 题各 3 个固定场景，支持离线轮换。可自行配置兼容 Chat Completions 的 AI 服务，选择缓存或主动“换个说法”；失败明确提示并回退固定改写。
 - **运行输入**：默认多组公开样例，可替换为自定义数据；展示实际/预期输出，不进入正式提交历史。
 - **提交判题**：完整固定版本测试集，每题约 130 多组；展示进度和通过组数，支持取消。失败用例默认隐藏，可主动揭示并复现完整失败批次。
 - **随机加强**：更多随机组，保留种子，可用相同种子复测当前代码。
@@ -42,6 +44,8 @@ Windows 双击 **`start.cmd`**：优先使用项目 `.venv`，检查并安装运
 
 `data/review.db` 保存个人记录、草稿、笔记和提交；`data/statements.json` 保存题面缓存。整个 `data/` 不上传 GitHub。
 
+第三版启动时新增独立 AI 缓存表，保留原练习数据。AI 地址、模型和密钥通过“AI 设置”保存至本机配置，密钥不回显、不提交 Git；生成只发送题目信息。AI 新生成通常包含生成和复核两次请求，可能产生服务费用；程序校验与模型复核不能证明自然语言完全等价，固定条件与约束另行保留显示。
+
 第一版升级后首次启动增加提交表与每日记录的关联字段，保留原记录、草稿和笔记，旧自选题只隐藏。题面只导入题意、示例与约束，不导入解法；文字可离线查看，部分图示需联网。出处与许可见 [第三方资源](THIRD_PARTY.md)。
 
 ## 开发验证
@@ -54,7 +58,7 @@ python -m judge.benchmark
 
 测试使用临时数据库。`audit` 逐题检查并更新覆盖报告；`benchmark` 验证全部正式提交与性能。前端语法可用 `node --check static/app.js`、`node --check static/judge-ui.js` 检查；运行应用不需要 Node.js。
 
-第三版开发中：[编辑体验与题面变式需求](docs/v3-requirements.md) · [开发进度与逐功能提交约定](docs/v3-development-plan.md)。
+第三版：[需求](docs/v3-requirements.md) · [逐功能进度](docs/v3-development-plan.md) · [整体验收](docs/verification/v3-12-release.md) · [300 版本覆盖报告](docs/variant-coverage.json)。
 
 文档：[使用说明](docs/usage.md) · [第二版需求](docs/v2-requirements.md) · [第一版需求](docs/requirements.md) · [设计决策](docs/decisions.md) · [开发日志](docs/dev-log.md)。
 

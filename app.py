@@ -46,7 +46,7 @@ def make_server(db_path=None, port=8765):
                     return self.send(403, {'error': '只允许本机访问'})
                 path = urlparse(self.path).path
                 if path == '/api/health':
-                    return self.send(200, {'ok': True,'version':2,'ai_generating':BUSY.is_set() or bool(ai_cache and ai_cache.lock.locked())})
+                    return self.send(200, {'ok': True,'version':3,'ai_generating':BUSY.is_set() or bool(ai_cache and ai_cache.lock.locked())})
                 if path == '/api/ai/settings':
                     try:return self.send(200,ai_settings.public())
                     except (ValidationError,OSError):

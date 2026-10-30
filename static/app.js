@@ -41,7 +41,7 @@ function renderHome() {
     <button class="nav-btn active" id="all-problems">▦ <span>练习记录</span></button>
     <div class="side-label">按类型练习</div><div class="side-categories">${groups.map(g=>`<button class="category-btn ${filters.category===g?'active':''}" data-category="${esc(g)}"><span>${esc(g)}</span><span>${state.problems.filter(p=>p.category===g).length}</span></button>`).join('')}</div>
     <div class="local-badge"><span class="dot"></span>本地保存 · 只属于你的练习本<br><span style="padding-left:13px">Python / 每天一点，慢慢记住</span></div></aside>
-    <main class="main"><div class="topline"><div><div class="eyebrow">YOUR DAILY PRACTICE · V2</div><h1>把做过的题，变成记住的题。</h1><p>Hot 100 · 本地 ACM 判题与复习记录</p></div><div class="actions"><button class="primary" id="random">⤨ 随机复习</button></div></div>
+    <main class="main"><div class="topline"><div><div class="eyebrow">YOUR DAILY PRACTICE · V3</div><h1>把做过的题，变成记住的题。</h1><p>Hot 100 · 本地 ACM 判题与复习记录</p></div><div class="actions"><button class="primary" id="random">⤨ 随机复习</button></div></div>
     <section class="hero"><div><h2>不急着刷更多，先把这一题想清楚。</h2><p>按类型梳理思路，或随机抽一道旧题，看看自己还记得多少。</p></div><button class="small" id="ai-settings">AI 设置</button></section>
     <section class="card"><div class="toolbar"><input class="search" id="search" type="search" placeholder="搜索题号或题目名称" aria-label="搜索题目" value="${esc(filters.search)}">
     <select id="seen" aria-label="筛选练习状态"><option value="">全部状态</option><option value="done" ${filters.seen==='done'?'selected':''}>以前做过</option><option value="new" ${filters.seen==='new'?'selected':''}>还没做过</option></select>
